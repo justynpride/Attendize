@@ -17,6 +17,7 @@ use Mail;
 use Services\PaymentGateway\Dummy;
 use Services\PaymentGateway\Stripe;
 use Services\PaymentGateway\StripeSCA;
+use Services\PaymentGateway\Square;
 use Validator;
 use GuzzleHttp\Client;
 
@@ -140,6 +141,9 @@ class ManageAccountController extends MyBaseController
                 break;
             case StripeSCA::GATEWAY_NAME :
                 $config = $request->get('stripe_sca');
+                break;
+            case Square::GATEWAY_NAME :
+                $config = $request->get('square');
                 break;
             case Dummy::GATEWAY_NAME :
                 break;

@@ -62,6 +62,8 @@ class StripeSCA
         }
     }
 
+    public function extractOrderParameters($order) {}
+
     public function completeTransaction($data)
     {
         if (array_key_exists('payment_intent', $data)) {

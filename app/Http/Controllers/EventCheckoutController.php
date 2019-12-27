@@ -416,6 +416,7 @@ class EventCheckoutController extends Controller
             //certain payment gateways require an extra parameter here and there so this method takes care of that
             //and sets certain options for the gateway that can be used when the transaction is started
             $gateway->extractRequestParameters($request);
+            $gateway->extractOrderParameters($ticket_order);
 
             //generic data that is needed for most orders
             $order_total = $order_service->getGrandTotal();

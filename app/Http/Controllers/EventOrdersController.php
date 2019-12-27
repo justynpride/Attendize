@@ -287,7 +287,7 @@ class EventOrdersController extends MyBaseController
 
             if ($error_message) {
                 return response()->json([
-                    'status'  => 'success',
+                    'status'  => 'error',
                     'message' => $error_message,
                 ]);
             }

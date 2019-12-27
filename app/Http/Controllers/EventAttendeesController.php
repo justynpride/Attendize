@@ -764,7 +764,7 @@ class EventAttendeesController extends MyBaseController
 
                 $gateway = Omnipay::create($attendee->order->payment_gateway->name);
 
-                // Only works for stripe
+                // Only works for stripe and square
                 $gateway->initialize($attendee->order->account->getGateway($attendee->order->payment_gateway->id)->config);
 
                 $request = $gateway->refund([
