@@ -8,6 +8,7 @@ use Image;
 use Validator;
 use App\Models\Event;
 use App\Models\Organiser;
+use App\Models\Ticket;
 use App\Models\EventImage;
 use Illuminate\Http\Request;
 use Spatie\GoogleCalendar\Event as GCEvent;
