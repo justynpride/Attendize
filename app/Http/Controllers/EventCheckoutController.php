@@ -34,7 +34,6 @@ use PDF;
 use Validator;
 use PhpSpec\Exception\Exception;
 use App\Events\OrderCompletedEvent;
-use App\Models\AccountPaymentGateway;
 use App\Services\Order as OrderService;
 
 class EventCheckoutController extends Controller
