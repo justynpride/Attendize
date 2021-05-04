@@ -13,7 +13,6 @@ use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Ticket;
-use App\Models\Account;
 use App\Models\Attendee;
 use App\Models\Affiliate;
 use App\Models\OrderItem;
