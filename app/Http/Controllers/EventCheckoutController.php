@@ -27,7 +27,6 @@ use Carbon\Carbon;
 use Config;
 use Cookie;
 use DB;
-use Illuminate\Http\Request;
 use Log;
 use Mail;
 use Omnipay;
