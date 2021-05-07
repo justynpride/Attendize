@@ -9,7 +9,7 @@ use Validator;
 use App\Models\Event;
 use App\Models\Organiser;
 use App\Models\EventImage;
-use App\Http\Controllers\Ticket;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Spatie\GoogleCalendar\Event as GCEvent;
 
