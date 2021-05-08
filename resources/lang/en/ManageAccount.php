@@ -1,6 +1,6 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2018/04/13 13:27:24 
+ Generated via "php artisan localization:missing" at 2018/04/13 13:27:24
 *************************************************************************/
 
 return array (
@@ -47,6 +47,9 @@ return array (
   'version_info' => 'Version informations',
   'version_out_of_date' => 'Your version (<b>:installed</b>) of Attendize is out of date. The latest version (<b>:latest</b>) can be <a href=":url" target="_blank">downloaded here</a>',
   'version_up_to_date' => 'Your Attendize version (<b>:installed</b>) is up to date!',
-    'account_payment' => 'Account / Payment',
-    'event_attendees' => 'Event attendees',
+  'account_payment' => 'Account / Payment',
+  'event_attendees' => 'Event attendees',
+  'square_app_id' => 'App ID',
+  'square_access_token' => 'Access Token',
+  'square_location_id' => 'Location ID'
 );

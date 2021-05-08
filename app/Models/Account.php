@@ -65,7 +65,10 @@ class Account extends MyBaseModel
         'stripe_refresh_token',
         'stripe_secret_key',
         'stripe_publishable_key',
-        'stripe_data_raw'
+        'stripe_data_raw',
+        'square_application_id',
+        'square_auth_token',
+        'square_location_id'
     ];
 
     /**

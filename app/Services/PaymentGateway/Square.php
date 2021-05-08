@@ -1,32 +1,39 @@
 <?php
-
 namespace Services\PaymentGateway;
 
-class Stripe
+class Square
 {
 
-    CONST GATEWAY_NAME = 'Stripe';
+    CONST GATEWAY_NAME = 'Square';
 
     private $transaction_data;
 
     private $gateway;
 
-    private $extra_params = ['stripeToken'];
+    private $extra_params = ['card_nonce'];
 
-    public function __construct($gateway)
+    public function __construct($gateway, $options = [])
     {
         $this->gateway = $gateway;
-        $this->options = [];
+        $this->options = $options;
+        if(array_key_exists('testMode', $options) && $options['testMode']) {
+            $this->gateway->setTestMode(true);
+        }
     }
 
     private function createTransactionData($order_total, $order_email, $event)
     {
+        $returnUrl = route('showEventCheckoutPaymentReturn', [
+            'event_id' => $event->id,
+            'is_payment_successful' => 1,
+        ]);
+
         $this->transaction_data = [
             'amount' => $order_total,
             'currency' => $event->currency->code,
-            'description' => 'Order for customer: ' . $order_email,
-            'token' => $this->options['stripeToken'],
-            'receipt_email' => $order_email
+            'nonce' => $this->options["card_nonce"],
+            'note' => $this->options["note"],
+            'idempotency_key' => uniqid()
         ];
 
         return $this->transaction_data;
@@ -34,10 +41,8 @@ class Stripe
 
     public function startTransaction($order_total, $order_email, $event)
     {
-
         $this->createTransactionData($order_total, $order_email, $event);
-        $transaction = $this->gateway->purchase($this->transaction_data);
-        $response = $transaction->send();
+        $response = $this->gateway->purchase($this->transaction_data)->send();
 
         return $response;
     }
@@ -56,24 +61,44 @@ class Stripe
         }
     }
 
-    public function extractOrderParameters($order) {}
+    public function extractOrderParameters($order)
+    {
 
-    public function completeTransaction($data) {}
+        $items = [];
 
-    public function getAdditionalData(){}
+        foreach($order["tickets"] as $ticket) {
+            $item = [];
+            $item["name"] = $ticket["ticket"]["title"];
+            $item["price"] = $ticket["full_price"];
+            $item["quantity"] = $ticket["qty"];
 
+            $items[] = $ticket["ticket"]["title"] . ": " . $ticket["qty"] . " X $" . $ticket["full_price"];
+        }
+
+        $this->options["note"] = implode("\n", $items);
+    }
+
+    public function completeTransaction($data)
+    {
+    }
+
+    public function getAdditionalData($response)
+    {
+       return [];
+    }
 
     public function storeAdditionalData()
     {
-        return false;
+        return true;
     }
 
     public function refundTransaction($order, $refund_amount, $refund_application_fee)
     {
 
         $request = $this->gateway->refund([
-            'transactionReference' => $order->transaction_id,
+            'transactionId' => $order->transaction_id,
             'amount' => $refund_amount,
+            'currency' => $order->event->currency->code,
             'refundApplicationFee' => $refund_application_fee
         ]);
 
@@ -88,4 +113,5 @@ class Stripe
 
         return $refundResponse;
     }
+
 }

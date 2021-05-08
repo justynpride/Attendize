@@ -47,6 +47,7 @@ class Dummy
     }
 
     public function extractRequestParameters($request) {}
+    public function extractOrderParameters($order) {}
 
     public function completeTransaction($data) {}
 
