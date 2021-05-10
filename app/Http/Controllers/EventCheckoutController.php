@@ -13,9 +13,6 @@ use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\Ticket;
-use App\Models\Account;
-use App\Models\Attendee;
-use App\Models\Affiliate;
 use App\Models\OrderItem;
 use App\Models\EventStats;
 use App\Models\AnswerOption;
@@ -24,14 +21,12 @@ use App\Models\PaymentGateway;
 use App\Models\QuestionAnswer;
 use App\Models\QuestionOption;
 use App\Models\ReservedTickets;
-use App\Models\Ticket;
 use App\Services\Order as OrderService;
 use Services\PaymentGateway\Factory as PaymentGatewayFactory;
 use Carbon\Carbon;
 use Config;
 use Cookie;
 use DB;
-use Illuminate\Http\Request;
 use Log;
 use Mail;
 use Omnipay;
@@ -39,7 +34,6 @@ use PDF;
 use PhpSpec\Exception\Exception;
 use App\Events\OrderCompletedEvent;
 use App\Models\AccountPaymentGateway;
-use App\Services\Order as OrderService;
 
 class EventCheckoutController extends Controller
 {
