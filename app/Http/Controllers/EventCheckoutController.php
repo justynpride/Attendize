@@ -33,7 +33,7 @@ use Omnipay;
 use PDF;
 use PhpSpec\Exception\Exception;
 use App\Events\OrderCompletedEvent;
-use App\Http\Controllers\Validator;
+use Validator;
 
 class EventCheckoutController extends Controller
 {
