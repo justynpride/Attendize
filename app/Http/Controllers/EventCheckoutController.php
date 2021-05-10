@@ -33,7 +33,6 @@ use Omnipay;
 use PDF;
 use PhpSpec\Exception\Exception;
 use App\Events\OrderCompletedEvent;
-use App\Models\AccountPaymentGateway;
 
 class EventCheckoutController extends Controller
 {
