@@ -358,8 +358,12 @@ class EventCheckoutController extends Controller
         $order_total = $order_session['order_total'];
         $account_payment_gateway = $order_session['account_payment_gateway'];
 
-        $orderService = new OrderService($order_session['order_total'], $order_session['total_booking_fee'], $event);
+        $extras_price = getExtrasPrice($ticket_order, $ticket_questions);
+        Log::debug('extras_price:', [$extras_price]);
+        
+        $orderService = new OrderService($order_session['order_total'], $order_session['total_booking_fee'], $event, $extras_price);
         $orderService->calculateFinalCosts();
+        Log::debug(['GrandTotal (inc tax): '.$orderService->getGrandTotal()]);
 
         $payment_failed = $request->get('is_payment_failed') ? 1 : 0;
 
@@ -417,7 +421,8 @@ class EventCheckoutController extends Controller
 
             $order_service = new OrderService($ticket_order['order_total'], $ticket_order['total_booking_fee'], $event);
             $order_service->calculateFinalCosts();
-
+            Log::debug(['GrandTotal (inc tax): '.$orderService->getGrandTotal()]);
+            
             $payment_gateway_config = $ticket_order['account_payment_gateway']->config + [
                                                     'testMode' => config('attendize.enable_test_payments')];
 
