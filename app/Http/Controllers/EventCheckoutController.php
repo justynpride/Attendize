@@ -358,6 +358,7 @@ class EventCheckoutController extends Controller
         $order_total = $order_session['order_total'];
         $account_payment_gateway = $order_session['account_payment_gateway'];
 
+        $ticket_questions = isset($request->ticket_holder_questions) ? $request->ticket_holder_questions : [];
         $ticket_order = session()->get('ticket_order_' . $event_id);
         $extras_price = getExtrasPrice($ticket_order, $ticket_questions);
         Log::debug('extras_price:', [$extras_price]);
