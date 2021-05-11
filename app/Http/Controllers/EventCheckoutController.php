@@ -358,7 +358,7 @@ class EventCheckoutController extends Controller
         $order_total = $order_session['order_total'];
         $account_payment_gateway = $order_session['account_payment_gateway'];
 
-        $extras_price = getExtrasPrice($ticket_order, $ticket_questions);
+        $extras_price = getExtrasPrice('ticket_order_', $ticket_questions);
         Log::debug('extras_price:', [$extras_price]);
         
         $orderService = new OrderService($order_session['order_total'], $order_session['total_booking_fee'], $event, $extras_price);
