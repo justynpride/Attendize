@@ -423,7 +423,6 @@ class EventCheckoutController extends Controller
 
             $order_service = new OrderService($ticket_order['order_total'], $ticket_order['total_booking_fee'], $event);
             $order_service->calculateFinalCosts();
-            Log::debug(['GrandTotal (inc tax): '.$orderService->getGrandTotal()]);
             
             $payment_gateway_config = $ticket_order['account_payment_gateway']->config + [
                                                     'testMode' => config('attendize.enable_test_payments')];
