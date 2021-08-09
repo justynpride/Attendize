@@ -155,42 +155,59 @@
 
                                                 <td>
                                                     @if ($user->id != auth()->user()->id)
-                                                        <div style="display:flex">
-                                                            <button
-                                                                name="user_action"
-                                                                data-action="restore"
-                                                                data-href="{!! route("userRestore", ["id" => $user->id]) !!}"
-                                                                aria-label="{!! trans("basic.restore") !!}"
-                                                                title="{!! trans("basic.restore") !!}"
-                                                                class="btn btn-sm btn-warning"
-                                                                {!! !$user->trashed() ? 'hidden' : '' !!}
-                                                            >
-                                                                {!! trans("basic.restore") !!}
+                                                        <div style="position:relative;">
+                                                            <button data-id="dropdown" class="btn btn-sm btn-default">
+                                                                &hellip;
                                                             </button>
 
-                                                            <button
-                                                                name="user_action"
-                                                                data-action="force_delete"
-                                                                data-href="{!! route("userDelete", ["id" => $user->id, "force" => true]) !!}"
-                                                                aria-label="{!! trans("basic.force_delete") !!}"
-                                                                title="{!! trans("basic.force_delete") !!}"
-                                                                class="btn btn-sm btn-danger"
-                                                                {!! !$user->trashed() ? 'hidden' : '' !!}
-                                                            >
-                                                                &times;
-                                                            </button>
+                                                            <div class="dropdown-content" style="position:absolute;z-index:10;bottom:0;right:0;transform:translateY(100%)" hidden>
+                                                                <div style="display:flex;flex-direction:column;padding:0.5rem;background-color:white">
+                                                                    <button
+                                                                        name="user_action"
+                                                                        data-action="send_invitation_message"
+                                                                        data-href="{!! route("sendInvitationMessage", ["id" => $user->id]) !!}"
+                                                                        class="btn btn-sm btn-default"
+                                                                        style="margin-bottom:0.5rem"
+                                                                        {!! $user->trashed() ? 'hidden' : '' !!}
+                                                                    >
+                                                                        {!! trans("ManageAccount.send_invitation_message") !!}
+                                                                    </button>
 
-                                                            <button
-                                                                name="user_action"
-                                                                data-action="delete"
-                                                                data-href="{!! route("userDelete", ["id" => $user->id]) !!}"
-                                                                aria-label="{!! trans("basic.delete") !!}"
-                                                                title="{!! trans("basic.delete") !!}"
-                                                                class="btn btn-sm btn-danger"
-                                                                {!! $user->trashed() ? 'hidden' : '' !!}
-                                                            >
-                                                                &times;
-                                                            </button>
+                                                                    <button
+                                                                        name="user_action"
+                                                                        data-action="restore"
+                                                                        data-href="{!! route("userRestore", ["id" => $user->id]) !!}"
+                                                                        aria-label="{!! trans("basic.restore") !!}"
+                                                                        title="{!! trans("basic.restore") !!}"
+                                                                        class="btn btn-sm btn-warning"
+                                                                        style="margin-bottom:0.5rem"
+                                                                        {!! !$user->trashed() ? 'hidden' : '' !!}
+                                                                    >
+                                                                        {!! trans("basic.restore") !!}
+                                                                    </button>
+
+                                                                    <button
+                                                                        name="user_action"
+                                                                        data-action="force_delete"
+                                                                        data-href="{!! route("userDelete", ["id" => $user->id, "force" => true]) !!}"
+                                                                        class="btn btn-sm btn-danger"
+                                                                        style="margin-bottom:0.5rem"
+                                                                        {!! !$user->trashed() ? 'hidden' : '' !!}
+                                                                    >
+                                                                        {!! trans("basic.force_delete") !!}
+                                                                    </button>
+
+                                                                    <button
+                                                                        name="user_action"
+                                                                        data-action="delete"
+                                                                        data-href="{!! route("userDelete", ["id" => $user->id]) !!}"
+                                                                        class="btn btn-sm btn-danger"
+                                                                        {!! $user->trashed() ? 'hidden' : '' !!}
+                                                                    >
+                                                                        {!! trans("basic.delete") !!}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     @endif
                                                 </td>
