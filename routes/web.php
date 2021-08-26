@@ -522,7 +522,7 @@ Route::group(
                 [EventOrdersController::class, 'showExportOrders']
             )->name('showExportOrders');
 
-            Route::get('{order_id}/orders/message',
+            Route::get('{event_id}/orders/message',
                 [EventOrdersController::class, 'showMessageOrder']
             )->name('showMessageOrder');
 
