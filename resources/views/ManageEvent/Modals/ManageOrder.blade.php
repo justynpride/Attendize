@@ -208,6 +208,45 @@
                                         {{{$attendee->ticket->title}}}
                                         {{{$order->order_reference}}}-{{{$attendee->reference_index}}}
                                     </td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@lang("basic.action") <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                @if($attendee->email)
+                                                <li><a
+                                                    data-modal-id="MessageAttendee"
+                                                    href="javascript:void(0);"
+                                                    data-href="{{route('showMessageAttendee', ['attendee_id'=>$attendee->id])}}"
+                                                    class="loadModal"
+                                                    > @lang("basic.message")</a></li>
+                                                @endif
+                                                <li><a
+                                                    data-modal-id="ResendTicketToAttendee"
+                                                    href="javascript:void(0);"
+                                                    data-href="{{route('showResendTicketToAttendee', ['attendee_id'=>$attendee->id])}}"
+                                                    class="loadModal"
+                                                    > @lang("ManageEvent.resend_ticket")</a></li>
+                                                <li><a
+                                                    href="{{route('showExportTicket', ['event_id'=>$attendee->event_id, 'attendee_id'=>$attendee->id])}}"
+                                                    >@lang("ManageEvent.download_pdf_ticket")</a></li>
+                                            </ul>
+                                        </div>
+                                        <a
+                                            data-modal-id="EditAttendee"
+                                            href="javascript:void(0);"
+                                            data-href="{{route('showEditAttendee', ['event_id'=>$attendee->event_id, 'attendee_id'=>$attendee->id])}}"
+                                            class="loadModal btn btn-xs btn-primary"
+                                            > @lang("basic.edit")
+                                        </a>
+
+                                        <a
+                                            data-modal-id="CancelAttendee"
+                                            href="javascript:void(0);"
+                                            data-href="{{route('showCancelAttendee', ['event_id'=>$attendee->event_id, 'attendee_id'=>$attendee->id])}}"
+                                            class="loadModal btn btn-xs btn-danger"
+                                            > @lang("basic.cancel")
+                                        </a>
+                                    </td>                                   
                                 </tr>
                             @endforeach
                             </tbody>
