@@ -8,8 +8,12 @@ return array (
   'groups' => 'Groups',
   'email' => 'Email',
   'email_address' => 'Email Address',
+  'export' => 'Export',  
   'group_list' => 'Groups',
+  'message_groups' => 'Message Groups',
   'name' => 'Name',
+  'new_group' => 'Add Group',
+  'print_group_list' => 'Print Group List',  
   'town' => 'Town',
   'search_groups' => 'Search Groups...',
 );

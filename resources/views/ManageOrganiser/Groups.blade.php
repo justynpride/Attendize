@@ -29,19 +29,14 @@
 <div class="col-md-9">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="InviteAttendee" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> @lang("ManageEvent.invite_attendee")</button>
+            <button data-modal-id="NewGroup" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> @lang("Group.new_group")</button>
         </div>
-        
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="ImportAttendees" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> @lang("ManageEvent.invite_attendees")</button>
-        </div>
-        
-        <div class="btn-group btn-group-responsive">
-            <a class="btn btn-success" href="" target="_blank" ><i class="ico-print"></i> @lang("ManageEvent.print_attendee_list")</a>
+            <a class="btn btn-success" href="" target="_blank" ><i class="ico-print"></i> @lang("Group.print_group_list")</a>
         </div>
         <div class="btn-group btn-group-responsive">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                <i class="ico-users"></i> @lang("ManageEvent.export") <span class="caret"></span>
+                <i class="ico-users"></i> @lang("Group.export") <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="">@lang("File_format.Excel_xlsx")</a></li>
@@ -51,7 +46,7 @@
             </ul>
         </div>
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="MessageAttendees" href="javascript:void(0);" data-href="" class="loadModal btn btn-success" type="button"><i class="ico-envelope"></i> @lang("ManageEvent.message_attendees")</button>
+            <button data-modal-id="MessageGroup" href="javascript:void(0);" data-href="" class="loadModal btn btn-success" type="button"><i class="ico-envelope"></i> @lang("Group.message_groups")</button>
         </div>
     </div>
 </div>
