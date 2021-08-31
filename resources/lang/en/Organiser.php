@@ -27,6 +27,7 @@ return array (
   'google_analytics_code_placeholder' => 'UA-XXXXX-X',
   'google_tag_manager_code' => 'Google Tag Manager Code',
   'google_tag_manager_code_placeholder' => 'GTM-XXXXX',
+  'groups' => 'Groups',
   'header_background_color' => 'Header Background Color',
   'hide_additional_organiser_options' => 'Hide Additional Organiser Options',
   'make_organiser_hidden' => 'Hide organiser page from the public.',

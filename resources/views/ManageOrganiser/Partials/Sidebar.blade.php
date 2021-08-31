@@ -22,6 +22,12 @@
                     <span class="text">@lang("Organiser.customize")</span>
                 </a>
             </li>
+           <li class="{{ Request::is('*groups*') ? 'active' : '' }}">
+                <a href="{{route('showOrganiserGroups', array('organiser_id' => $organiser->id))}}">
+                    <span class="figure"><i class="ico-users"></i></span>
+                    <span class="text">@lang("Organiser.groups")</span>
+                </a>
+            </li>            
         </ul>
     </section>
 </aside>

@@ -32,6 +32,7 @@ use App\Http\Controllers\OrganiserController;
 use App\Http\Controllers\OrganiserCustomizeController;
 use App\Http\Controllers\OrganiserDashboardController;
 use App\Http\Controllers\OrganiserEventsController;
+use App\Http\Controllers\OrganiserGroupsController;
 use App\Http\Controllers\OrganiserViewController;
 use App\Http\Controllers\RemindersController;
 use App\Http\Controllers\UserController;
@@ -279,6 +280,11 @@ Route::group(
             Route::post('{organiser_id}/page_design',
                 [OrganiserCustomizeController::class, 'postEditOrganiserPageDesign']
             )->name('postEditOrganiserPageDesign');
+           
+            Route::get('{organiser_id}/groups',
+                [OrganiserGroupsController::class, 'show']
+            )->name('showOrganiserGroups');
+                       
         });
 
         /*
@@ -653,3 +659,4 @@ Route::group(
         [IndexController::class, 'showIndex']
     )->name('index');
 });
+
