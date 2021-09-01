@@ -103,19 +103,27 @@
                                 {{{$group->email}}}
                             </td>
                             <td class="text-center">
+                                @if($group->email)
                                 <a
-                                    data-modal-id="EditAttendee"
+                                    data-modal-id="MessageGroup"
+                                    href="javascript:void(0);"
+                                    data-href=""
+                                    class="loadModal btn btn-xs btn-primary"
+                                    > @lang("basic.message")</a>
+                                @endif   
+                                <a
+                                    data-modal-id="EditGroup"
                                     href="javascript:void(0);"
                                     data-href=""
                                     class="loadModal btn btn-xs btn-primary"
                                     > @lang("basic.edit")</a>
 
                                 <a
-                                    data-modal-id="CancelAttendee"
+                                    data-modal-id="CancelGroup"
                                     href="javascript:void(0);"
                                     data-href=""
                                     class="loadModal btn btn-xs btn-danger"
-                                    > @lang("basic.cancel")</a>
+                                    > @lang("basic.cancel")</a>     
                             </td>
                         </tr>
                         @endforeach

@@ -5,6 +5,7 @@
 
 return array (
     //==================================== Translations ====================================//
+  'country' => 'Country',
   'groups' => 'Groups',
   'email' => 'Email',
   'email_address' => 'Email Address',
