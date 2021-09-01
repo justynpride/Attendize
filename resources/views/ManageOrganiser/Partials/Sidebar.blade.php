@@ -1,6 +1,14 @@
 <aside class="sidebar sidebar-left sidebar-menu">
     <section class="content">
-        <h5 class="heading">@lang("Organiser.organiser_menu")</h5>
+        @role('attendee check in')
+        <h5 class="heading">@lang("Attendee.check_in_menu")</h5>
+        @else
+            @can('manage organisers')
+            <h5 class="heading">@lang("Organiser.organiser_menu")</h5>
+            @else
+            <h5 class="heading">@lang("Event.event_menu")</h5>
+            @endcan
+        @endrole
 
         <ul id="nav" class="topmenu">
             <li class="{{ Request::is('*dashboard*') ? 'active' : '' }}">
