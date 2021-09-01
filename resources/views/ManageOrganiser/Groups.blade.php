@@ -67,7 +67,76 @@
 
 <!--Start Groups table-->
 <div class="row">
- 
+  <div class="col-md-12">
+        @if($groups->count())
+        <div class="panel">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                               {!!Html::sortable_link(trans("Group.name"), $sort_by, 'name', $sort_order)!!}
+                            </th>
+                            <th>
+                               {!!Html::sortable_link(trans("Group.town"), $sort_by, 'town', $sort_order)!!}
+                            </th>
+                            <th>
+                               {!!Html::sortable_link(trans("Group.country"), $sort_by, 'country_id', $sort_order)!!}
+                            </th>
+                            <th>
+                               {!!Html::sortable_link(trans("Group.email"), $sort_by, 'email', $sort_order)!!}
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         @foreach($groups as $group)
+                        <tr>
+                            <td>{{{$group->name}}}</td>
+                            <td>
+                                {{{$group->town}}}
+                            </td>
+                            <td>
+                                {{{$group->country_id}}}
+                            </td>
+                            <td>
+                                {{{$group->email}}}
+                            </td>
+                            <td class="text-center">
+                                <a
+                                    data-modal-id="EditAttendee"
+                                    href="javascript:void(0);"
+                                    data-href=""
+                                    class="loadModal btn btn-xs btn-primary"
+                                    > @lang("basic.edit")</a>
+
+                                <a
+                                    data-modal-id="CancelAttendee"
+                                    href="javascript:void(0);"
+                                    data-href=""
+                                    class="loadModal btn btn-xs btn-danger"
+                                    > @lang("basic.cancel")</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    
+                   </tbody>
+                </table>
+            </div>
+        </div>
+        @else
+
+        @if(!empty($q))
+        @include('Shared.Partials.NoSearchResults')
+        @else
+        @include('ManageOrganiser.Partials.GroupsBlankSlate')
+        @endif
+
+        @endif
+    </div>
+    <div class="col-md-12">
+        
+    </div> 
 
 </div>    <!--/End Groups table-->
 
