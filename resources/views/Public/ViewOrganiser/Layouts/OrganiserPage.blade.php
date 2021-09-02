@@ -10,7 +10,7 @@
          /_/    \_\__|\__\___|_| |_|\__,_|_/___\___(_)___\___/|_| |_| |_|
 
         -->
-        <title>{{{$organiser->name}}} - Attendize.com</title>
+        <title>{{{$organiser->name}}} - Book-in.me</title>
 
 
         <meta charset="utf-8" />
@@ -24,7 +24,7 @@
         <meta property="og:url" content="{{URL::to('')}}" />
         <meta property="og:image" content="{{URL::to($organiser->full_logo_path)}}" />
         <meta property="og:description" content="{{{md_to_html($organiser->description, 20)}}}" />
-        <meta property="og:site_name" content="Attendize.com" />
+        <meta property="og:site_name" content="Book-in.me" />
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
