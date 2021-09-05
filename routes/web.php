@@ -34,6 +34,7 @@ use App\Http\Controllers\OrganiserCustomizeController;
 use App\Http\Controllers\OrganiserDashboardController;
 use App\Http\Controllers\OrganiserEventsController;
 use App\Http\Controllers\OrganiserViewController;
+use App\Http\Controllers\OrganiserUsersController;
 use App\Http\Controllers\RemindersController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoginController;
@@ -210,7 +211,7 @@ Route::group(
          * Edit User
          */
         Route::group(['prefix' => 'user'], function () {
-
+            
             Route::get('/',
                 [UserController::class, 'showEditUser']
             )->name('showEditUser');
@@ -283,6 +284,10 @@ Route::group(
             Route::get('{organiser_id}/customize',
                 [OrganiserCustomizeController::class, 'showCustomize']
             )->name('showOrganiserCustomize');
+
+            Route::get('{organiser_id}/users',
+                [OrganiserUsersController::class, 'showUsers']
+            )->name('showOrganiserUsers');
 
             Route::post('{organiser_id}/customize',
                 [OrganiserCustomizeController::class, 'postEditOrganiser']

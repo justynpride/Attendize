@@ -61,6 +61,7 @@ return array (
   'delete' => 'Delete',
   'force_delete' => 'Force Delete',
   'restore' => 'Restore',
+  'users_dashboard' => 'Users',
   /*
    * Lines below will turn obsolete in localization helper, it is declared in app/Helpers/macros.
    * If you run it, it will break file input fields.
@@ -72,3 +73,4 @@ return array (
     'months_long' => 'January|February|March|April|May|June|July|August|September|October|November|December',
   ],
 );
+

@@ -10,6 +10,18 @@ use Validator;
 
 class UserController extends Controller
 {
+
+    public function showUsers($organiser_id)
+    {
+    $organiser = Organiser::scope()->findOrFail($organiser_id);
+    
+        $data = [
+            'user' => Auth::user(),
+            'organiser' => $organiser
+        ];
+
+        return view('ManageUser.view', $data);
+    }
     /**
      * Show the edit user modal
      *
