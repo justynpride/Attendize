@@ -287,7 +287,7 @@ Route::group(
 
             Route::get('{organiser_id}/users',
                 [OrganiserUsersController::class, 'showUsers']
-            )->name('showOrganiserUsers');
+            )->name('showOrganiserUsers');          
 
             Route::post('{organiser_id}/customize',
                 [OrganiserCustomizeController::class, 'postEditOrganiser']

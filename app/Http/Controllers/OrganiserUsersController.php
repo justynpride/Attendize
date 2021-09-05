@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Organiser;
+use Auth;
 use Illuminate\Http\Request;
 
 class OrganiserUsersController extends Controller
@@ -48,10 +49,34 @@ class OrganiserUsersController extends Controller
      */
     public function showUsers(Request $request, $organiser_id)
     {
-        $organiser = Organiser::scope()->findOrfail($organiser_id);
-        $users = User::with('organiser')->get();
-    
-        return view('ManageOrganiser.Users', compact('organiser', 'users'));
+        $user = Auth::user();
+
+        $organiser = $user->organiser;
+        $allowed_sorts = ['created_at', 'last_name', 'first_name', 'email'];
+
+        $searchQuery = $request->get('q');
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'last_name');
+
+        // If user can manage users, then they can see all users, otherwise just their own
+        $users = $organiser->users()
+            ->where('organiser_id', $organiser->id)
+            ->orderBy($sort_by, 'desc');
+            
+       if ($searchQuery) {
+            $users->where('last_name', 'like', '%' . $searchQuery . '%');
+        }
+
+        $data = [
+            'users' => $users->paginate(12),
+            'organiser' => $organiser,
+            'search' => [
+                'q' => $searchQuery ? $searchQuery : '',
+                'sort_by' => $request->get('sort_by') ? $request->get('sort_by') : '',
+                'showPast' => $request->get('past'),
+            ],
+        ];
+
+        return view('ManageOrganiser.Users', $data);
     }
 
     /**
