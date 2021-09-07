@@ -11,8 +11,8 @@
 @stop
 
 @section('page_title')
-<i class="ico-home2"></i>
-@lang("basic.users_dashboard")
+<i class="ico-group"></i>
+{{ trans('Organiser.users', ['name'=>$organiser->name]) }}
 @endsection
 
 @section('menu')
@@ -23,7 +23,8 @@
 
 @stop
 
-@section('content')
+@section('page_header')
+
 <div class="col-md-9">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
@@ -54,7 +55,16 @@
     </div>
 </div>
 <div class="col-md-3">
+    <div class="input-group">
+        <input name="q" value="" placeholder="@lang("Attendee.search_attendees")" type="text" class="form-control" />
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="ico-search"></i></button>
+        </span>
+    </div>
 </div>
+@stop
+
+@section('content')
 
 <!--Start Users table-->
 <div class="row">
@@ -77,6 +87,9 @@
                             <th>
                                @lang("User.role")
                             </th>
+                            <th>
+                               @lang("User.organiser")
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -93,7 +106,7 @@
                                     > {{$user->email}}</a>
                             </td>
                             <td>
-                                {{$user->role}}
+                                {{$user->id}}
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
@@ -113,7 +126,7 @@
                                 <a
                                     data-modal-id="EditUser"
                                     href="javascript:void(0);"
-                                    data-href=""
+                                    data-href="{{route('showEditOrganiserUser', ['organiser_id'=>$organiser->id, 'id' => $user->id])}}"
                                     class="loadModal btn btn-xs btn-primary"
                                     > @lang("basic.edit")</a>
 
@@ -123,6 +136,9 @@
                                     data-href=""
                                     class="loadModal btn btn-xs btn-danger"
                                     > @lang("basic.cancel")</a>
+                            </td>
+                            <td>
+                            {{$user->organiser_id}}
                             </td>
                         </tr>
                         @endforeach

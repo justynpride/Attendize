@@ -32,18 +32,18 @@
                         <span class="text">@lang("Organiser.event")</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('*users*') ? 'active' : '' }}">
+                    <a href="{{route('showOrganiserUsers', array('organiser_id' => $organiser->id))}}">
+                        <span class="figure"><i class="ico-group"></i></span>
+                        <span class="text">@lang("Organiser.users")</span>
+                    </a>
+                </li>   
                 <li class="{{ Request::is('*customize*') ? 'active' : '' }}">
                     <a href="{{route('showOrganiserCustomize', array('organiser_id' => $organiser->id))}}">
                         <span class="figure"><i class="ico-cog"></i></span>
                         <span class="text">@lang("Organiser.customize")</span>
                     </a>
-                </li>
-                <li class="{{ Request::is('*users*') ? 'active' : '' }}">
-                    <a href="{{route('showOrganiserUsers', array('organiser_id' => $organiser->id))}}">
-                        <span class="figure"><i class="ico-cog"></i></span>
-                        <span class="text">@lang("Organiser.users")</span>
-                    </a>
-                </li>                
+                </li>             
                 @endcan
             @endrole
         </ul>

@@ -50,7 +50,7 @@ class OrganiserUsersController extends Controller
     public function showUsers(Request $request, $organiser_id)
     {
         $user = Auth::user();
-
+        
         $organiser = $user->organiser;
         $allowed_sorts = ['created_at', 'last_name', 'first_name', 'email'];
 
@@ -85,9 +85,17 @@ class OrganiserUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function showEditOrganiserUser(Request $request, $organiser_id, $userId)
+    { 
+      $organiser = Organiser::findOrFail($organiser_id);
+      $user = User::findOrFail($userId);
+
+            $data = [
+            'user' => $user,
+            'organiser' => $organiser,
+        ];
+
+        return view('ManageOrganiser.Modals.EditUser', $data);
     }
 
     /**
@@ -97,9 +105,26 @@ class OrganiserUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function postEditOrganiserUser(Request $request, $organiser_id, $userId)
     {
-        //
+        $organiser = Organiser::findOrFail($organiser_id);
+        $user = User::findOrFail($userId);   
+        $this->validate($request, [
+            'name'=>'required|max:120',
+            'email'=>'required|email|unique:users,email,'.$id,
+            'password'=>'required|min:6|confirmed'
+        ]);
+        
+        $input = $request->except('roles');
+        $user->fill($input)->save();
+        if ($request->roles <> '') {
+            $user->roles()->sync($request->roles);        
+        }        
+        else {
+            $user->roles()->detach(); 
+        }
+        return redirect()->route('ManageOrganiser.users')->with('success',
+             'User successfully updated.');
     }
 
     /**

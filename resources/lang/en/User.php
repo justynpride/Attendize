@@ -22,6 +22,7 @@ return array (
   'reset_input_errors' => 'There were some problems with your input.',
   'reset_password' => 'Reset Password',
   'reset_password_success' => 'An email with the password reset has been sent to your email.',
+  'role' => 'Role',
   'sign_up' => 'Sign Up',
   'sign_up_first_run' => 'You\'re almost there. Just create a user account and you\'re ready to go.',
   'terms_and_conditions' => '&nbsp;&nbsp;I agree to <a target="_blank" href=":url"> Terms & Conditions </a>',

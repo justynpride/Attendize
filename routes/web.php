@@ -304,6 +304,30 @@ Route::group(
             Route::post('{organiser_id}/page_design',
                 [OrganiserCustomizeController::class, 'postEditOrganiserPageDesign']
             )->name('postEditOrganiserPageDesign');
+
+            Route::get('{organiser_id}/users/edit',
+                [OrganiserUsersController::class, 'showEditOrganiserUser']
+            )->name('showEditOrganiserUser');
+
+            Route::post('{organiser_id}/users/edit',
+                [OrganiserUsersController::class, 'postEditOrganiserUser']
+            )->name('postEditOrganiserUser');
+
+            Route::get('{organiser_id}/users/message',
+                [OrganiserUsersController::class, 'showMessageUsers']
+            )->name('showMessageUsers');
+
+            Route::post('{organiser_id}/users/message',
+                [OrganiserUsersController::class, 'postMessageUsers']
+            )->name('postMessageUsers');
+
+            Route::get('{organiser_id}/users/single_message',
+                [OrganiserUsersController::class, 'showMessageAttendee']
+            )->name('showMessageUser');
+
+            Route::post('{organiser_id}/users/single_message',
+                [OrganiserUsersController::class, 'postMessageAttendee']
+            )->name('postMessageUser');            
         });
 
         /*
