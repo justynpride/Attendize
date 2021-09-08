@@ -85,17 +85,9 @@ class OrganiserUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showEditOrganiserUser(Request $request, $organiser_id, $userId)
+    public function showEditOrganiserUser(Request $request, $organiser_id)
     { 
-      $organiser = Organiser::findOrFail($organiser_id);
-      $user = User::findOrFail($userId);
-
-            $data = [
-            'user' => $user,
-            'organiser' => $organiser,
-        ];
-
-        return view('ManageOrganiser.Modals.EditUser', $data);
+        return view('ManageOrganiser.Modals.EditUser');
     }
 
     /**
@@ -105,26 +97,9 @@ class OrganiserUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postEditOrganiserUser(Request $request, $organiser_id, $userId)
+    public function postEditOrganiserUser(Request $request, $organiser_id)
     {
-        $organiser = Organiser::findOrFail($organiser_id);
-        $user = User::findOrFail($userId);   
-        $this->validate($request, [
-            'name'=>'required|max:120',
-            'email'=>'required|email|unique:users,email,'.$id,
-            'password'=>'required|min:6|confirmed'
-        ]);
-        
-        $input = $request->except('roles');
-        $user->fill($input)->save();
-        if ($request->roles <> '') {
-            $user->roles()->sync($request->roles);        
-        }        
-        else {
-            $user->roles()->detach(); 
-        }
-        return redirect()->route('ManageOrganiser.users')->with('success',
-             'User successfully updated.');
+        return view('ManageOrganiser.Users');
     }
 
     /**
@@ -133,8 +108,80 @@ class OrganiserUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    
+    /**
+     * Message users.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showMessageUser(Request $request, $organiser_id)
     {
-        //
-    }
+        return view('ManageOrganiser.Modals.MessageUser');
+    }    
+    
+      /**
+     * Message users.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function postMessageUser(Request $request, $organiser_id)
+    {
+        return view('ManageOrganiser.Users');
+    } 
+
+     /** Message users.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showMessageUsers(Request $request, $organiser_id)
+    {
+        return view('ManageOrganiser.Modals.MessageUsers');
+    }    
+    
+    /**
+     * Message users.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function postMessageUsers(Request $request, $organiser_id)
+    {
+        return view('ManageOrganiser.Users');
+    }     
+
+    /**
+     * Delete users.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function organiserUserDelete(Request $request, $organiser_id)
+    {
+        return view('ManageOrganiser.Modals.CancelUser');
+    }    
+
+    /**
+     * Restore user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function organiserUserRestore(Request $request, $organiser_id)
+    {
+        return view('ManageOrganiser.Users');
+    }    
+
+    /**
+     * Invite user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function organiserSendInvitationMessage(Request $request, $organiser_id)
+    {
+        return view('ManageOrganiser.Users');
+    }    
 }

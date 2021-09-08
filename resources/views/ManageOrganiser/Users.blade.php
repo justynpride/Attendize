@@ -1,4 +1,4 @@
-//@extends('Shared.Layouts.Master')
+@extends('Shared.Layouts.Master')
 
 @section('title')
     @parent
@@ -56,7 +56,7 @@
 </div>
 <div class="col-md-3">
     <div class="input-group">
-        <input name="q" value="" placeholder="@lang("Attendee.search_attendees")" type="text" class="form-control" />
+        <input name="q" value="" placeholder="@lang("Organiser.search_users")" type="text" class="form-control" />
         <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><i class="ico-search"></i></button>
         </span>
@@ -116,7 +116,7 @@
                                         <li><a
                                             data-modal-id="MessageAttendee"
                                             href="javascript:void(0);"
-                                            data-href=""
+                                            data-href="{{route('showMessageUser', ['organiser_id'=>$organiser->id, 'id' => $user->id])}}"
                                             class="loadModal"
                                             > @lang("basic.message")</a></li>
                                         @endif
@@ -131,9 +131,9 @@
                                     > @lang("basic.edit")</a>
 
                                 <a
-                                    data-modal-id="CancelUser"
+                                    data-modal-id="EditUser"
                                     href="javascript:void(0);"
-                                    data-href=""
+                                    data-href="{{route('organiserUserDelete', ['organiser_id'=>$organiser->id, 'id' => $user->id])}}"
                                     class="loadModal btn btn-xs btn-danger"
                                     > @lang("basic.cancel")</a>
                             </td>

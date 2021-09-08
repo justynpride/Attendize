@@ -322,12 +322,24 @@ Route::group(
             )->name('postMessageUsers');
 
             Route::get('{organiser_id}/users/single_message',
-                [OrganiserUsersController::class, 'showMessageAttendee']
+                [OrganiserUsersController::class, 'showMessageUser']
             )->name('showMessageUser');
 
             Route::post('{organiser_id}/users/single_message',
-                [OrganiserUsersController::class, 'postMessageAttendee']
+                [OrganiserUsersController::class, 'postMessageUser']
             )->name('postMessageUser');            
+
+            Route::post('{organiser_id}/users/delete',
+                [OrganiserUsersController::class, 'organiserUserDelete']
+            )->name('organiserUserDelete');
+
+            Route::get('{organiser_id}/users/restore',
+                [OrganiserUsersController::class, 'organiserUserRestore']
+            )->name('organiserUserRestore');
+
+            Route::post('{organiser_id}/users/sent_invite',
+                [OrganiserUsersController::class, 'organiserSendInvitationMessage']
+            )->name('organiserSendInvitationMessage');
         });
 
         /*
