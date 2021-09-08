@@ -51,7 +51,7 @@ class OrganiserUsersController extends Controller
     {
         $user = Auth::user();
         
-        $organiser = $user->organiser;
+        $organiser = Organiser::findOrFail($organiser_id);
         $allowed_sorts = ['created_at', 'last_name', 'first_name', 'email'];
 
         $searchQuery = $request->get('q');
