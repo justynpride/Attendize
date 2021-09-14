@@ -305,11 +305,11 @@ Route::group(
                 [OrganiserCustomizeController::class, 'postEditOrganiserPageDesign']
             )->name('postEditOrganiserPageDesign');
 
-            Route::get('{organiser_id}/users/edit',
+            Route::get('{organiser_id}/users/{id}/edit',
                 [OrganiserUsersController::class, 'showEditOrganiserUser']
             )->name('showEditOrganiserUser');
-
-            Route::post('{organiser_id}/users/edit',
+            
+            Route::post('{organiser_id}/users/{id}/edit',
                 [OrganiserUsersController::class, 'postEditOrganiserUser']
             )->name('postEditOrganiserUser');
 

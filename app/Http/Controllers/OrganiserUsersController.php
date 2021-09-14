@@ -85,9 +85,10 @@ class OrganiserUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showEditOrganiserUser(Request $request, $organiser_id)
+    public function showEditOrganiserUser(Request $request, $organiser_id, $id)
     { 
-        return view('ManageOrganiser.Modals.EditUser');
+        $user = User::find($id);
+        return view('ManageOrganiser.Modals.EditUser', compact( 'user' ));
     }
 
     /**
@@ -138,6 +139,7 @@ class OrganiserUsersController extends Controller
      */
     public function showMessageUsers(Request $request, $organiser_id)
     {
+    
         return view('ManageOrganiser.Modals.MessageUsers');
     }    
     
