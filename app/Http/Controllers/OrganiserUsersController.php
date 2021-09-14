@@ -101,11 +101,8 @@ class OrganiserUsersController extends Controller
     public function postEditOrganiserUser(Request $request, $organiser_id, $id)
     {
 
-        $validatedData = $request->validate([
-            'name'       => 'required|min:1|max:256',
-            'email'      => 'required|email|max:256'
-        ]);
         $user = User::find($id);
+        
         $user->first_name       = $request->input('first_name');
         $user->last_name       = $request->input('last_name');        
         $user->email        = $request->input('email');
