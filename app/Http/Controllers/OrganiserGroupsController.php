@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Group;
+use App\Models\Organiser;
+use Illuminate\Http\Request;
 
 class OrganiserGroupsController extends Controller
 {
@@ -14,9 +15,7 @@ class OrganiserGroupsController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
-
-         return view('ManageOrganiser.groups', $groups);
+        //
     }
 
     /**
@@ -46,14 +45,19 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showOrganiserGroups(Request $request, $organiser_id, $id)
+    public function showOrganiserGroups(Request $request, $organiser_id)
     {
+        $organiser = Organiser::scope()->findOrfail($organiser_id);
         $groups = Group::all();
 
-            $data = [
-            $group => $groups,
+        
+        $data = [
+            'groups'    => $groups,
+            'organiser' => $organiser,
         ];
-        return view('ManageOrganiser.groups', $data);
+
+        return view('ManageOrganiser.Groups', $data);
+
     }
 
     /**
