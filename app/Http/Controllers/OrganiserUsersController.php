@@ -98,9 +98,21 @@ class OrganiserUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postEditOrganiserUser(Request $request, $organiser_id)
+    public function postEditOrganiserUser(Request $request, $organiser_id, $id)
     {
-        return view('ManageOrganiser.Users');
+
+        $validatedData = $request->validate([
+            'name'       => 'required|min:1|max:256',
+            'email'      => 'required|email|max:256'
+        ]);
+        $user = User::find($id);
+        $user->first_name       = $request->input('first_name');
+        $user->last_name       = $request->input('last_name');        
+        $user->email        = $request->input('email');
+        $user->save();
+        $request->session()->flash('message', 'Successfully updated user');
+        return redirect()->route('ManageOrganiser.Users');
+
     }
 
     /**

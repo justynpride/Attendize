@@ -87,9 +87,6 @@
                             <th>
                                @lang("User.role")
                             </th>
-                            <th>
-                               @lang("User.organiser")
-                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -122,7 +119,6 @@
                                         @endif
                                     </ul>
                                 </div>
-                                <a href="{{ url('/users/' . $user->id . '/edit') }}" class="btn btn-block btn-primary">Edit</a>
                                 <a
                                     data-modal-id="EditUser"
                                     href="javascript:void(0);"
@@ -133,12 +129,9 @@
                                 <a
                                     data-modal-id="EditUser"
                                     href="javascript:void(0);"
-                                    data-href="{{route('organiserUserDelete', ['organiser_id'=>$organiser->id, 'id' => $user->id])}}"
+                                    data-href="{{route('organiserUserDelete', ['organiser_id'=>$organiser->id, $user->id])}}"
                                     class="loadModal btn btn-xs btn-danger"
                                     > @lang("basic.cancel")</a>
-                            </td>
-                            <td>
-                            {{$user->organiser_id}}
                             </td>
                         </tr>
                         @endforeach

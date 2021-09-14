@@ -14,26 +14,37 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-{{$user->first_name}}
-                                </div>
+                                   {!! Form::label('first_name', trans("User.first_name"), array('class'=>'control-label required')) !!}
+                                  {!!  Form::text('first_name', old('first_name'),
+                                            array(
+                                            'class'=>'form-control'
+                                            ))  !!}                                
+                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-{{$user->last_name}}
+                                   {!! Form::label('last_name', trans("User.last_name"), array('class'=>'control-label required')) !!}
+                                {!!  Form::text('last_name', old('last_name'),
+                                            array(
+                                            'class'=>'form-control'
+                                            ))  !!}
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-{{$user->email}}
-{{$user->role}}
+                                    {{$user->role}}
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-
+                                   {!! Form::label('email', trans("User.email"), array('class'=>'control-label required')) !!}
+                                   {!!  Form::text('email', old('email'),
+                                            array(
+                                            'class'=>'form-control '
+                                            ))  !!}                                
                                 </div>
                             </div>
                         </div>
@@ -41,7 +52,8 @@
                 </div>
             </div> <!-- /end modal body-->
             <div class="modal-footer">
-
+              {!! Form::button(trans("basic.cancel"), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
+                   {!! Form::submit(trans("basic.save_details"), ['class' => 'btn btn-success pull-right']) !!}
             </div>
         </div><!-- /end modal content-->
 
