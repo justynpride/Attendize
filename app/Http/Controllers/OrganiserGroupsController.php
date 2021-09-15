@@ -39,14 +39,25 @@ class OrganiserGroupsController extends Controller
      */
     public function postCreateGroup(Request $request, $organiser_id)
     {
-       Group::create([
-            'name' => $request->name,
-            'town' => $request->town,
-            'email' => $request->email,
-            'organiser_id' => $organiser_id
-        ]);
+        $group = Group::create();
 
-        return redirect()->route('showOrganiserGroups');
+        $group->organiser_id = $organiser_id;
+        $group->name = $request->get('name');
+        $group->town = $request->get('town');
+        $group->email = $request->get('email');
+
+        $group->save();
+
+        session()->flash('message', 'Successfully Created Group');
+
+        return response()->json([
+            'status'      => 'success',
+            'id'          => $group->id,
+            'message'     => trans("Controllers.refreshing"),
+            'redirectUrl' => route('showOrganiserGroups', [
+                'organiser_id' => $organiser_id,
+            ]),
+        ]);
     }
 
     /**
