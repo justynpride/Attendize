@@ -18,7 +18,7 @@
             <li class="{{ Request::is('*groups*') ? 'active' : '' }}">
                 <a href="{{route('showOrganiserGroups', array('organiser_id' => $organiser->id))}}">
                     <span class="figure"><i class="ico-users"></i></span>
-                    <span class="text">@lang("Organiser.groups")</span>
+                    <span class="text">@lang("Group.groups")</span>
                 </a>
             </li>
             <li class="{{ Request::is('*customize*') ? 'active' : '' }}">

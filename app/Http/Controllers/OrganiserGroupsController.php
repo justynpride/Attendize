@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Organiser;
 use Illuminate\Http\Request;
+use Auth;
 
 class OrganiserGroupsController extends Controller
 {
@@ -23,9 +24,15 @@ class OrganiserGroupsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showCreateGroup(Request $request)
     {
-        //
+        $data = [
+            'modal_id'     => $request->get('modal_id'),
+            'organisers'   => Organiser::scope()->pluck('name', 'id'),
+            'organiser_id' => $request->get('organiser_id') ? $request->get('organiser_id') : false,
+        ];
+
+        return view('ManageOrganiser.Modals.CreateGroup', $data);
     }
 
     /**
@@ -36,7 +43,14 @@ class OrganiserGroupsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       Group::create([
+            'name' => $request->name,
+            'town' => $request->town,
+            'country_id' => $request->country_id,
+            'email' => $request->email
+        ]);
+
+        return redirect()->route('ManageOrganiser.Groups');
     }
 
     /**
@@ -47,7 +61,9 @@ class OrganiserGroupsController extends Controller
      */
     public function showOrganiserGroups(Request $request, $organiser_id)
     {
-        $organiser = Organiser::scope()->findOrfail($organiser_id);
+        $user = Auth::user();
+
+        $organiser = Organiser::findOrFail($organiser_id);
         $groups = Group::all();
 
         

@@ -272,7 +272,15 @@ Route::group(
             Route::get('{organiser_id}/groups',
                 [OrganiserGroupsController::class, 'showOrganiserGroups']
             )->name('showOrganiserGroups');
-            
+
+            Route::get('{organiser_id}/groups/create',
+                [OrganiserGroupsController::class, 'showCreateGroup']
+            )->name('showCreateGroup');
+
+            Route::post('{organiser_id}/groups/create',
+                [OrganiserGroupsController::class, 'postCreateGroup']
+            )->name('postCreateGroup');
+                                    
             Route::get('create',
                 [OrganiserController::class, 'showCreateOrganiser']
             )->name('showCreateOrganiser');
