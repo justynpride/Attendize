@@ -91,6 +91,16 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
         return $this->hasManyThrough(\App\Models\Order::class, \App\Models\Event::class);
     }
 
+   /**
+     * The groups associated with the organiser
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function groups()
+    {
+        return $this->hasMany(\App\Models\Group::class);
+    }
+
     /**
      * Get the full logo path of the organizer.
      *

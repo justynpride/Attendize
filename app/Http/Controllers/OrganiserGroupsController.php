@@ -24,15 +24,11 @@ class OrganiserGroupsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showCreateGroup(Request $request)
+    public function showCreateGroup(Request $request, $organiser_id)
     {
-        $data = [
-            'modal_id'     => $request->get('modal_id'),
-            'organisers'   => Organiser::scope()->pluck('name', 'id'),
-            'organiser_id' => $request->get('organiser_id') ? $request->get('organiser_id') : false,
-        ];
-
-        return view('ManageOrganiser.Modals.CreateGroup', $data);
+            return view('ManageOrganiser.Modals.CreateGroup', [
+            'organiser' => Organiser::scope()->find($organiser_id),
+        ]);
     }
 
     /**
@@ -41,16 +37,16 @@ class OrganiserGroupsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postCreateGroup(Request $request, $organiser_id)
     {
        Group::create([
             'name' => $request->name,
             'town' => $request->town,
-            'country_id' => $request->country_id,
-            'email' => $request->email
+            'email' => $request->email,
+            'organiser_id' => $organiser_id
         ]);
 
-        return redirect()->route('ManageOrganiser.Groups');
+        return redirect()->route('showOrganiserGroups');
     }
 
     /**
@@ -64,8 +60,8 @@ class OrganiserGroupsController extends Controller
         $user = Auth::user();
 
         $organiser = Organiser::findOrFail($organiser_id);
-        $groups = Group::all();
-
+        $groups = $organiser->groups()
+            ->where('organiser_id', $organiser->id);
         
         $data = [
             'groups'    => $groups,
