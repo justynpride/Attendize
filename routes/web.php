@@ -296,6 +296,23 @@ Route::group(
             Route::post('{organiser_id}/groups/import',
                 [OrganiserGroupsController::class, 'postImportGroups']
             )->name('postImportGroups');
+
+            Route::get('{organiser_id}/groups/message',
+                [OrganiserGroupsController::class, 'showMessageGroups']
+            )->name('showMessageGroups');
+
+            Route::post('{organiser_id}/groups/message',
+                [OrganiserGroupsController::class, 'postMessageGroups']
+            )->name('postMessageGroups');
+
+            Route::get('{organiser_id}/groups/single_message',
+                [OrganiserGroupsController::class, 'showMessageGroup']
+            )->name('showMessageGroup');
+
+            Route::post('{organiser_id}/groups/single_message',
+                [OrganiserGroupsController::class, 'postMessageGroup']
+            )->name('postMessageAttendee');
+
                                                             
             Route::get('create',
                 [OrganiserController::class, 'showCreateOrganiser']

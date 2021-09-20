@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Organiser;
+use App\Jobs\SendMessageToAttendeesJob;
+use App\Models\Message;
 use App\Exports\GroupsExport;
 use App\Imports\GroupsImport;
 use Illuminate\Http\Request;
 use Auth;
+use Mail;
 
 class OrganiserGroupsController extends Controller
 {
@@ -195,5 +198,130 @@ class OrganiserGroupsController extends Controller
             ]),
         ]);
     }
-        
+
+    public function showMessageGroup(Request $request, $group_id)
+    {
+        $group = Group::scope()->findOrFail($group_id);
+
+        $data = [
+            'group' => $group,
+            'organiser'    => $group->organiser,
+        ];
+
+        return view('ManageOrganiser.Modals.MessageGroup', $data);
+    }
+
+    /**
+     * Send a message to an attendee
+     *
+     * @param Request $request
+     * @param $group_id
+     * @return mixed
+     */
+    public function postMessageGroup(Request $request, $group_id)
+    {
+        $rules = [
+            'subject' => 'required',
+            'message' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'   => 'error',
+                'messages' => $validator->messages()->toArray(),
+            ]);
+        }
+
+        $group = Group::scope()->findOrFail($group_id);
+
+        $data = [
+            'group'        => $group,
+            'message_content' => $request->get('message'),
+            'subject'         => $request->get('subject'),
+            'organiser'           => $group->organiser
+        ];
+
+        //@todo move this to the SendAttendeeMessage Job
+        Mail::send(Lang::locale().'.Emails.messageReceived', $data, function ($message) use ($group, $data) {
+            $message->to($group->email, $group->name)
+                ->from(config('attendize.outgoing_email_noreply'), $group->organiser->name)
+                ->replyTo($group->organiser->email, $group->organiser->name)
+                ->subject($data['subject']);
+        });
+
+        /* Could bcc in the above? */
+        if ($request->get('send_copy') == '1') {
+            Mail::send(Lang::locale().'.Emails.messageReceived', $data, function ($message) use ($group, $data) {
+                $message->to($group->organiser->email, $group->organiser->name)
+                    ->from(config('attendize.outgoing_email_noreply'), $group->organiser->name)
+                    ->replyTo($group->organiser->email, $group->organiser->name)
+                    ->subject($data['subject'] . trans("Email.organiser_copy"));
+            });
+        }
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => trans("Controllers.message_successfully_sent"),
+        ]);
+    }
+
+    /**
+     * Shows the 'Message Groups' modal
+     *
+     * @param $event_id
+     * @return View
+     */
+    public function showMessageGroups(Request $request, $organiser_id)
+    {
+        $data = [
+            'organiser'   => Organiser::scope()->find($organiser_id),
+        ];
+
+        return view('ManageOrganiser.Modals.MessageGroups', $data);
+    }
+
+    /**
+     * Send a message to groups
+     *
+     * @param Request $request
+     * @param $organiser_id
+     * @return mixed
+     */
+    public function postMessageAttendees(Request $request, $organiser_id)
+    {
+        $rules = [
+            'subject'    => 'required',
+            'message'    => 'required',
+            'recipients' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'   => 'error',
+                'messages' => $validator->messages()->toArray(),
+            ]);
+        }
+
+        $message = Message::createNew();
+        $message->message = $request->get('message');
+        $message->subject = $request->get('subject');
+        $message->recipients = ($request->get('recipients') == 'all') ? 'all' : $request->get('recipients');
+        $message->organiser_id = $organiser_id;
+        $message->save();
+
+        /*
+         * Queue the emails
+         */
+        SendMessageToGroupsJob::dispatch($message);
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Message Successfully Sent',
+        ]);
+    }
+            
 }

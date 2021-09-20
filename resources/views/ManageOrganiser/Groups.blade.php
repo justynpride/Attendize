@@ -51,7 +51,7 @@
             </ul>
         </div>
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="MessageUsers" href="javascript:void(0);" data-href="" class="loadModal btn btn-success" type="button"><i class="ico-envelope"></i> @lang("Group.message_groups")</button>
+            <button data-modal-id="MessageGroups" href="javascript:void(0);" data-href="{{route('showMessageGroups', ['organiser_id'=>$organiser->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-envelope"></i> @lang("Group.message_groups")</button>
         </div>
     </div>
 </div>
