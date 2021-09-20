@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Organiser;
+use App\Exports\GroupsExport;
+use App\Imports\GroupsImport;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -55,7 +57,7 @@ class OrganiserGroupsController extends Controller
             'id'          => $group->id,
             'message'     => trans("Controllers.refreshing"),
             'redirectUrl' => route('showOrganiserGroups', [
-                'organiser_id' => $organiser_id,
+            'organiser_id' => $organiser_id,
             ]),
         ]);
     }
@@ -68,15 +70,25 @@ class OrganiserGroupsController extends Controller
      */
     public function showOrganiserGroups(Request $request, $organiser_id)
     {
-        $user = Auth::user();
 
         $organiser = Organiser::findOrFail($organiser_id);
-        $groups = $organiser->groups()
-            ->where('organiser_id', $organiser->id);
+        $allowed_sorts = ['created_at', 'name', 'town', 'email'];
+
+        $searchQuery = $request->get('q');
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'town');
+        
+       $groups = $organiser->groups();                 
+       if ($searchQuery) {
+            $groups->where('town', 'like', '%' . $searchQuery . '%');
+        }            
         
         $data = [
             'groups'    => $groups,
             'organiser' => $organiser,
+            'search' => [
+                'q' => $searchQuery ? $searchQuery : '',
+                'sort_by' => $request->get('sort_by') ? $request->get('sort_by') : '',           
+            ],
         ];
 
         return view('ManageOrganiser.Groups', $data);
@@ -116,4 +128,12 @@ class OrganiserGroupsController extends Controller
     {
         //
     }
+    
+    public function showExportGroups($organiser_id, $export_as = 'xls')
+    {
+        $organiser = Organiser::scope()->findOrFail($organiser_id);
+        $date = date('d-m-Y-g.i.a');
+        return (new GroupsExport($organiser->id))->download("groups-as-of-{$date}.{$export_as}");
+    }
+    
 }

@@ -44,10 +44,10 @@
                 <i class="ico-users"></i> @lang("Group.export") <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="">@lang("File_format.Excel_xlsx")</a></li>
-                <li><a href="">@lang("File_format.Excel_xls")</a></li>
-                <li><a href="">@lang("File_format.csv")</a></li>
-                <li><a href="">@lang("File_format.html")</a></li>
+                <li><a href="{{route('showExportGroups', ['organiser_id'=>$organiser->id,'export_as'=>'xlsx'])}}">@lang("File_format.Excel_xlsx")</a></li>
+                <li><a href="{{route('showExportGroups', ['organiser_id'=>$organiser->id,'export_as'=>'xlsx'])}}">@lang("File_format.Excel_xls")</a></li>
+                <li><a href="{{route('showExportGroups', ['organiser_id'=>$organiser->id,'export_as'=>'xlsx'])}}">@lang("File_format.csv")</a></li>
+                <li><a href="{{route('showExportGroups', ['organiser_id'=>$organiser->id,'export_as'=>'xlsx'])}}">@lang("File_format.html")</a></li>
             </ul>
         </div>
         <div class="btn-group btn-group-responsive">
@@ -56,12 +56,14 @@
     </div>
 </div>
 <div class="col-md-3">
+   {!! Form::open(array('url' => route('showOrganiserGroups', ['organiser_id'=>$organiser->id]), 'method' => 'get')) !!}
     <div class="input-group">
         <input name="q" value="" placeholder="@lang("Group.search_groups")" type="text" class="form-control" />
         <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><i class="ico-search"></i></button>
         </span>
     </div>
+   {!! Form::close() !!} 
 </div>
 @stop
 

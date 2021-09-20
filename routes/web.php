@@ -280,7 +280,11 @@ Route::group(
             Route::post('{organiser_id}/groups/create',
                 [OrganiserGroupsController::class, 'postCreateGroup']
             )->name('postCreateGroup');
-                                    
+
+            Route::get('{organiser_id}/groups/export/{export_as?}',
+                [OrganiserGroupsController::class, 'showExportGroups']
+            )->name('showExportGroups');
+                                                
             Route::get('create',
                 [OrganiserController::class, 'showCreateOrganiser']
             )->name('showCreateOrganiser');
@@ -292,6 +296,7 @@ Route::group(
             Route::post('{organiser_id}/page_design',
                 [OrganiserCustomizeController::class, 'postEditOrganiserPageDesign']
             )->name('postEditOrganiserPageDesign');
+             
         });
 
         /*
