@@ -33,7 +33,7 @@
         </div>
         
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="ImportGroups" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> @lang("Group.import_groups")</button>
+            <button data-modal-id="ImportGroups" href="javascript:void(0);"  data-href="{{route('showImportGroups', ['organiser_id'=>$organiser->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> @lang("Group.import_groups")</button>
         </div>
         
         <div class="btn-group btn-group-responsive">

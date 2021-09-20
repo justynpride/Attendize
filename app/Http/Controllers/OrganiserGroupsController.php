@@ -148,5 +148,52 @@ class OrganiserGroupsController extends Controller
         $data['groups'] = $data['organiser']->groups()->orderBy('name')->get();
 
         return view('ManageOrganiser.PrintGroups', $data);
-    }    
+    }
+
+    /**
+     * Show the 'Import Group' modal
+     *
+     * @param Request $request
+     * @param $organiser_id
+     * @return string|View
+     */
+    public function showImportGroups(Request $request, $organiser_id)
+    {
+        $organiser = Organiser::scope()->find($organiser_id);
+
+        return view('ManageOrganiser.Modals.ImportGroups', [
+            'organiser'   => $organiser,
+        ]);
+    }
+
+
+    /**
+     * Import groups
+     *
+     * @param Request $request
+     * @param $organiser_id
+     * @return mixed
+     */
+    public function postImportGroups(Request $request, $organiser_id)
+    {
+        $rules = [
+            'groups_list' => 'required|mimes:csv,txt|max:5000|',
+        ];
+
+
+        $organiser = Organiser::findOrFail($organiser_id);
+        if ($request->file('groups_list')) {
+            (new GroupsImport($organiser))->import(request()->file('groups_list'));
+        }
+
+        session()->flash('message', 'Groups Successfully Imported');
+
+        return response()->json([
+            'status'      => 'success',
+            'redirectUrl' => route('showOrganiserGroups', [
+                'organiser_id' => $organiser_id,
+            ]),
+        ]);
+    }
+        
 }

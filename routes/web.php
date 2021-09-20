@@ -288,6 +288,14 @@ Route::group(
             Route::get('{organiser_id}/groups/print',
                 [OrganiserGroupsController::class, 'showPrintGroups']
             )->name('showPrintGroups');
+
+            Route::get('{organiser_id}/groups/import',
+                [OrganiserGroupsController::class, 'showImportGroups']
+            )->name('showImportGroups');
+
+            Route::post('{organiser_id}/groups/import',
+                [OrganiserGroupsController::class, 'postImportGroups']
+            )->name('postImportGroups');
                                                             
             Route::get('create',
                 [OrganiserController::class, 'showCreateOrganiser']
