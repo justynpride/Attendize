@@ -12,5 +12,7 @@ return array (
   'print_group_list' => 'Print List',
   'search_groups' => 'Search Groups',  
   'town' => 'Town',
+  'no_groups_yet' => 'No Groups yet',
+  'no_groups_yet_text' => 'Groups will appear here once you have successfully add them to the system.',
 
 );

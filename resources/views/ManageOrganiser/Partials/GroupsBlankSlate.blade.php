@@ -6,17 +6,17 @@
 @stop
 
 @section('blankslate-title')
-    @lang("ManageEvent.no_attendees_yet")
+    @lang("Group.no_groups_yet")
 @stop
 
 @section('blankslate-text')
-    @lang("ManageEvent.no_attendees_yet_text")
+    @lang("Group.no_groups_yet_text")
 @stop
 
 @section('blankslate-body')
-<button data-invoke="modal" data-modal-id='InviteAttendee' data-href="" href='javascript:void(0);'  class=' btn btn-success mt5 btn-lg' type="button" >
+<button data-invoke="modal" data-modal-id='CreateGroup' data-href="{{route('showCreateGroup', ['organiser_id'=>$organiser->id])}}" href='javascript:void(0);'  class=' btn btn-success mt5 btn-lg' type="button" >
     <i class="ico-user-plus"></i>
-    @lang("ManageEvent.invite_attendee")
+    @lang("Group.create_group")
 </button>
 @stop
 

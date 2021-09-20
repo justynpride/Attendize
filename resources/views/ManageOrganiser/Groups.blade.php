@@ -37,7 +37,7 @@
         </div>
         
         <div class="btn-group btn-group-responsive">
-            <a class="btn btn-success" href="" target="_blank" ><i class="ico-print"></i> @lang("Group.print_group_list")</a>
+            <a class="btn btn-success" href="{{route('showPrintGroups', ['organiser_id'=>$organiser->id])}}" target="_blank" ><i class="ico-print"></i> @lang("Group.print_group_list")</a>
         </div>
         <div class="btn-group btn-group-responsive">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">

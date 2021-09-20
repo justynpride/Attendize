@@ -135,5 +135,18 @@ class OrganiserGroupsController extends Controller
         $date = date('d-m-Y-g.i.a');
         return (new GroupsExport($organiser->id))->download("groups-as-of-{$date}.{$export_as}");
     }
-    
+
+    /**
+     * Show the printable group list
+     *
+     * @param $event_id
+     * @return View
+     */
+    public function showPrintGroups($organiser_id)
+    {
+        $data['organiser'] = Organiser::scope()->find($organiser_id);
+        $data['groups'] = $data['organiser']->groups()->orderBy('name')->get();
+
+        return view('ManageOrganiser.PrintGroups', $data);
+    }    
 }

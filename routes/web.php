@@ -284,7 +284,11 @@ Route::group(
             Route::get('{organiser_id}/groups/export/{export_as?}',
                 [OrganiserGroupsController::class, 'showExportGroups']
             )->name('showExportGroups');
-                                                
+
+            Route::get('{organiser_id}/groups/print',
+                [OrganiserGroupsController::class, 'showPrintGroups']
+            )->name('showPrintGroups');
+                                                            
             Route::get('create',
                 [OrganiserController::class, 'showCreateOrganiser']
             )->name('showCreateOrganiser');
