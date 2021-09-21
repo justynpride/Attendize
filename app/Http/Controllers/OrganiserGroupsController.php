@@ -75,23 +75,12 @@ class OrganiserGroupsController extends Controller
     {
 
         $organiser = Organiser::findOrFail($organiser_id);
-        $allowed_sorts = ['created_at', 'name', 'town', 'email'];
-
-        $searchQuery = $request->get('q');
-        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'town');
         
        $groups = $organiser->groups();                 
-       if ($searchQuery) {
-            $groups->where('town', 'like', '%' . $searchQuery . '%');
-        }            
-        
+
         $data = [
             'groups'    => $groups,
             'organiser' => $organiser,
-            'search' => [
-                'q' => $searchQuery ? $searchQuery : '',
-                'sort_by' => $request->get('sort_by') ? $request->get('sort_by') : '',           
-            ],
         ];
 
         return view('ManageOrganiser.Groups', $data);
