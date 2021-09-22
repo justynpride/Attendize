@@ -44,15 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('country_id', trans("ManageOrganiser.country"), array('class'=>'control-label required')) !!}
-                                {!! Form::select('country_id', $countries, $group->country_id, ['class' => 'form-control']) !!}
-                            </div>
-                        </div>
-                    </div>
- 
+   
                 </div>
                 <div class="modal-footer">
                    {!! Form::button(trans("basic.cancel"), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
