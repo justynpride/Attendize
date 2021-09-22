@@ -20,8 +20,8 @@ class CreateGroupsTable extends Migration
             $table->string('town', 255)->default('');
             $table->bigInteger('country_id')->nullable();
 //            $table->foreign('country_id')->references('id')->on('countries');
-            $table->string('email');
-            $table->bigInteger('organiser_id');
+            $table->string('email')->default('');
+            $table->bigInteger('organiser_id')->nullable();
         });
     }
 
