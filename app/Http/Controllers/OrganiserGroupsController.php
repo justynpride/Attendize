@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Organiser;
+use App\Models\Country;
 use App\Jobs\SendMessageToAttendeesJob;
 use App\Models\Message;
 use App\Exports\GroupsExport;
@@ -50,6 +51,7 @@ class OrganiserGroupsController extends Controller
         $group->name = $request->get('name');
         $group->town = $request->get('town');
         $group->email = $request->get('email');
+        $group->country = $request->get('country');
 
         $group->save();
 
