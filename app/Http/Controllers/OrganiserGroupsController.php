@@ -74,9 +74,9 @@ class OrganiserGroupsController extends Controller
     public function showOrganiserGroups(Request $request, $organiser_id)
     {
 
-        $organiser = Organiser::findOrFail($organiser_id);
+       $organiser = Organiser::findOrFail($organiser_id);
         
-       $groups = $organiser->groups();                 
+       $groups = Group::findOrFail($organiser);                 
 
         $data = [
             'groups'    => $groups,

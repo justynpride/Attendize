@@ -18,10 +18,12 @@ class CreateGroupsTable extends Migration
             $table->timestamps();
             $table->string('name', 255)->default('');
             $table->string('town', 255)->default('');
-            $table->bigInteger('country_id')->nullable();
             $table->string('email')->default('');
-            $table->bigInteger('organiser_id')->nullable();
-            $table->bigInteger('account_id')->nullable();         
+            $table->unsignedInteger('account_id')->index()->nullable();
+            $table->unsignedInteger('organiser_id')->index()->nullable();                      
+            $table->unsignedInteger('country_id')->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('organiser_id')->references('id')->on('organisers')->onDelete('cascade');
         });
     }
 
