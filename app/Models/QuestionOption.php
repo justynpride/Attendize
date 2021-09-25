@@ -37,9 +37,9 @@ class QuestionOption extends MyBaseModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function anwsers()
+    public function answers()
     {
-        return $this->hasMany(\App\Models\AnwserOption::class);
+        return $this->hasMany(\App\Models\AnswerOption::class);
     }
 
     public function showWithNameAndPrice($currency)

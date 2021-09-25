@@ -17,10 +17,10 @@ class AddAnswerOptions extends Migration
             $table->increments('id');
             $table->unsignedInteger('question_answer_id')->index();
             $table->unsignedInteger('question_option_id')->index();
-            $table->unsignedInteger('option_id')->index();
             $table->decimal('price', 13, 2)->default(0.00);
             $table->foreign('question_answer_id')->references('id')->on('question_answers');
             $table->foreign('question_option_id')->references('id')->on('question_options');
+            $table->timestamps();
         });
     }
 
