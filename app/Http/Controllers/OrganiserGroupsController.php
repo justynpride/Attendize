@@ -32,7 +32,7 @@ class OrganiserGroupsController extends Controller
     public function showCreateGroup(Request $request, $organiser_id)
     {
             return view('ManageOrganiser.Modals.CreateGroup', [
-            'organiser' => Organiser::scope()->find($organiser_id),
+            'organiser' => Organiser::scope()->find($organiser_id, ),
         ]);
     }
 
@@ -45,8 +45,10 @@ class OrganiserGroupsController extends Controller
     public function postCreateGroup(Request $request, $organiser_id)
     {
         $group = Group::create();
+        $organiser = Organiser::findOrFail($organiser_id);
 
         $group->organiser_id = $organiser_id;
+        $group->account_id = $organiser->account_id;
         $group->name = $request->get('name');
         $group->town = $request->get('town');
         $group->email = $request->get('email');
@@ -73,16 +75,14 @@ class OrganiserGroupsController extends Controller
      */
     public function showOrganiserGroups(Request $request, $organiser_id)
     {
+        $organiser = Organiser::scope()->findOrfail($organiser_id);
 
-       $organiser = Organiser::findOrFail($organiser_id);
+        $groups = Group::all();
         
-       $groups = Group::findOrFail($organiser);                 
-
         $data = [
             'groups'    => $groups,
             'organiser' => $organiser,
         ];
-
         return view('ManageOrganiser.Groups', $data);
 
     }
@@ -93,9 +93,16 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showEditGroup(Request $request, $id)
     {
-        //
+        $group = Group::findOrFail($id);   
+
+        $data = [
+            'user' => Auth::user(),
+            'group' => $group,
+        ];
+
+        return view('ManageOrganiser.Modals.EditGroup', $data);
     }
 
     /**
@@ -105,10 +112,19 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function postEditGroup(Request $request, $id)
     {
-        //
-    }
+        $group = Group::findOrFail($id);
+        $group->update($request->all());
+
+        session()->flash('message',trans("Controllers.successfully_updated_attendee"));
+
+        return response()->json([
+            'status'      => 'success',
+            'id'          => $group->id,
+            'redirectUrl' => '',
+        ]);
+     }
 
     /**
      * Remove the specified resource from storage.

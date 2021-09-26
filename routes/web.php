@@ -281,6 +281,14 @@ Route::group(
                 [OrganiserGroupsController::class, 'postCreateGroup']
             )->name('postCreateGroup');
 
+            Route::get('{organiser_id}/groups/edit',
+                [OrganiserGroupsController::class, 'showEditGroup']
+            )->name('showEditGroup');
+
+            Route::post('{organiser_id}/groups/edit',
+                [OrganiserGroupsController::class, 'postEditGroup']
+            )->name('postEditGroup');
+
             Route::get('{organiser_id}/groups/export/{export_as?}',
                 [OrganiserGroupsController::class, 'showExportGroups']
             )->name('showExportGroups');
