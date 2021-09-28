@@ -5,6 +5,7 @@ return array (
   'country' => 'Country',
   'email' => 'Email',
   'export' => 'Export',
+  'group_list' => 'Groups',  
   'groups' => 'Groups',    
   'import_groups' => 'Import',
   'message_groups' => 'Message Groups',    
