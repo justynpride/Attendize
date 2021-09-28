@@ -305,6 +305,14 @@ Route::group(
                 [OrganiserCustomizeController::class, 'postEditOrganiserPageDesign']
             )->name('postEditOrganiserPageDesign');
 
+            Route::get('{organiser_id}/users/create',
+                [OrganiserUsersController::class, 'showCreateUser']
+            )->name('showCreateUser');
+ 
+             Route::get('{organiser_id}/users/create',
+                [OrganiserUsersController::class, 'postCreateUser']
+            )->name('postCreateUser');
+                       
             Route::get('{organiser_id}/users/{id}/edit',
                 [OrganiserUsersController::class, 'showEditOrganiserUser']
             )->name('showEditOrganiserUser');
@@ -321,11 +329,11 @@ Route::group(
                 [OrganiserUsersController::class, 'postMessageUsers']
             )->name('postMessageUsers');
 
-            Route::get('{organiser_id}/users/single_message',
+            Route::get('{organiser_id}/users/{id}/single_message',
                 [OrganiserUsersController::class, 'showMessageUser']
             )->name('showMessageUser');
 
-            Route::post('{organiser_id}/users/single_message',
+            Route::post('{organiser_id}/users/{id}/single_message',
                 [OrganiserUsersController::class, 'postMessageUser']
             )->name('postMessageUser');            
 
@@ -340,6 +348,23 @@ Route::group(
             Route::post('{organiser_id}/users/sent_invite',
                 [OrganiserUsersController::class, 'organiserSendInvitationMessage']
             )->name('organiserSendInvitationMessage');
+            
+            Route::get('{organiser_id}/users/export/{export_as?}',
+                [OrganiserUsersController::class, 'showExportUsers']
+            )->name('showExportUsers');
+
+            Route::get('{organiser_id}/users/print',
+                [OrganiserUsersController::class, 'showPrintUsers']
+            )->name('showPrintUsers');
+            
+            Route::get('{organiser_id}/users/import',
+                [OrganiserUsersController::class, 'showImportUsers']
+            )->name('showImportUsers');
+
+            Route::post('{organiser_id}/groups/import',
+                [OrganiserUsersController::class, 'postImportUsers']
+            )->name('postImportUsers');           
+            
         });
 
         /*

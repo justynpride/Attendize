@@ -28,29 +28,29 @@
 <div class="col-md-9">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="InviteUser" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> @lang("Organiser.invite_user")</button>
+            <button data-modal-id="CreateUser" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> @lang("User.create_user")</button>
         </div>
         
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="ImportUsers" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> @lang("Organiser.invite_users")</button>
+            <button data-modal-id="ImportUsers" href="javascript:void(0);"  data-href="{{route('showImportUsers', ['organiser_id'=>$organiser->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-file"></i> @lang("User.import_users")</button>
         </div>
         
         <div class="btn-group btn-group-responsive">
-            <a class="btn btn-success" href="" target="_blank" ><i class="ico-print"></i> @lang("Organiser.print_user_list")</a>
+            <a class="btn btn-success" href="{{route('showPrintUsers', ['organiser_id'=>$organiser->id])}}" target="_blank" ><i class="ico-print"></i> @lang("Organiser.print_user_list")</a>
         </div>
         <div class="btn-group btn-group-responsive">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                 <i class="ico-users"></i> @lang("Organiser.export") <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="">@lang("File_format.Excel_xlsx")</a></li>
-                <li><a href="">@lang("File_format.Excel_xls")</a></li>
-                <li><a href="">@lang("File_format.csv")</a></li>
-                <li><a href="">@lang("File_format.html")</a></li>
+                <li><a href="{{route('showExportUsers', ['organiser_id'=>$organiser->id,'export_as'=>'xlsx'])}}">@lang("File_format.Excel_xlsx")</a></li>
+                <li><a href="{{route('showExportUsers', ['organiser_id'=>$organiser->id,'export_as'=>'xls'])}}">@lang("File_format.Excel_xls")</a></li>
+                <li><a href="{{route('showExportUsers', ['organiser_id'=>$organiser->id,'export_as'=>'csv'])}}">@lang("File_format.csv")</a></li>
+                <li><a href="{{route('showExportUsers', ['organiser_id'=>$organiser->id,'export_as'=>'html'])}}">@lang("File_format.html")</a></li>
             </ul>
         </div>
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="MessageUsers" href="javascript:void(0);" data-href="" class="loadModal btn btn-success" type="button"><i class="ico-envelope"></i> @lang("Organiser.message_users")</button>
+            <button data-modal-id="MessageUsers" href="javascript:void(0);" data-href="{{route('showMessageUsers', ['organiser_id'=>$organiser->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-envelope"></i> @lang("Organiser.message_users")</button>
         </div>
     </div>
 </div>
@@ -99,7 +99,7 @@
                             </td>
                             <td>
                                 <a data-modal-id="MessageUser" href="javascript:void(0);" class="loadModal"
-                                    data-href=""
+                                    data-href="{{route('showMessageUser', ['organiser_id'=>$organiser->id, 'id' => $user->id])}}"
                                     > {{$user->email}}</a>
                             </td>
                             <td>
@@ -113,7 +113,7 @@
                                         <li><a
                                             data-modal-id="MessageAttendee"
                                             href="javascript:void(0);"
-                                            data-href="{{route('showMessageUser', ['organiser_id'=>$organiser->id, 'id' => $user->id])}}"
+                                            data-href="{{route('showMessageUser', ['organiser_id'=>$organiser->id, $user->id])}}"
                                             class="loadModal"
                                             > @lang("basic.message")</a></li>
                                         @endif
