@@ -28,7 +28,7 @@
 <div class="col-md-9">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group btn-group-responsive">
-            <button data-modal-id="CreateUser" href="javascript:void(0);"  data-href="" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> @lang("User.create_user")</button>
+            <button data-modal-id="OrganiserCreateUser" href="javascript:void(0);"  data-href="{{route('showImportUsers', ['organiser_id'=>$organiser->id])}}" class="loadModal btn btn-success" type="button"><i class="ico-user-plus"></i> @lang("User.create_user")</button>
         </div>
         
         <div class="btn-group btn-group-responsive">
