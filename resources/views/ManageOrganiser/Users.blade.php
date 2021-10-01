@@ -56,7 +56,7 @@
 </div>
 <div class="col-md-3">
     <div class="input-group">
-        <input name="q" value="" placeholder="@lang("Organiser.search_users")" type="text" class="form-control" />
+        <input name="q" value="" placeholder="@lang("User.search_users")" type="text" class="form-control" />
         <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><i class="ico-search"></i></button>
         </span>
