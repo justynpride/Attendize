@@ -59,7 +59,6 @@
  
                 </div>
                 <div class="modal-footer">
-                   {!! Form::hidden($group->id) !!}
                    {!! Form::button(trans("basic.cancel"), ['class'=>"btn modal-close btn-danger",'data-dismiss'=>'modal']) !!}
                    {!! Form::submit(trans("basic.save_details"), ['class' => 'btn btn-success pull-right']) !!}
                 </div>

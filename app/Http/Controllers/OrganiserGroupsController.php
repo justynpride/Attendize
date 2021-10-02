@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Organiser;
-use App\Jobs\SendMessageToAttendeesJob;
+use App\Jobs\SendMessageToGroupsJob;
 use App\Models\Message;
 use App\Exports\GroupsExport;
 use App\Imports\GroupsImport;
@@ -75,13 +75,30 @@ class OrganiserGroupsController extends Controller
      */
     public function showOrganiserGroups(Request $request, $organiser_id)
     {
-        $organiser = Organiser::scope()->findOrfail($organiser_id);
-
-        $groups = Group::all();
+        $user = Auth::user();
         
+        $organiser = Organiser::findOrFail($organiser_id);
+        $allowed_sorts = ['created_at', 'name', 'town', 'email'];
+
+        $searchQuery = $request->get('q');
+        $sort_by = (in_array($request->get('sort_by'), $allowed_sorts) ? $request->get('sort_by') : 'town');
+
+        // If user can manage groups, then they can see all groups, otherwise just their own
+        $groups = $organiser->groups()
+            ->where('organiser_id', $organiser->id)
+            ->orderBy($sort_by, 'desc');
+            
+       if ($searchQuery) {
+            $groups->where('town', 'like', '%' . $searchQuery . '%');
+        }
+
         $data = [
-            'groups'    => $groups,
+            'groups' => $groups->paginate(12),
             'organiser' => $organiser,
+            'search' => [
+                'q' => $searchQuery ? $searchQuery : '',
+                'sort_by' => $request->get('sort_by') ? $request->get('sort_by') : '',
+            ],
         ];
         return view('ManageOrganiser.Groups', $data);
 
@@ -93,16 +110,11 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showEditGroup(Request $request, $id)
+    public function showEditGroup(Request $request, $organiser_id, $id)
     {
-        $group = Group::findOrFail($id);   
-
-        $data = [
-            'user' => Auth::user(),
-            'group' => $group,
-        ];
-
-        return view('ManageOrganiser.Modals.EditGroup', $data);
+        $group = Group::find($id);
+        
+        return view('ManageOrganiser.Modals.EditGroup', compact( 'group' ));
     }
 
     /**
@@ -112,19 +124,19 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postEditGroup(Request $request, $id)
+    public function postEditGroup(Request $request, $id, $organiser_id)
     {
-        $group = Group::findOrFail($id);
-        $group->update($request->all());
+       $group = Group::find($id);
+        
+        $group->name       = $request->input('name');
+        $group->town       = $request->input('town');        
+        $group->email        = $request->input('email');
+        $group->country        = $request->input('country');
+        $group->save();
+        $request->session()->flash('message', 'Successfully updated Group');
 
-        session()->flash('message',trans("Controllers.successfully_updated_attendee"));
-
-        return response()->json([
-            'status'      => 'success',
-            'id'          => $group->id,
-            'redirectUrl' => '',
-        ]);
-     }
+        return redirect()->route('ManageOrganiser.Groups');        
+   }
 
     /**
      * Remove the specified resource from storage.
