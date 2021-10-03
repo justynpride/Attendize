@@ -84,6 +84,9 @@
                                {!! Html::sortable_link(trans("Attendee.email"), $sort_by, 'email', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th>
+                               {!! Html::sortable_link(trans("Order.group"), $sort_by, 'group', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
+                            </th>                            
+                            <th>
                                {!! Html::sortable_link(trans("Order.amount"), $sort_by, 'amount', $sort_order, ['q' => $q , 'page' => $orders->currentPage()]) !!}
                             </th>
                             <th>
@@ -112,6 +115,9 @@
                                     data-modal-id="MessageOrder"
                                     data-href="{{route('showMessageOrder', ['event_id' => $event->id, 'order_id'=>$order->id])}}"
                                 > {{$order->email}}</a>
+                            </td>
+                            <td>
+                                {{$order->group}}
                             </td>
                             <td>
                                 <span>{{ $order->getOrderAmount()->display() }}</span>

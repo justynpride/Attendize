@@ -111,7 +111,9 @@
                                 @if ($order->business_address_line_one) {{$order->business_address_code}}@endif
                             </div>
                         @endif
-
+                        <div class="col-sm-6 col-xs-6">
+                            <b>@lang("Order.group")</b><br> {{$order->group}}
+                        </div>
                     </div>
                 </div>
 
@@ -203,6 +205,9 @@
                                     </td>
                                     <td>
                                         {{$attendee->email}}
+                                    </td>
+                                    <td>
+                                        {{$attendee->group}}
                                     </td>
                                     <td>
                                         {{{$attendee->ticket->title}}}

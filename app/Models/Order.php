@@ -23,6 +23,7 @@ class Order extends MyBaseModel
         'order_first_name' => ['required'],
         'order_last_name'  => ['required'],
         'order_email' => ['required', 'email'],
+        'order_group'  => ['required'],
     ];
 
     /**
@@ -32,6 +33,7 @@ class Order extends MyBaseModel
         'first_name',
         'last_name',
         'email',
+        'group',        
         'order_status_id',
         'amount',
         'account_id',
@@ -48,6 +50,7 @@ class Order extends MyBaseModel
         'order_first_name.required' => 'Please enter a valid first name',
         'order_last_name.required'  => 'Please enter a valid last name',
         'order_email.email' => 'Please enter a valid email',
+        'order_group.requiresd' => 'Please enter a valid group',        
     ];
 
     protected $casts = [

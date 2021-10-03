@@ -87,6 +87,15 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {!! Form::label("order_group", trans("Public_ViewEvent.group")) !!}
+                            {!! Form::text("order_group", null, ['required' => 'required', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                </div>                
                 <div class="row"><div class="col-md-12">&nbsp;</div></div>
                 <div class="row">
                     <div class="col-md-12">
@@ -191,6 +200,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    {!! Form::label("ticket_holder_group[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.group")) !!}
+                                                    {!! Form::text("ticket_holder_group[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_group.$i.{$ticket['ticket']['id']} ticket_holder_group form-control"]) !!}
+                                                </div>
+                                            </div>
+                                        </div>                                        
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">

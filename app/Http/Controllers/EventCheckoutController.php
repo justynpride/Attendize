@@ -12,6 +12,7 @@ use App\Models\Affiliate;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
+use App\Models\Group;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\PaymentGateway;
@@ -557,6 +558,7 @@ class EventCheckoutController extends Controller
             $order->first_name = sanitise($request_data['order_first_name']);
             $order->last_name = sanitise($request_data['order_last_name']);
             $order->email = sanitise($request_data['order_email']);
+            $order->group = sanitise($request_data['order_group']);
             $order->order_status_id = isset($request_data['pay_offline']) ? config('attendize.order.awaiting_payment') : config('attendize.order.complete');
             $order->amount = $ticket_order['order_total'];
             $order->booking_fee = $ticket_order['booking_fee'];
@@ -655,6 +657,7 @@ class EventCheckoutController extends Controller
                     $attendee->first_name = sanitise($request_data["ticket_holder_first_name"][$i][$attendee_details['ticket']['id']]);
                     $attendee->last_name = sanitise($request_data["ticket_holder_last_name"][$i][$attendee_details['ticket']['id']]);
                     $attendee->email = sanitise($request_data["ticket_holder_email"][$i][$attendee_details['ticket']['id']]);
+                    $attendee->group = sanitise($request_data["ticket_holder_group"][$i][$attendee_details['ticket']['id']]);
                     $attendee->event_id = $event_id;
                     $attendee->order_id = $order->id;
                     $attendee->ticket_id = $attendee_details['ticket']['id'];

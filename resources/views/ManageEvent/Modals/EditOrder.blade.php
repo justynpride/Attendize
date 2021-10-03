@@ -38,6 +38,12 @@
                         <input type="text" name="email" class="form-control" value="{{ $order->email }}">
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="group" class="form-control-label">@lang("Order.group")</label>
+                        <input type="text" name="group" class="form-control" value="{{ $order->group }}">
+                    </div>
+                </div>                
             </div> <!-- /end modal body-->
 
             <div class="modal-footer">

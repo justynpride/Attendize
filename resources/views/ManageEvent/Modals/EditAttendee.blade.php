@@ -52,6 +52,16 @@
                                             ))  !!}
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {!! Form::label('group', trans("Attendee.group"), array('class'=>'control-label required')) !!}
+
+                                    {!!  Form::text('group', old('group'),
+                                            array(
+                                            'class'=>'form-control'
+                                            ))  !!}
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>

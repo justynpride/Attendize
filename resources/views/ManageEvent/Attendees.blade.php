@@ -91,6 +91,9 @@
                             <th>
                                {!!Html::sortable_link(trans("Order.order_ref"), $sort_by, 'order_reference', $sort_order, ['q' => $q , 'page' => $attendees->currentPage()])!!}
                             </th>
+                            <th>
+                               {!!Html::sortable_link(trans("Attendee.group"), $sort_by, 'group', $sort_order, ['q' => $q , 'page' => $attendees->currentPage()])!!}
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -111,6 +114,9 @@
                                     {{$attendee->order->order_reference}}
                                 </a>
                             </td>
+                            <td>
+                                {{{$attendee->group}}}
+                            </td>                            
                             <td class="text-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@lang("basic.action") <span class="caret"></span></button>

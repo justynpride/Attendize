@@ -183,6 +183,7 @@ class EventOrdersController extends MyBaseController
         $order->first_name = $request->get('first_name');
         $order->last_name = $request->get('last_name');
         $order->email = $request->get('email');
+        $order->group = $request->get('group');
 
         $order->update();
 
