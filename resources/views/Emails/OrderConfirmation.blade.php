@@ -20,6 +20,7 @@ Order Reference: <strong>{{$order->order_reference}}</strong><br>
 Order Name: <strong>{{$order->full_name}}</strong><br>
 Order Date: <strong>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</strong><br>
 Order Email: <strong>{{$order->email}}</strong><br>
+Order Group: <strong>{{$order->group}}</strong><br>
 <a href="{!! route('downloadCalendarIcs', ['event_id' => $order->event->id]) !!}">Add To Calendar</a>
 
 @if ($order->is_business)

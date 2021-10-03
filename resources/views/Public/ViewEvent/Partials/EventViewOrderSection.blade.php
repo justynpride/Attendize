@@ -126,6 +126,9 @@
                             @endif
                         </div>
                         @endif
+                        <div class="col-sm-4 col-xs-6">
+                            <b>@lang("Public_ViewEvent.group")</b><br> {{$order->group}}
+                        </div>
                     </div>
                 </div>
 
@@ -297,6 +300,9 @@
                                     {{$attendee->first_name}}
                                     {{$attendee->last_name}}
                                     (<a href="mailto:{{$attendee->email}}">{{$attendee->email}}</a>)
+                                </td>
+                                <td>
+                                    {{{$attendee->group}}}
                                 </td>
                                 <td>
                                     {{{$attendee->ticket->title}}}

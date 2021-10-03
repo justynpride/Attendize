@@ -4884,7 +4884,7 @@ function showMessage(message) {
 function hideMessage() {
     humane.remove();
 }
-
+    
 /**
  * Counts down to the given number of seconds
  *

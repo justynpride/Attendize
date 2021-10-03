@@ -17,6 +17,7 @@
 @lang("Public_ViewEvent.order_name"): <b>{{$order->full_name}}</b><br>
 @lang("Public_ViewEvent.order_date"): <b>{{$order->created_at->format(config('attendize.default_datetime_format'))}}</b><br>
 @lang("Public_ViewEvent.order_email"): <b>{{$order->email}}</b><br>
+@lang("Public_ViewEvent.group"): <b>{{$order->group}}</b><br>
 @if ($order->is_business)
 <h3>@lang("Public_ViewEvent.business_details")</h3>
 @if ($order->business_name) @lang("Public_ViewEvent.business_name"): <strong>{{$order->business_name}}</strong><br>@endif
