@@ -367,6 +367,18 @@ $.extend(
         }
     });
 
+/* Datepicker */
+    $(document).ajaxComplete(function () {
+        $('#DatePicker').remove();
+        var $div = $("<div>", {id: "DatePicker"});
+        $("body").append($div);
+        $div.DateTimePicker({
+            dateTimeFormat: Attendize.DateTimeFormat,
+            dateSeparator: Attendize.DateSeparator
+        });
+
+    });
+    
 /*!
  * Smooth Scroll - v1.4.13 - 2013-11-02
  * https://github.com/kswedberg/jquery-smooth-scroll

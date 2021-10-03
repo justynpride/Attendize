@@ -4884,6 +4884,18 @@ function hideMessage() {
     humane.remove();
 }
 
+/* Datepicker */
+    $(document).ajaxComplete(function () {
+        $('#DatePicker').remove();
+        var $div = $("<div>", {id: "DatePicker"});
+        $("body").append($div);
+        $div.DateTimePicker({
+            dateTimeFormat: Attendize.DateTimeFormat,
+            dateSeparator: Attendize.DateSeparator
+        });
+
+    });
+
 /**
  * Counts down to the given number of seconds
  *
