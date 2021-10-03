@@ -55,6 +55,13 @@ class QuestionTypesSeeder extends Seeder
                 'has_options' => 1,
                 'allow_multiple' => 0,
             ],
+                        [
+                 'id' => 8,
+                 'alias' => 'date',
+                 'name' => 'Date select',
+                 'has_options' => 0,
+                 'allow_multiple' => 0,
+             ],
         ]);
     }
 }

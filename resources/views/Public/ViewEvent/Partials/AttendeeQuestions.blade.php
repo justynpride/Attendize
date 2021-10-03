@@ -33,6 +33,9 @@
                     <label for="{{ $radio_id }}">{{$option->name}}</label>
                 </div>
                 @endforeach
+            @elseif($question->question_type_id == config('attendize.question_date'))
+                {!! Form::text("ticket_holder_questions[{$ticket->id}][{$i}][$question->id]", null, [$question->is_required ? 'required' : '' => $question->is_required ? 'required' : '', 'class' => "ticket_holder_questions.{$ticket->id}.{$i}.{$question->id}   form-control", 'class' => 'form-control start hasDatepicker', 'data-field'=>'datetime', 'data-startend'=>'start', 'data-startendelem'=>'.end',
+                                                ]) !!}
             @endif
 
         </div>
