@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Organiser;
+use App\Models\Country;
 use App\Jobs\SendMessageToGroupsJob;
 use App\Models\Message;
 use App\Exports\GroupsExport;
@@ -31,9 +32,11 @@ class OrganiserGroupsController extends Controller
      */
     public function showCreateGroup(Request $request, $organiser_id)
     {
-            return view('ManageOrganiser.Modals.CreateGroup', [
-            'organiser' => Organiser::scope()->find($organiser_id, ),
-        ]);
+            $organiser = Organiser::scope()->find($organiser_id);
+            $countries = Country::all()->sortby('name')->pluck('name', 'id');
+            $selectedID = 826;
+
+            return view('ManageOrganiser.Modals.CreateGroup', compact('organiser', 'countries', 'selectedID'));
     }
 
     /**
@@ -110,11 +113,13 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showEditGroup(Request $request, $organiser_id, $id)
+    public function showEditGroup(Request $request, $id)
     {
         $group = Group::find($id);
+        $countries = Country::all()->sortby('name')->pluck('name', 'id');
+        $selectedID = 826;
         
-        return view('ManageOrganiser.Modals.EditGroup', compact( 'group' ));
+        return view('ManageOrganiser.Modals.EditGroup', compact( 'group', 'countries', 'selectedID' ));
     }
 
     /**

@@ -34,12 +34,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('country', trans("Group.country"), array('class'=>'control-label required')) !!}
-                                {!!  Form::text('country', old('country'),
-                                            array(
-                                            'class'=>'form-control'
-                                            ))  !!}
-
+                                 {!! Form::label('country', trans("Group.country"), array('class'=>'control-label required')) !!}
+                                 {!! Form::select('country_id', $countries, $selectedID, ['class' => 'form-control']) !!}
                             </div>
                         </div>
                     </div>

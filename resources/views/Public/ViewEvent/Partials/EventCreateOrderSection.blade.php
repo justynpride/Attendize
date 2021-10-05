@@ -92,7 +92,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {!! Form::label("order_group", trans("Public_ViewEvent.group")) !!}
-                            {!! Form::text("order_group", null, ['required' => 'required', 'class' => 'form-control']) !!}
+                            {!! Form::select('order_group', $groups, $selectedID, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>                
@@ -200,15 +200,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    {!! Form::label("ticket_holder_group[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.group")) !!}
-                                                    {!! Form::text("ticket_holder_group[{$i}][{$ticket['ticket']['id']}]", null, ['required' => 'required', 'class' => "ticket_holder_group.$i.{$ticket['ticket']['id']} ticket_holder_group form-control"]) !!}
+                                                    {!! Form::label("order_group", trans("Public_ViewEvent.group")) !!}
+                                                    {!! Form::select('order_group', $groups, $selectedID, ['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
-                                        </div>                                        
-                                        <div class="row">
+                                         </div>
+                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     {!! Form::label("ticket_holder_email[{$i}][{$ticket['ticket']['id']}]", trans("Public_ViewEvent.email_address")) !!}

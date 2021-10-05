@@ -194,9 +194,9 @@ class EventCheckoutController extends Controller
                 'message' => 'No payment gateway configured',
             ]);
         }
-
+            
         $paymentGateway = $activeAccountPaymentGateway ? $activeAccountPaymentGateway->payment_gateway : false;
-
+        
         /*
          * The 'ticket_order_{event_id}' session stores everything we need to complete the transaction.
          */
@@ -217,7 +217,7 @@ class EventCheckoutController extends Controller
             'account_id'              => $event->account->id,
             'affiliate_referral'      => Cookie::get('affiliate_' . $event_id),
             'account_payment_gateway' => $activeAccountPaymentGateway,
-            'payment_gateway'         => $paymentGateway
+            'payment_gateway'         => $paymentGateway,
         ]);
 
         /*
@@ -263,11 +263,16 @@ class EventCheckoutController extends Controller
         $orderService = new OrderService($order_session['order_total'], $order_session['total_booking_fee'], $event);
         $orderService->calculateFinalCosts();
 
+        $groups = Group::all()->where('organiser_id', $event->organiser->id)->sortby('name')->pluck('name', 'id');
+        $selectedID = '';
+
         $data = $order_session + [
                 'event'           => $event,
                 'secondsToExpire' => $secondsToExpire,
                 'is_embedded'     => $this->is_embedded,
-                'orderService'    => $orderService
+                'orderService'    => $orderService,
+                'groups'          => $groups,
+                'selectedID'      => $selectedID
                 ];
 
         if ($this->is_embedded) {
