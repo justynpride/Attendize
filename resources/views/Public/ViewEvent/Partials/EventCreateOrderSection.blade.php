@@ -92,7 +92,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {!! Form::label("order_group", trans("Public_ViewEvent.group")) !!}
-                            {!! Form::select('order_group', $groups, $selectedID, ['class' => 'form-control']) !!}
+                            {!! Form::select('order_group_id', $groups->prepend('Please Select', '0'), $selectedID, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>                
@@ -204,7 +204,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     {!! Form::label("order_group", trans("Public_ViewEvent.group")) !!}
-                                                    {!! Form::select('order_group', $groups, $selectedID, ['class' => 'form-control']) !!}
+                                                    {!! Form::select('order_group_id', $groups->prepend('Please Select', '0'), $selectedID, ['class' => 'form-control']) !!}
                                                 </div>
                                             </div>
                                          </div>
