@@ -60,5 +60,5 @@
                 </div>
             </div>
         </div>
-    {!! Form::close() !!}
+   {!! Form::close() !!} 
 </div>

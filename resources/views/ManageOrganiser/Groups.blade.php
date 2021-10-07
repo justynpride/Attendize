@@ -125,12 +125,12 @@
                                 <a
                                     data-modal-id="EditGroup"
                                     href="javascript:void(0);"
-                                    data-href="{{route('showEditGroup', ['organiser_id'=>$organiser->id, $group->id])}}"
+                                    data-href="{{route('showEditGroup', [$group->id])}}"
                                     class="loadModal btn btn-xs btn-primary"
                                     > @lang("basic.edit")</a>
 
                                 <a
-                                    data-modal-id="EditUser"
+                                    data-modal-id="DeleteGroup"
                                     href="javascript:void(0);"
                                     data-href=""
                                     class="loadModal btn btn-xs btn-danger"

@@ -55,6 +55,7 @@ class OrganiserGroupsController extends Controller
         $group->name = $request->get('name');
         $group->town = $request->get('town');
         $group->email = $request->get('email');
+        $group->country_id = $request->get('country_id');
 
         $group->save();
 
@@ -129,14 +130,16 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function postEditGroup(Request $request, $id, $organiser_id)
+    public function postEditGroup(Request $request, $id)
     {
        $group = Group::find($id);
+       $countries = Country::all()->sortby('name')->pluck('name', 'id');
+       $selectedID = 826;
         
         $group->name       = $request->input('name');
         $group->town       = $request->input('town');        
         $group->email        = $request->input('email');
-        $group->country        = $request->input('country');
+        $group->country_id        = $request->input('country_id');
         $group->save();
         $request->session()->flash('message', 'Successfully updated Group');
 

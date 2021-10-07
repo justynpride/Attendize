@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Model
 {
-    protected $fillable = ['name', 'town', 'email', 'country'];
+    protected $fillable = ['name', 'town', 'email', 'country_id'];
    
         public function group()
     {
