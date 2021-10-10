@@ -14,7 +14,7 @@ class AddGroupFieldToOrder extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('group')->after('email')->nullable();
+            $table->string('group_id')->after('email')->nullable();
         });
 
     }
@@ -28,7 +28,7 @@ class AddGroupFieldToOrder extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn([
-                'group',
+                'group_id',
            ]);
         });
     }

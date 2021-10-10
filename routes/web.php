@@ -321,6 +321,9 @@ Route::group(
                 [OrganiserGroupsController::class, 'postMessageGroup']
             )->name('postMessageAttendee');
 
+            Route::get('{organiser_id}/groups/delete',
+                [OrganiserGroupsController::class, 'deleteGroup']
+            )->name('deleteGroup');
                                                             
             Route::get('create',
                 [OrganiserController::class, 'showCreateOrganiser']

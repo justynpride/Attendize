@@ -10,6 +10,7 @@ use App\Jobs\SendMessageToAttendeesJob;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
+use App\Models\Group;
 use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;

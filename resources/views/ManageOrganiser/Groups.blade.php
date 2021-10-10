@@ -106,7 +106,7 @@
                                     > {{$group->email}}</a>
                             </td>
                             <td>
-                                {{$group->country_id}}
+                                {{$group->country->name}}
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
@@ -132,7 +132,7 @@
                                 <a
                                     data-modal-id="DeleteGroup"
                                     href="javascript:void(0);"
-                                    data-href=""
+                                    data-href="{{route('deleteGroup', [$group->id])}}"
                                     class="loadModal btn btn-xs btn-danger"
                                     > @lang("basic.cancel")</a>
                             </td>

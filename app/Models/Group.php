@@ -35,4 +35,14 @@ class Group extends Model
         return $this->belongsTo(Organiser::class);
     }
 
+    /**
+     * The country associated with the group.
+     *
+     * @return BelongsTo
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
 }     

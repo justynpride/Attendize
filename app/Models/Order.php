@@ -114,6 +114,16 @@ class Order extends MyBaseModel
     }
 
     /**
+     * The group associated with the attendee.
+     *
+     * @return BelongsTo
+     */
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+    
+    /**
      * @return BelongsTo
      */
     public function payment_gateway()

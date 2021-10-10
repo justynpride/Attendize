@@ -6,6 +6,7 @@ use App\Exports\OrdersExport;
 use App\Jobs\SendOrderConfirmationJob;
 use App\Models\Attendee;
 use App\Models\Event;
+use App\Models\Group;
 use App\Models\Order;
 use App\Services\Order as OrderService;
 use DB;

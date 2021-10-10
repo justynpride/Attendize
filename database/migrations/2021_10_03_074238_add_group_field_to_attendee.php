@@ -14,7 +14,7 @@ class AddGroupFieldToAttendee extends Migration
     public function up()
     {
         Schema::table('attendees', function (Blueprint $table) {
-            $table->string('group')->nullable();
+            $table->string('group_id')->nullable();
         });
     }
 
@@ -27,7 +27,7 @@ class AddGroupFieldToAttendee extends Migration
     {
         Schema::table('attendees', function (Blueprint $table) {
             $table->dropColumn([
-                'group',
+                'group_id',
            ]);
         });
     }

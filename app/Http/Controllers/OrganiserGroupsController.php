@@ -93,7 +93,7 @@ class OrganiserGroupsController extends Controller
             ->orderBy($sort_by, 'desc');
             
        if ($searchQuery) {
-            $groups->where('town', 'like', '%' . $searchQuery . '%');
+            $groups->where('name', 'like', '%' . $searchQuery . '%');
         }
 
         $data = [
@@ -152,9 +152,15 @@ class OrganiserGroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteGroup($id)
     {
-        //
+        $group = Group::findOrFail($id);
+        $group->delete();
+
+        return route('ManageOrganiser.Groups', [
+            'organiser'   => $organiser,
+            ]);
+       
     }
     
     public function showExportGroups($organiser_id, $export_as = 'xls')
