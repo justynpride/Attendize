@@ -54,12 +54,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    {!! Form::label('group', trans("Attendee.group"), array('class'=>'control-label required')) !!}
-
-                                    {!!  Form::text('group', old('group'),
-                                            array(
-                                            'class'=>'form-control'
-                                            ))  !!}
+                                 {!! Form::label('group', trans("Attendee.group"), array('class'=>'control-label required')) !!}
+                                 {!! Form::select('group_id', $groups, $attendee->group_id, ['class' => 'form-control']) !!}
                                 </div>
                             </div>                            
                         </div>

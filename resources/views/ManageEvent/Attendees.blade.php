@@ -115,7 +115,7 @@
                                 </a>
                             </td>
                             <td>
-                                {{{$attendee->group->name}}}
+                                {{{$attendee->group->name}}}, {{{$attendee->group->town}}}
                             </td>                            
                             <td class="text-center">
                                 <div class="btn-group">

@@ -40,9 +40,9 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <label for="group" class="form-control-label">@lang("Order.group")</label>
-                        <input type="text" name="group" class="form-control" value="{{ $order->group }}">
-                    </div>
+                            <label for="group" class="form-control-label">@lang("Order.group")</label>
+                            {!! Form::select('group_id', $groups, $order->group_id, ['class' => 'form-control']) !!}
+                     </div>
                 </div>                
             </div> <!-- /end modal body-->
 

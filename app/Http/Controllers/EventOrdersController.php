@@ -6,6 +6,7 @@ use App\Exports\OrdersExport;
 use App\Jobs\SendOrderConfirmationJob;
 use App\Models\Attendee;
 use App\Models\Event;
+use App\Models\Organiser;
 use App\Models\Group;
 use App\Models\Order;
 use App\Services\Order as OrderService;
@@ -103,9 +104,12 @@ class EventOrdersController extends MyBaseController
     public function showEditOrder(Request $request, $order_id)
     {
         $order = Order::scope()->find($order_id);
+        $event = Event::scope()->find($order->event->id);
+        $groups = Group::all()->where('organiser_id', $event->organiser->id)->sortby('name')->pluck('name', 'id');
 
         $data = [
             'order'     => $order,
+            'groups'    => $groups,
             'event'     => $order->event(),
             'attendees' => $order->attendees()->withoutCancelled()->get(),
             'modal_id'  => $request->get('modal_id'),
@@ -184,7 +188,7 @@ class EventOrdersController extends MyBaseController
         $order->first_name = $request->get('first_name');
         $order->last_name = $request->get('last_name');
         $order->email = $request->get('email');
-        $order->group = $request->get('group');
+        $order->group_id = $request->get('group_id');
 
         $order->update();
 

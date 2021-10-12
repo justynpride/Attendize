@@ -501,9 +501,12 @@ class EventAttendeesController extends MyBaseController
     public function showEditAttendee(Request $request, $event_id, $attendee_id)
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
+        $event = Event::scope()->find($event_id);
+        $groups = Group::all()->where('organiser_id', $event->organiser->id)->sortby('name')->pluck('name', 'id');
 
         $data = [
             'attendee' => $attendee,
+            'groups' => $groups,            
             'event'    => $attendee->event,
             'tickets'  => $attendee->event->tickets->pluck('title', 'id'),
         ];
@@ -542,6 +545,8 @@ class EventAttendeesController extends MyBaseController
         }
 
         $attendee = Attendee::scope()->findOrFail($attendee_id);
+        $attendee->group_id = $request->get('group_id');
+
         $attendee->update($request->all());
 
         session()->flash('message',trans("Controllers.successfully_updated_attendee"));

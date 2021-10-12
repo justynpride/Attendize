@@ -112,7 +112,7 @@
                             </div>
                         @endif
                         <div class="col-sm-6 col-xs-6">
-                            <b>@lang("Order.group")</b><br> {{$order->group}}
+                            <b>@lang("Order.group")</b><br>{{$order->group->name}}, {{$order->group->town}}
                         </div>
                     </div>
                 </div>
@@ -207,7 +207,7 @@
                                         {{$attendee->email}}
                                     </td>
                                     <td>
-                                        {{$attendee->group}}
+                                        {{$attendee->group->name}}, {{$attendee->group->town}}
                                     </td>
                                     <td>
                                         {{{$attendee->ticket->title}}}

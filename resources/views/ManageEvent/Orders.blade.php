@@ -117,7 +117,7 @@
                                 > {{$order->email}}</a>
                             </td>
                             <td>
-                                {{$order->group->name}}
+                                {{$order->group->name}}, {{$order->group->town}}
                             </td>
                             <td>
                                 <span>{{ $order->getOrderAmount()->display() }}</span>
