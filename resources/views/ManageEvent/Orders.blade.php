@@ -117,7 +117,9 @@
                                 > {{$order->email}}</a>
                             </td>
                             <td>
+                                @if ($order->group_id)
                                 {{$order->group->name}}, {{$order->group->town}}
+                                @endif
                             </td>
                             <td>
                                 <span>{{ $order->getOrderAmount()->display() }}</span>

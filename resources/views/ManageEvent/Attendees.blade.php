@@ -115,7 +115,9 @@
                                 </a>
                             </td>
                             <td>
+                                @if ($attendee->group_id)
                                 {{{$attendee->group->name}}}, {{{$attendee->group->town}}}
+                                @endif                            
                             </td>                            
                             <td class="text-center">
                                 <div class="btn-group">
