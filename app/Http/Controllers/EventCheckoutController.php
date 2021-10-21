@@ -12,10 +12,6 @@ use App\Models\Affiliate;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Order;
-use App\Models\Ticket;
-use App\Models\Account;
-use App\Models\Attendee;
-use App\Models\Affiliate;
 use App\Models\OrderItem;
 use App\Models\EventStats;
 use App\Models\AnswerOption;
@@ -31,15 +27,13 @@ use Carbon\Carbon;
 use Config;
 use Cookie;
 use DB;
-use Illuminate\Http\Request;
 use Log;
 use Mail;
 use Omnipay;
 use PDF;
 use PhpSpec\Exception\Exception;
 use App\Events\OrderCompletedEvent;
-use App\Models\AccountPaymentGateway;
-use App\Services\Order as OrderService;
+use Validator;
 
 class EventCheckoutController extends Controller
 {
@@ -430,12 +424,8 @@ class EventCheckoutController extends Controller
             //and sets certain options for the gateway that can be used when the transaction is started
             $gateway->extractRequestParameters($request);
 
-            $extras_price = getExtrasPrice($ticket_order, $ticket_questions);
-            Log::debug('extras_price:', [$extras_price]);
-
-            $orderService = new OrderService($ticket_order['order_total'], $ticket_order['total_booking_fee'], $event, $extras_price);
-            $orderService->calculateFinalCosts();
-            Log::debug(['GrandTotal (inc tax): '.$order_service->getGrandTotal()]);
+            //generic data that is needed for most orders
+            $order_total = $order_service->getGrandTotal();
             $order_email = $ticket_order['request_data'][0]['order_email'];
 
             $response = $gateway->startTransaction($order_total, $order_email, $event);
