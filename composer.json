@@ -53,7 +53,9 @@
         "phpspec/phpspec": "^6.0",
         "phpunit/phpunit": "^8.0",
         "symfony/css-selector": "~3.0",
-        "symfony/dom-crawler": "~3.0"
+        "symfony/dom-crawler": "~3.0",
+        "jasonmccreary/laravel-test-assertions": "^1.0",
+        "mpociot/laravel-test-factory-helper": "^2.1"
     },
     "autoload": {
         "classmap": [
