@@ -44,8 +44,6 @@ abstract class TestCase extends BaseTestCase
      */
     public function assertDatabaseHasMany(array $expected = []): void
     {
-        collect($expected)->each(function ($data, $table) {
-            $this->assertDatabaseHas($table, $data);
-        });
+        collect($expected)->each(fn($data, $table) => $this->assertDatabaseHas($table, $data));
     }
 }
