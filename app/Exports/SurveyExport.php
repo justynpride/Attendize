@@ -28,8 +28,8 @@ class SurveyExport implements FromQuery, WithHeadings, WithEvents
             'attendees.first_name',
             'attendees.last_name',
             'attendees.email',
-            'questions.title as Question',
-            'question_answers.answer_text as Answer',
+            'questions.title',
+            'question_answers.answer_text',
         ])
             ->join('attendees', 'attendees.event_id', '=', 'question_answers.event_id')
             ->join('questions', 'questions.id', '=', 'question_answers.question_id');
