@@ -128,6 +128,15 @@
             $('#enable_offline_payments').change(function () {
                 $('.offline_payment_details').toggle(this.checked);
             }).change();
+
+            /* Load example ticket image */
+            $('#ticket-preview').load('{{ route('showOrderTickets', ['order_reference' => 'example'] ).'?event='.$event->id }}');
+
+            /* Update ticket if form updated */
+            $(document).on('exampleTicketUpdated', {}, function (event) {
+                $('#ticket-preview').html('Loading...').delay(3000);
+                $('#ticket-preview').load('{{ route('showOrderTickets', ['order_reference' => 'example'] ).'?event='.$event->id }}');
+            });
         });
 
 
@@ -517,7 +526,7 @@
 
 
                 <div class="tab-pane {{$tab == 'ticket_design' ? 'active' : ''}}" id="ticket_design">
-                    {!! Form::model($event, array('url' => route('postEditEventTicketDesign', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
+                    {!! Form::model($event, array('url' => route('postEditEventTicketDesign', ['event_id' => $event->id]), 'class' => 'ajax ', 'id' => 'ticket-customize-form')) !!}
                     <h4>@lang("Ticket.ticket_design")</h4>
                     <div class="row">
                         <div class="col-md-6">
@@ -571,7 +580,9 @@
 
                         <div class="col-md-12">
                             <h4>@lang("Ticket.ticket_preview")</h4>
-                            @include('ManageEvent.Partials.TicketDesignPreview')
+                            <div id="ticket-preview">
+                                Loading...
+                            </div>
                         </div>
                     </div>
                     <div class="panel-footer mt15 text-right">
