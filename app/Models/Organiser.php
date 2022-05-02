@@ -40,13 +40,6 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
     ];
 
     /**
-     * The relationships that should always be loaded.
-     *
-     * @var array
-     */
-    protected $with = ['events'];
-
-    /**
      * The validation error messages for the model.
      *
      * @var array $messages
@@ -76,16 +69,6 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
     public function events()
     {
         return $this->hasMany(\App\Models\Event::class);
-    }
-
-    /**
-     * The users associated with the organizer.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function users()
-    {
-        return $this->hasMany(\App\Models\User::class);
     }
 
     /**
