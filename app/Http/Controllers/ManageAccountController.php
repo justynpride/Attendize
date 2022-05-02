@@ -10,7 +10,6 @@ use App\Models\PaymentGateway;
 use App\Models\Timezone;
 use App\Models\User;
 use GuzzleHttp\Client;
-use Illuminate\Mail\Message;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
