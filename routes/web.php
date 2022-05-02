@@ -261,6 +261,8 @@ Route::group(
             Route::get('/user/{id}/send-invitation-message',
                 [ManageAccountController::class, 'sendInvitationMessage']
             )->name('sendInvitationMessage');
+
+            Route::resource('users', 'UserController');
         });
 
         Route::get('select_organiser', [OrganiserController::class, 'showSelectOrganiser'])
