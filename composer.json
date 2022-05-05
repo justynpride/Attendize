@@ -14,9 +14,8 @@
     "require": {
         "php": "^7.3",
         "ext-json": "*",
-        "barryvdh/laravel-dompdf": "^0.8.5",
         "doctrine/dbal": "^2.9",
-        "dompdf/dompdf": "^0.8.4",
+        "dompdf/dompdf": "^0.8",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "graham-campbell/markdown": "^13.0.0",

@@ -1,28 +1,29 @@
 <?php namespace App\Http\Controllers;
 
 use App\Cancellation\OrderCancellation;
-use App\Generators\TicketGenerator;
 use App\Exports\AttendeesExport;
 use App\Imports\AttendeesImport;
-use App\Jobs\SendAttendeeInvite;
-use App\Jobs\SendAttendeeTicket;
-use App\Jobs\SendMessageToAttendees;
+use App\Jobs\GenerateTicketJob;
+use App\Jobs\SendAttendeeInviteJob;
+use App\Jobs\SendOrderAttendeeTicketJob;
+use App\Jobs\SendMessageToAttendeesJob;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
 use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Ticket;
 use App\Services\Order as OrderService;
+use App\Models\Ticket;
 use Auth;
+use Config;
 use DB;
 use Excel;
 use Exception;
 use Illuminate\Http\Request;
 use Log;
 use Mail;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use PDF;
 use Validator;
 use Illuminate\Support\Facades\Lang;
 
@@ -173,7 +174,6 @@ class EventAttendeesController extends MyBaseController
             $ticket = Ticket::scope()->find($ticket_id);
             $ticket->increment('quantity_sold');
             $ticket->increment('sales_volume', $ticket_price);
-            $ticket->event->increment('sales_volume', $ticket_price);
 
             /*
              * Insert order item
@@ -455,17 +455,25 @@ class EventAttendeesController extends MyBaseController
     /**
      * @param $event_id
      * @param $attendee_id
-     * @return BinaryFileResponse
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function showExportTicket($event_id, $attendee_id): BinaryFileResponse
+    public function showExportTicket($event_id, $attendee_id)
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
         $attendee_reference = $attendee->getReferenceAttribute();
 
-        // Generate PDF filename and path
-        $pdf_file = TicketGenerator::createPDFTicket($attendee->order, $attendee);
+        Log::debug("Exporting ticket PDF", [
+            'attendee_id' => $attendee_id,
+            'order_reference' => $attendee->order->order_reference,
+            'attendee_reference' => $attendee_reference,
+            'event_id' => $event_id
+        ]);
 
-        return response()->download($pdf_file->path);
+        $pdf_file = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $attendee_reference . '.pdf';
+
+        $this->dispatchNow(new GenerateTicketJob($attendee));
+
+        return response()->download($pdf_file);
     }
 
     /**
@@ -676,26 +684,32 @@ class EventAttendeesController extends MyBaseController
         ]);
     }
 
+
     /**
      * Show an attendee ticket
      *
-     * @param  Request  $request
-     * @param  int  $event_id
-     * @param  int  $attendee_id
+     * @param Request $request
+     * @param $attendee_id
      * @return bool
      */
-    public function showAttendeeTicket(Request $request, int $event_id, int $attendee_id)
+    public function showAttendeeTicket(Request $request, $attendee_id)
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
-        // Generate PDF
-        $pdf_file = TicketGenerator::createPDFTicket($attendee->order, $attendee);
+        $data = [
+            'order'     => $attendee->order,
+            'event'     => $attendee->event,
+            'tickets'   => $attendee->ticket,
+            'attendees' => [$attendee],
+            'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
+            'image'     => base64_encode(file_get_contents(public_path($attendee->event->organiser->full_logo_path))),
 
-        if ($request->get('download') === '1') { // Force download PDF
-            return response()->download($pdf_file->path);
+        ];
+
+        if ($request->get('download') == '1') {
+            return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
         }
-
-        return response()->file($pdf_file->path, ['Content-Type' => 'application/pdf']);
+        return view('Public.ViewEvent.Partials.PDFTicket', $data);
     }
 
 }

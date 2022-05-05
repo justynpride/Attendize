@@ -2,52 +2,29 @@
 
 namespace App\Jobs;
 
-use App\Generators\TicketGenerator;
-use App\Models\Attendee;
-use App\Models\Order;
-use App\Services\PDFGenerator\PDFFile;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Log;
+use PDF;
 
-class GenerateTicket extends Job implements ShouldQueue
+class GenerateTicketsJobBase implements ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels, Dispatchable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * @var Order $order
-     */
-    public $order;
-
-    /**
-     * @var Attendee $attendee
-     */
     public $attendee;
-
-    /**
-     * @var PDFFile $pdf_file
-     */
-    public $pdf_file;
-
-    /**
-     * Create a new job instance.
-     *
-     * @param  Order  $order
-     * @param  Attendee  $attendee
-     */
-    public function __construct(Order $order, Attendee $attendee = null)
-    {
-        $this->order = $order;
-        $this->attendee = $attendee;
-    }
+    public $event;
+    public $order;
+    public $file_name;
 
     /**
      * Execute the job.
      *
      * @return void
      */
-    public function handle(): void
+    public function handle()
     {
         $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $this->file_name;
         $file_with_ext = $file_path . '.pdf';
@@ -88,7 +65,5 @@ class GenerateTicket extends Job implements ShouldQueue
             Log::error("Error stack trace" . $e->getTraceAsString());
             $this->fail($e);
         }
-        $this->pdf_file = TicketGenerator::createPDFTicket($this->order, $this->attendee);
-        $this->pdf_file->error ?: $this->fail();
     }
 }
