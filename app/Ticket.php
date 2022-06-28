@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Attendize\PaymentUtils;
+use App\App\PaymentUtils;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;

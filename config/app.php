@@ -247,7 +247,7 @@ return [
         // Attendize Class Alias
         'Markdown'     => GrahamCampbell\Markdown\Facades\Markdown::class,
         'PDF'          => Nitmedia\Wkhtml2pdf\Facades\Wkhtml2pdf::class,
-        'Utils'        => App\Attendize\Utils::class,
+        'Utils'        => App\App\Utils::class,
         'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
     ],
 

@@ -67,8 +67,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "Attendize\\": "app/Models"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
