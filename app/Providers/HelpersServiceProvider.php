@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Attendize\PaymentUtils;
+use App\App\PaymentUtils;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 

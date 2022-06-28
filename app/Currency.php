@@ -7,28 +7,40 @@ namespace App\Models;
      */
 
 /**
- * Description of DateTimeFormat.
+ * Description of Currency.
  *
  * @author Dave
  */
-class DateTimeFormat extends \Illuminate\Database\Eloquent\Model
+class Currency extends \Illuminate\Database\Eloquent\Model
 {
     /**
      * Indicates whether the model should be timestamped.
      *
-     * @var bool $timestamps
+     * @var bool
      */
     public $timestamps = false;
+
     /**
      * The database table used by the model.
      *
-     * @var string $table
+     * @var string
      */
-    protected $table = 'datetime_formats';
+    protected $table = 'currencies';
+
     /**
      * Indicates whether the model should use soft deletes.
      *
-     * @var bool $softDelete
+     * @var bool
      */
     protected $softDelete = false;
+
+    /**
+     * The event associated with the currency.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function event()
+    {
+        return $this->belongsTo(\App\Models\Event::class);
+    }
 }

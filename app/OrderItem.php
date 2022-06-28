@@ -7,23 +7,26 @@ namespace App\Models;
      */
 
 /**
- * Description of Timezone.
+ * Description of OrderItems.
  *
  * @author Dave
  */
-class Timezone extends \Illuminate\Database\Eloquent\Model
+class OrderItem extends MyBaseModel
 {
     /**
      * Indicates if the model should be timestamped.
      *
-     * @var bool $timestamps
+     * @var bool
      */
     public $timestamps = false;
 
     /**
-     * Indicates if the model should use soft deletes.
-     *
-     * @var bool $softDelete
+     * @var array
      */
-    protected $softDelete = false;
+    protected $fillable = [
+        'title',
+        'quantity',
+        'order_id',
+        'unit_price',
+    ];
 }
