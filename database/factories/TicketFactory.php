@@ -1,30 +1,50 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
-$factory->define(App\Models\Ticket::class, function (Faker $faker) {
-    return [
-        'edited_by_user_id' => $faker->randomNumber(),
-        'account_id' => $faker->randomNumber(),
-        'order_id' => $faker->randomNumber(),
-        'event_id' => factory(App\Models\Event::class),
-        'title' => $faker->word,
-        'description' => $faker->text,
-        'price' => $faker->randomFloat(),
-        'max_per_person' => $faker->randomNumber(),
-        'min_per_person' => $faker->randomNumber(),
-        'quantity_available' => $faker->randomNumber(),
-        'quantity_sold' => $faker->randomNumber(),
-        'start_sale_date' => $faker->dateTime(),
-        'end_sale_date' => $faker->dateTime(),
-        'sales_volume' => $faker->randomFloat(),
-        'organiser_fees_volume' => $faker->randomFloat(),
-        'is_paused' => $faker->boolean,
-        'public_id' => $faker->randomNumber(),
-        'user_id' => $faker->randomNumber(),
-        'sort_order' => $faker->randomNumber(),
-        'is_hidden' => $faker->boolean,
-    ];
-});
+class TicketFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => function () {
+                return \App\Models\User::factory()->create()->id;
+            },
+            'edited_by_user_id' => function () {
+                return \App\Models\User::factory()->create()->id;
+            },
+            'account_id' => function () {
+                return \App\Models\Account::factory()->create()->id;
+            },
+            'order_id' => function () {
+                return \App\Models\Order::factory()->create()->id;
+            },
+            'event_id' => function () {
+                return \App\Models\Event::factory()->create()->id;
+            },
+            'title' => $this->faker->name,
+            'description' => $this->faker->text,
+            'price' => 50.00,
+            'max_per_person' => 4,
+            'min_per_person' => 1,
+            'quantity_available' => 50,
+            'quantity_sold' => 0,
+            'start_sale_date' => Carbon::now()->format(config('attendize.default_datetime_format')),
+            'end_sale_date' => Carbon::now()->addDays(20)->format(config('attendize.default_datetime_format')),
+            'sales_volume' => 0,
+            'organiser_fees_volume' => 0,
+            'is_paused' => 0,
+            'public_id' => null,
+            'sort_order' => 0,
+            'is_hidden' => false,
+        ];
+    }
+}

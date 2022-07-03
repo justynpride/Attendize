@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Utils;
+namespace Tests\Features;
 
 use App\Attendize\Utils;
 use Tests\TestCase;

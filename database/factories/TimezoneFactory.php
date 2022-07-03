@@ -1,12 +1,27 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Models\Timezone;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\Timezone::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'location' => $faker->word,
-    ];
-});
+class TimezoneFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->timezone,
+            'location' => $this->faker->city,
+        ];
+    }
+
+    public function europeLondon()
+    {
+        return $this->state(['name' => 'Europe/London', 'location' => '(GMT) London']);
+    }
+}

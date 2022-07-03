@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 class AccountPaymentGateway extends MyBaseModel
 {
-
+    use HasFactory;
     use softDeletes;
 
     /**
@@ -17,7 +17,7 @@ class AccountPaymentGateway extends MyBaseModel
      */
     protected $fillable = [
         'payment_gateway_id',
-        'config'
+        'config',
     ];
 
     /**
@@ -25,7 +25,8 @@ class AccountPaymentGateway extends MyBaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function account() {
+    public function account()
+    {
         return $this->belongsTo(\App\Models\Account::class);
     }
 
@@ -44,11 +45,13 @@ class AccountPaymentGateway extends MyBaseModel
      *
      * @return mixed
      */
-    public function getConfigAttribute($value) {
+    public function getConfigAttribute($value)
+    {
         return json_decode($value, true);
     }
 
-    public function setConfigAttribute($value) {
+    public function setConfigAttribute($value)
+    {
         $this->attributes['config'] = json_encode($value);
     }
 }

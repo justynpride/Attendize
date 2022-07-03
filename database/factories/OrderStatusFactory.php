@@ -1,11 +1,23 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Models\OrderStatus;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\OrderStatus::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-    ];
-});
+class OrderStatusFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $selection = ['Completed', 'Refunded', 'Partially Refunded', 'Cancelled'];
+
+        return [
+            'name' => $this->faker->randomElement($selection),
+        ];
+    }
+}

@@ -1,11 +1,23 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Models\TicketStatus;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\TicketStatus::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-    ];
-});
+class TicketStatusFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $selection = ['Sold Out', 'Sales Have Ended', 'Not On Sale Yet', 'On Sale'];
+
+        return [
+            'name' => $this->faker->randomElement($selection),
+        ];
+    }
+}

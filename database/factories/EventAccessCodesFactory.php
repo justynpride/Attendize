@@ -1,13 +1,28 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
-$factory->define(App\Models\EventAccessCodes::class, function (Faker $faker) {
-    return [
-        'event_id' => factory(App\Models\Event::class),
-        'code' => $faker->word,
-        'usage_count' => $faker->randomNumber(),
-    ];
-});
+class EventAccessCodesFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'event_id' => function () {
+                return \App\Models\Event::factory()->create()->id;
+            },
+            'code' => $this->faker->word,
+            'usage_count' => 0,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+            'deleted_at' => null,
+        ];
+    }
+}

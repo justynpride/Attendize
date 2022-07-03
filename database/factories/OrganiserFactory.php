@@ -1,33 +1,43 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-$factory->define(App\Models\Organiser::class, function (Faker $faker) {
-    return [
-        'deleted_at' => $faker->dateTime(),
-        'account_id' => factory(App\Models\Account::class),
-        'name' => $faker->name,
-        'about' => $faker->text,
-        'email' => $faker->safeEmail,
-        'phone' => $faker->phoneNumber,
-        'confirmation_key' => $faker->word,
-        'facebook' => $faker->word,
-        'twitter' => $faker->word,
-        'logo_path' => $faker->word,
-        'is_email_confirmed' => $faker->boolean,
-        'show_twitter_widget' => $faker->boolean,
-        'show_facebook_widget' => $faker->boolean,
-        'page_header_bg_color' => $faker->word,
-        'page_bg_color' => $faker->word,
-        'page_text_color' => $faker->word,
-        'enable_organiser_page' => $faker->boolean,
-        'google_analytics_code' => $faker->word,
-        'google_tag_manager_code' => $faker->word,
-        'tax_name' => $faker->word,
-        'tax_value' => $faker->word,
-        'tax_id' => $faker->word,
-        'charge_tax' => $faker->boolean,
-    ];
-});
+class OrganiserFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'account_id' => function () {
+                return \App\Models\Account::factory()->create()->id;
+            },
+            'name' => $this->faker->name,
+            'about' => $this->faker->text,
+            'email' => $this->faker->email,
+            'phone' => $this->faker->phoneNumber,
+            'facebook' => 'https://facebook.com/organizer-profile',
+            'twitter' => 'https://twitter.com/organizer-profile',
+            'logo_path' => 'path/to/logo',
+            'is_email_confirmed' => 0,
+            'confirmation_key' => Str::Random(15),
+            'show_twitter_widget' => $this->faker->boolean,
+            'show_facebook_widget' => $this->faker->boolean,
+            'page_header_bg_color' => $this->faker->hexcolor,
+            'page_bg_color' => '#ffffff',
+            'page_text_color' => '#000000',
+            'enable_organiser_page' => $this->faker->boolean,
+            'google_analytics_code' => null,
+            'tax_name' => $this->faker->text(11).' tax',
+            'tax_value' => $this->faker->randomFloat(2, 0, 30),
+            'tax_id' => '',
+            'charge_tax' => $this->faker->boolean,
+        ];
+    }
+}

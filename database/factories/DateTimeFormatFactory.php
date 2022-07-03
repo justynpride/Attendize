@@ -1,13 +1,22 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\DateTimeFormat::class, function (Faker $faker) {
-    return [
-        'format' => $faker->word,
-        'picker_format' => $faker->word,
-        'label' => $faker->word,
-    ];
-});
+class DateTimeFormatFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'format' => 'Y-m-d H:i:s',
+            'picker_format' => 'Y-m-d H:i:s',
+            'label' => 'utc',
+        ];
+    }
+}

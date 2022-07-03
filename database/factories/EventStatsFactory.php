@@ -1,17 +1,29 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
-$factory->define(App\Models\EventStats::class, function (Faker $faker) {
-    return [
-        'date' => $faker->date(),
-        'views' => $faker->randomNumber(),
-        'unique_views' => $faker->randomNumber(),
-        'tickets_sold' => $faker->randomNumber(),
-        'sales_volume' => $faker->randomFloat(),
-        'organiser_fees_volume' => $faker->randomFloat(),
-        'event_id' => $faker->randomNumber(),
-    ];
-});
+class EventStatsFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'date' => Carbon::now(),
+            'views' => 0,
+            'unique_views' => 0,
+            'tickets_sold' => 0,
+            'sales_volume' => 0,
+            'organiser_fees_volume' => 0,
+            'event_id' => function () {
+                return \App\Models\Event::factory()->create()->id;
+            },
+        ];
+    }
+}

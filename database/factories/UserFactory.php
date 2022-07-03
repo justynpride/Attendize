@@ -1,22 +1,32 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\User::class, function (Faker $faker) {
-    return [
-        'account_id' => factory(App\Models\Account::class),
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'phone' => $faker->phoneNumber,
-        'email' => $faker->safeEmail,
-        'password' => bcrypt($faker->password),
-        'confirmation_code' => $faker->word,
-        'is_registered' => $faker->boolean,
-        'is_confirmed' => $faker->boolean,
-        'is_parent' => $faker->boolean,
-        'remember_token' => Str::random(10),
-        'api_token' => $faker->word,
-    ];
-});
+class UserFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'account_id' => function () {
+                return \App\Models\Account::factory()->create()->id;
+            },
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'phone' => $this->faker->phoneNumber,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
+            'confirmation_code' => $this->faker->randomNumber,
+            'is_registered' => false,
+            'is_confirmed' => false,
+            'is_parent' => false,
+            'remember_token' => $this->faker->randomNumber,
+        ];
+    }
+}

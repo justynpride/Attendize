@@ -1,13 +1,30 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Models\AccountPaymentGateway;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\AccountPaymentGateway::class, function (Faker $faker) {
-    return [
-        'account_id' => factory(App\Models\Account::class),
-        'payment_gateway_id' => factory(App\Models\PaymentGateway::class),
-        'config' => $faker->text,
-    ];
-});
+class AccountPaymentGatewayFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'account_id' => function () {
+                return \App\Models\Account::factory()->create()->id;
+            },
+            'payment_gateway_id' => function () {
+                return \App\Models\PaymentGateway::factory()->create()->id;
+            },
+            'config' => [
+                'apiKey' => '',
+                'publishableKey' => '',
+            ],
+        ];
+    }
+}

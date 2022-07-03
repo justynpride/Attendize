@@ -1,13 +1,15 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class QuestionTypesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
-     * @access public
      * @return void
      */
     public function run()

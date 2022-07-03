@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class TimezoneSeeder extends Seeder
@@ -61,7 +63,6 @@ class TimezoneSeeder extends Seeder
         //     'format' => 'F j, Y', 'picker_format' => 'MM d, yyyy', 'label' => 'March 10, 2013']);
         // \App\Models\DateFormat::create([
         //     'format' => 'D M j, Y', 'picker_format' => 'D MM d, yyyy', 'label' => 'Mon March 10, 2013']);
-
 
         $timezones = [
             'Pacific/Midway' => '(GMT-11:00) Midway Island',

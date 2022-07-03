@@ -1,42 +1,49 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
-$factory->define(App\Models\Order::class, function (Faker $faker) {
-    return [
-        'account_id' => factory(App\Models\Account::class),
-        'order_status_id' => factory(App\Models\OrderStatus::class),
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->safeEmail,
-        'business_name' => $faker->word,
-        'business_tax_number' => $faker->word,
-        'business_address_line_one' => $faker->word,
-        'business_address_line_two' => $faker->word,
-        'business_address_state_province' => $faker->word,
-        'business_address_city' => $faker->word,
-        'business_address_code' => $faker->word,
-        'ticket_pdf_path' => $faker->word,
-        'order_reference' => $faker->word,
-        'transaction_id' => $faker->word,
-        'discount' => $faker->randomFloat(),
-        'booking_fee' => $faker->randomFloat(),
-        'organiser_booking_fee' => $faker->randomFloat(),
-        'order_date' => $faker->date(),
-        'notes' => $faker->text,
-        'is_deleted' => $faker->boolean,
-        'is_cancelled' => $faker->boolean,
-        'is_partially_refunded' => $faker->boolean,
-        'is_refunded' => $faker->boolean,
-        'amount' => $faker->randomFloat(),
-        'amount_refunded' => $faker->randomFloat(),
-        'event_id' => factory(App\Models\Event::class),
-        'payment_gateway_id' => factory(App\Models\PaymentGateway::class),
-        'is_payment_received' => $faker->boolean,
-        'is_business' => $faker->boolean,
-        'taxamt' => $faker->randomFloat(),
-        'payment_intent' => $faker->word,
-    ];
-});
+class OrderFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'account_id' => function () {
+                return \App\Models\Account::factory()->create()->id;
+            },
+            'order_status_id' => function () {
+                return \App\Models\OrderStatus::factory()->create()->id;
+            },
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $this->faker->email,
+            'ticket_pdf_path' => '/ticket/pdf/path',
+            'order_reference' => $this->faker->text(15),
+            'transaction_id' => $this->faker->text(50),
+            'discount' => .20,
+            'booking_fee' => .10,
+            'organiser_booking_fee' => .10,
+            'order_date' => Carbon::now(),
+            'notes' => $this->faker->text,
+            'is_deleted' => 0,
+            'is_cancelled' => 0,
+            'is_partially_refunded' => 0,
+            'is_refunded' => 0,
+            'amount' => 20.00,
+            'amount_refunded' => 0,
+            'event_id' => function () {
+                return \App\Models\Event::factory()->create()->id;
+            },
+            'payment_gateway_id' => 1,
+            'is_payment_received' => false,
+            'taxamt' => 0,
+        ];
+    }
+}

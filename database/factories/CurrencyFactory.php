@@ -1,20 +1,34 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Models\Currency;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\Currency::class, function (Faker $faker) {
-    return [
-        'title' => $faker->word,
-        'symbol_left' => $faker->word,
-        'symbol_right' => $faker->word,
-        'code' => $faker->word,
-        'decimal_place' => $faker->randomNumber(),
-        'value' => $faker->randomFloat(),
-        'decimal_point' => $faker->word,
-        'thousand_point' => $faker->word,
-        'status' => $faker->randomNumber(),
-        'event_id' => factory(App\Models\Event::class),
-    ];
-});
+class CurrencyFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'title' => 'Dollar',
+            'symbol_left' => '$',
+            'symbol_right' => '',
+            'code' => 'USD',
+            'decimal_place' => 2,
+            'value' => 100.00,
+            'decimal_point' => '.',
+            'thousand_point' => ',',
+            'status' => 1,
+        ];
+    }
+
+    public function gBP()
+    {
+        return $this->state(['title' => 'Pound Sterling', 'symbol_left' => '£', 'symbol_right' => '', 'code' => 'GBP', 'decimal_place' => 2, 'value' => 0.62220001, 'decimal_point' => '.', 'thousand_point' => ',', 'status' => 1]);
+    }
+}

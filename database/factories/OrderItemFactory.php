@@ -1,16 +1,26 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Models\OrderItem::class, function (Faker $faker) {
-    return [
-        'title' => $faker->word,
-        'quantity' => $faker->randomNumber(),
-        'unit_price' => $faker->randomFloat(),
-        'unit_booking_fee' => $faker->randomFloat(),
-        'order_id' => $faker->randomNumber(),
-        'deleted_at' => $faker->dateTime(),
-    ];
-});
+class OrderItemFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->title,
+            'quantity' => 5,
+            'unit_price' => 20.00,
+            'unit_booking_fee' => 2.00,
+            'order_id' => function () {
+                return \App\Models\Order::factory()->create()->id;
+            },
+        ];
+    }
+}
