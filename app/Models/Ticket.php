@@ -12,8 +12,10 @@ use Superbalist\Money\Money;
 class Ticket extends MyBaseModel
 {
     use SoftDeletes;
-
-    protected $dates = ['start_sale_date', 'end_sale_date'];
+    protected $casts = [
+        'start_sale_date' => 'datetime',
+        'end_sale_date' => 'datetime',
+    ];
 
     protected $quantity_reserved_cache = null;
 
