@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Attendize\Utils;
 use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends MyBaseModel
 {
+    use HasFactory;
+
     use SoftDeletes;
 
     /**

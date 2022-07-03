@@ -11,7 +11,7 @@ class EventTest extends TestCase
     {
         $this->actingAs($this->test_user);
 
-        $organiser = factory(App\Models\Organiser::class)->create(['account_id' => 1]);
+        $organiser = \App\Models\Organiser::factory()->create(['account_id' => 1]);
 
         $server = ['HTTP_X-Requested-With' => 'XMLHttpRequest'];
 
@@ -40,7 +40,7 @@ class EventTest extends TestCase
     {
         $this->actingAs($this->test_user);
 
-        $organiser = factory(App\Models\Organiser::class)->create(['account_id' => 1]);
+        $organiser = \App\Models\Organiser::factory()->create(['account_id' => 1]);
 
         $server = ['HTTP_X-Requested-With' => 'XMLHttpRequest'];
 
@@ -57,8 +57,8 @@ class EventTest extends TestCase
 
     public function test_event_can_be_edited()
     {
-        $organiser = factory(App\Models\Organiser::class)->create(['account_id' => 1]);
-        $event = factory(App\Models\Event::class)->create([
+        $organiser = \App\Models\Organiser::factory()->create(['account_id' => 1]);
+        $event = \App\Models\Event::factory()->create([
             'account_id'   => $organiser->account_id,
             'organiser_id' => $organiser->id,
             'user_id'      => $this->test_user->id,
