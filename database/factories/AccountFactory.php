@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Account;
 use App\Models\Currency;
 use App\Models\DateFormat;
@@ -10,6 +9,7 @@ use App\Models\DateTimeFormat;
 use App\Models\Timezone;
 use Carbon\Carbon;
 use Faker\Generator;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 class AccountFactory extends Factory

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TicketStatus;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketStatusFactory extends Factory
 {

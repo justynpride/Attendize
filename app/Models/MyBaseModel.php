@@ -43,7 +43,7 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
     /**
      * The validation errors of model.
      *
-     * @var 
+     * @var
      */
     protected $errors;
 

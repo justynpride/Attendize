@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\AccountPaymentGateway;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AccountPaymentGatewayFactory extends Factory
 {
