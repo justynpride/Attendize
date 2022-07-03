@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd9469ef2657986489da0ad7af3b8e1d",
+    "content-hash": "ab6afab910456746b26540c98c06afe0",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1624,7 +1624,7 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.20.36",
+            "version": "v7.30.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
@@ -1632,8 +1632,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/10f6bfaec9efb68aa88d7196b8b1b162d83040ae",
-                "reference": "10f6bfaec9efb68aa88d7196b8b1b162d83040ae",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9dd38140dc2924daa1a020a3d7a45f9ceff03df3",
+                "reference": "9dd38140dc2924daa1a020a3d7a45f9ceff03df3",
                 "shasum": ""
             },
             "require": {
@@ -1723,7 +1723,7 @@
                 "ext-redis": "Required to use the Redis cache and queue drivers (^4.0|^5.0).",
                 "fakerphp/faker": "Required to use the eloquent factory builder (^1.9.1).",
                 "filp/whoops": "Required for friendly error pages in development (^2.8).",
-                "guzzlehttp/guzzle": "Required to use the Mailgun mail driver and the ping methods on schedules (^6.3.1|^7.0.1).",
+                "guzzlehttp/guzzle": "Required to use the HTTP Client, Mailgun mail driver and the ping methods on schedules (^6.3.1|^7.0.1).",
                 "laravel/tinker": "Required to use the tinker console command (^2.0).",
                 "league/flysystem-aws-s3-v3": "Required to use the Flysystem S3 driver (^1.0).",
                 "league/flysystem-cached-adapter": "Required to use the Flysystem cache (^1.0).",
@@ -1773,7 +1773,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-10-19T13:59:55+00:00"
+            "time": "2021-01-21T14:10:48+00:00"
         },
         {
             "name": "laravel/socialite",
