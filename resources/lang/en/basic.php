@@ -14,6 +14,7 @@ return [
   'back_to_page' => 'Back To :page',
   'back_to_orders' => 'Back to orders',
   'cancel' => 'Cancel',
+  'check_in' => 'Check In',
   'customize' => 'Customize',
   'dashboard' => 'Dashboard',
   'days' => 'days',
@@ -57,6 +58,9 @@ return [
   'whoops' => 'Whoops!',
   'yes' => 'Yes',
   'no' => 'No',
+  'delete' => 'Delete',
+  'force_delete' => 'Force Delete',
+  'restore' => 'Restore',
   /*
    * Lines below will turn obsolete in localization helper, it is declared in app/Helpers/macros.
    * If you run it, it will break file input fields.
