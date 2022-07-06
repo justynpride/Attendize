@@ -232,37 +232,16 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
             Route::post('invite_user',
                 [ManageAccountController::class, 'postInviteUser']
             )->name('postInviteUser');
-
-            Route::post('update_user_role',
-                [ManageAccountController::class, 'postUpdateUserRole']
-            )->name('postUpdateUserRole');
-
-            Route::post('toggle_user_can_manage_events',
-                [ManageAccountController::class, 'postToggleUserCanManageEvents']
-            )->name('postToggleUserCanManageEvents');
-
-            Route::delete('/user/{id}',
-                [ManageAccountController::class, 'userDelete']
-            )->name('userDelete');
-
-            Route::get('/user/{id}/restore',
-                [ManageAccountController::class, 'userRestore']
-            )->name('userRestore');
-
-            Route::get('/user/{id}/send-invitation-message',
-                [ManageAccountController::class, 'sendInvitationMessage']
-            )->name('sendInvitationMessage');
         });
 
-        Route::get('select_organiser', [OrganiserController::class, 'showSelectOrganiser'])
-            ->middleware('manage.organisers')
-            ->name('showSelectOrganiser');
+        Route::get('select_organiser',
+            [OrganiserController::class, 'showSelectOrganiser']
+        )->name('showSelectOrganiser');
 
         /*
          * Organiser routes
          */
-        Route::group(['prefix' => 'organiser', 'middleware' => ['manage.organisers']], function () {
-
+        Route::prefix('organiser')->group(function () {
             Route::get('{organiser_id}/dashboard',
                 [OrganiserDashboardController::class, 'showDashboard']
             )->name('showOrganiserDashboard');
@@ -674,6 +653,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
         });
     });
 
-    // Index page
-    Route::get('/', [IndexController::class, 'showIndex'])->middleware('auth')->name('index');
+    Route::get('/',
+        [IndexController::class, 'showIndex']
+    )->name('index');
 });

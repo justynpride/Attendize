@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Organiser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\User;
+use Image;
 
 class OrganiserController extends MyBaseController
 {
@@ -71,13 +71,7 @@ class OrganiserController extends MyBaseController
 
         $organiser->save();
 
-        // After the organiser gets added as the first run, we should also update the super user to
-        // belong to that organiser
-        if ($request->get('first_run') === 'yup') {
-            User::first()->update(['organiser_id' => $organiser->id]);
-        }
-
-        session()->flash('message', trans("Controllers.successfully_created_organiser"));
+        session()->flash('message', trans('Controllers.successfully_created_organiser'));
 
         return response()->json([
             'status'      => 'success',

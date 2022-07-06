@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,11 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (config('app.debug')) {
-            DB::listen(function ($query) {
-                \Log::debug(sprintf("%s", $query->sql), $query->bindings);
-            });
-        }
+        //
     }
 
     /**

@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Spatie\Permission\Traits\HasRoles;
-use Spatie\Permission\Traits\HasPermissions;
 
 class User extends Authenticatable
 {
-    use SoftDeletes, Notifiable, HasRoles, HasPermissions;
+    use HasFactory;
+    use SoftDeletes, Notifiable;
 
     /**
      * The database table used by the model.
@@ -45,7 +44,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'account_id',
-        'organiser_id',
         'first_name',
         'last_name',
         'phone',
@@ -66,23 +64,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * The relationships that should always be loaded.
-     *
-     * @var array
-     */
-    protected $with = ['roles', 'permissions'];
-
-    /**
-     * The account associated with the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function organiser()
-    {
-        return $this->belongsTo(\App\Models\Organiser::class);
-    }
 
     /**
      * The account associated with the user.

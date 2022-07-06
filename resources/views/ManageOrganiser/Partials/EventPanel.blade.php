@@ -10,15 +10,9 @@
         </div>
         <ul class="event-meta">
             <li class="event-title">
-                @role('attendee check in')
-                <a title="{{{$event->title}}}" href="{{route('showCheckIn', ['event_id'=>$event->id])}}">
-                    {{{ Str::limit($event->title, $limit = 75, $end = '...') }}}
-                </a>
-                @else
                 <a title="{{{$event->title}}}" href="{{route('showEventDashboard', ['event_id'=>$event->id])}}">
                     {{{ Str::limit($event->title, $limit = 75, $end = '...') }}}
                 </a>
-                @endrole
             </li>
             <li class="event-organiser">
                 By <a href='{{route('showOrganiserDashboard', ['organiser_id' => $event->organiser->id])}}'>{{{$event->organiser->name}}}</a>
@@ -46,13 +40,6 @@
     </div>
     <div class="panel-footer">
         <ul class="nav nav-section nav-justified">
-             @role('attendee check in')
-            <li>
-                <a href="{{route('showCheckIn', ['event_id' => $event->id])}}">
-                    <i class="ico-edit"></i> @lang("basic.check_in")
-                </a>
-            </li>
-            @else
             <li>
                 <a href="{{ $event->deleted_at==null? route('showEventCustomize',['event_id' => $event->id]) : '#' }}" {!! $event->deleted_at==null? "" : 'disabled data-toggle'.'="tooltip" title="'.trans("basic.restorebeforeusingthis").'"' !!} >
                     <i class="ico-edit"></i> @lang("basic.edit")
@@ -73,12 +60,6 @@
                     <i class="ico-cog"></i> @lang("basic.manage")
                 </a>
             </li>
-            <li>
-                <a href="{{route('showCheckIn', ['event_id' => $event->id])}}">
-                    <i class="ico-edit"></i> @lang("basic.check_in")
-                </a>
-            </li>
-            @endrole
         </ul>
     </div>
 </div>

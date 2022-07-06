@@ -76,17 +76,8 @@ trait OrganisationWithoutTax
             'payment_gateway_id' => $this->paymentGateway->id,
         ]);
 
-        $organiserNoTax = factory(Organiser::class)->create([
+        $this->user = User::factory()->create([
             'account_id' => $this->account->id,
-            'name' => 'Test Organiser (No Tax)',
-            'charge_tax' => false,
-            'tax_name' => '',
-            'tax_value' => 0.00,
-        ]);
-
-        $this->user = factory(User::class)->create([
-            'account_id' => $this->account->id,
-            'organiser_id' => $organiserNoTax->id,
             'email' => 'local@test.com',
             'password' => \Hash::make('pass'),
             'is_parent' => true, // Top level user
@@ -94,7 +85,15 @@ trait OrganisationWithoutTax
             'is_confirmed' => true,
         ]);
 
-        $this->event = factory(Event::class)->create([
+        $organiserNoTax = Organiser::factory()->create([
+            'account_id' => $this->account->id,
+            'name' => 'Test Organiser (No Tax)',
+            'charge_tax' => false,
+            'tax_name' => '',
+            'tax_value' => 0.00,
+        ]);
+
+        $this->event = Event::factory()->create([
             'account_id' => $this->account->id,
             'user_id' => $this->user->id,
             'organiser_id' => $organiserNoTax->id,
