@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\EventImage;
+use App\Models\Organiser;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Image;
