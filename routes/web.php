@@ -289,21 +289,20 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
                 [EventController::class, 'postCreateEvent']
             )->name('postCreateEvent');
 
-	     Route::get('{event_id}/archive', [
+            Route::get('{event_id}/archive', [
                 'as'   => 'archiveEvent',
                 'uses' => 'EventController@archiveEvent',
             ]);
 
             Route::get('{event_id}/restore', [
-                 'as'   => 'restoreEvent',
-                 'uses' => 'EventController@restoreEvent',
+                'as'   => 'restoreEvent',
+                'uses' => 'EventController@restoreEvent',
             ]);
 
-	     Route::get('{event_id}/duplicate', [
-		   'as'   => 'duplicateEvent',
-                 'uses' => 'EventController@CreateCloneEvent',
-	     ]);
-
+            Route::get('{event_id}/duplicate', [
+                'as'   => 'duplicateEvent',
+                'uses' => 'EventController@CreateCloneEvent',
+            ]);
         });
 
         /*
