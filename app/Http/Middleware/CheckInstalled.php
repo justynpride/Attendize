@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Attendize\Utils;
+use App\App\Utils;
 use App\Models\Account;
 use Closure;
 use Illuminate\Http\Request;
