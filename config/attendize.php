@@ -17,10 +17,10 @@ return [
         'expiryYear'  => '2030',
         'cvv'         => '123',
     ],
-    'outgoing_email_noreply'        => env('MAIL_FROM_ADDRESS'),
-    'outgoing_email'                => env('MAIL_FROM_ADDRESS'),
-    'outgoing_email_name'           => env('MAIL_FROM_NAME'),
-    'incoming_email'                => env('MAIL_FROM_ADDRESS'),
+    'outgoing_email_noreply'       => env('MAIL_FROM_ADDRESS'),
+    'outgoing_email'               => env('MAIL_FROM_ADDRESS'),
+    'outgoing_email_name'          => env('MAIL_FROM_NAME'),
+    'incoming_email'               => env('MAIL_FROM_ADDRESS'),
 
     'app_name'               => 'Attendize Event Ticketing',
     'event_default_bg_color' => '#B23333',
@@ -36,15 +36,29 @@ return [
 
     'checkout_timeout_after' => env('CHECKOUT_TIMEOUT_AFTER', 30), //minutes
 
-    'ticket_status_before_sale_date' => 3,
-    'ticket_status_on_sale'          => 4,
-    'ticket_status_off_sale'         => 5,
+    'ticket'                   => [
+        'image'   => [
+            // Default image for Ticket Generator
+            'default' => 'assets/images/attendize-ticket-default.jpg',
 
-    'ticket_booking_fee_fixed'      => 0,
-    'ticket_booking_fee_percentage' => 0,
+            // JPG Quality for Ticket Generator
+            'quality' => 80
+        ],
+        'booking' => [
+            'fee_fixed'      => 0,
+            'fee_percentage' => 0,
+        ],
+        'status'  => [
+            'sold_out'         => 1,
+            'after_sale_date'  => 2,
+            'before_sale_date' => 3,
+            'on_sale'          => 4,
+            'off_sale'         => 5,
+        ],
+    ],
 
     /* Order statuses */
-    'order'                         => [
+    'order'                    => [
         'complete'           => 1,
         'refunded'           => 2,
         'partially_refunded' => 3,
@@ -53,12 +67,12 @@ return [
     ],
 
     /* Attendee question types */
-    'question_textbox_single'       => 1,
-    'question_textbox_multi'        => 2,
-    'question_dropdown_single'      => 3,
-    'question_dropdown_multi'       => 4,
-    'question_checkbox_multi'       => 5,
-    'question_radio_single'         => 6,
+    'question_textbox_single'  => 1,
+    'question_textbox_multi'   => 2,
+    'question_dropdown_single' => 3,
+    'question_dropdown_multi'  => 4,
+    'question_checkbox_multi'  => 5,
+    'question_radio_single'    => 6,
 
     'default_timezone'              => 30, //Europe/Dublin
     'default_currency'              => 2, //Euro

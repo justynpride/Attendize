@@ -164,7 +164,6 @@ class Utils
         if (preg_match('/(\d+\.?\d+\.?\d+)/', $string, $matches) === 1) {
             return $matches[0];
         }
-
         return '';
     }
 }

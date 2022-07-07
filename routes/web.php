@@ -475,7 +475,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
                 [EventOrdersController::class, 'showExportOrders']
             )->name('showExportOrders');
 
-            Route::get('{event_id}/orders/message/{order_id}',
+            Route::get('{order_id}/orders/message',
                 [EventOrdersController::class, 'showMessageOrder']
             )->name('showMessageOrder');
 
