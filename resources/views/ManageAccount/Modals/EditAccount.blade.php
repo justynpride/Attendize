@@ -144,25 +144,7 @@
                                     @lang("ManageAccount.version_info")
                                 </h4>
                                 <p>
-                                    @if(is_array($version_info) && $version_info['is_outdated'])
-                                        @lang("ManageAccount.version_out_of_date", ["installed" => $version_info['installed'], "latest"=> $version_info['latest'], "url"=>"https://attendize.com/documentation.php#download"]).
-                                    @elseif(is_array($version_info))
-                                        @lang("ManageAccount.version_up_to_date", ["installed" => $version_info['installed']])
-                                    @else
-                                        Error retrieving the latest Attendize version.
-                                    @endif
-                                </p>
-                                <h4>
-                                    {!! @trans("ManageAccount.licence_info") !!}
-                                </h4>
-                                <p>
-                                    {!! @trans("ManageAccount.licence_info_description") !!}
-                                </p>
-                                <h4>
-                                    {!! @trans("ManageAccount.open_source_soft") !!} Open-source Software
-                                </h4>
-                                <p>
-                                    {!! @trans("ManageAccount.open_source_soft_description") !!}
+         
                                 </p>
                             </div>
                         </div>
