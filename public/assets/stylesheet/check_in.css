@@ -296,9 +296,12 @@ footer {
 }
 
 video#videoContainer {
-    display: block;
-    margin: 0 auto;
     margin-top: 75px;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 100%;
 }
 
 #help-text{
