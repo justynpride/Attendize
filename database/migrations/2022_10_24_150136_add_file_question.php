@@ -16,6 +16,7 @@ class AddFileQuestion extends Migration
         // Add the new file type question
         DB::table('question_types')->insert(
             array(
+                'id' => 7,
                 'alias' => 'file_single',
                 'name' => 'File upload',
                 'has_options' => 0,
