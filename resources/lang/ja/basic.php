@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
     'apply'             => 'Apply',
     'action'            => 'Action',
     'affiliates'        => 'アフィリエイト',
@@ -52,4 +52,4 @@ return [
     'LLH:obsolete'      => [
         'months_long' => '1月|2月|4月|5月|6月|7月|8月|9月|10月|11月|11月|12月',
     ],
-];
+);

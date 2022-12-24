@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class EventWidgetsController extends MyBaseController
 {
+
     /**
      * Show the event widgets page
      *
@@ -28,4 +29,6 @@ class EventWidgetsController extends MyBaseController
 
         return view('ManageEvent.Widgets', $data);
     }
+
+
 }

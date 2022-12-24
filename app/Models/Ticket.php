@@ -4,21 +4,16 @@ namespace App\Models;
 
 use App\Attendize\PaymentUtils;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Superbalist\Money\Money;
 
 class Ticket extends MyBaseModel
 {
-    use HasFactory;
     use SoftDeletes;
 
-    protected $casts = [
-        'start_sale_date' => 'datetime',
-        'end_sale_date' => 'datetime',
-    ];
+    protected $dates = ['start_sale_date', 'end_sale_date'];
 
     protected $quantity_reserved_cache = null;
 
@@ -59,28 +54,26 @@ class Ticket extends MyBaseModel
     public function rules()
     {
         $format = config('attendize.default_datetime_format');
-
         return [
             'title'              => 'required',
             'price'              => 'required|numeric|min:0',
             'description'        => 'nullable',
             'start_sale_date'    => 'nullable|date_format:"'.$format.'"',
             'end_sale_date'      => 'nullable|date_format:"'.$format.'"|after:start_sale_date',
-            'quantity_available' => 'nullable|integer|min:'.($this->quantity_sold + $this->quantity_reserved),
+            'quantity_available' => 'nullable|integer|min:'.($this->quantity_sold + $this->quantity_reserved)
         ];
     }
 
     /**
      * The validation error messages.
      *
-     * @var array
+     * @var array $messages
      */
     public $messages = [
         'price.numeric'              => 'The price must be a valid number (e.g 12.50)',
         'title.required'             => 'You must at least give a title for your ticket. (e.g Early Bird)',
         'quantity_available.integer' => 'Please ensure the quantity available is a number.',
     ];
-
     protected $perPage = 10;
 
     /**
@@ -120,7 +113,7 @@ class Ticket extends MyBaseModel
     /**
      * @return BelongsToMany
      */
-    public function event_access_codes()
+    function event_access_codes()
     {
         return $this->belongsToMany(
             EventAccessCodes::class,
@@ -144,7 +137,7 @@ class Ticket extends MyBaseModel
      */
     public function setStartSaleDateAttribute($date)
     {
-        if (! $date) {
+        if (!$date) {
             $this->attributes['start_sale_date'] = Carbon::now();
         } else {
             $this->attributes['start_sale_date'] = Carbon::createFromFormat(
@@ -161,7 +154,7 @@ class Ticket extends MyBaseModel
      */
     public function setEndSaleDateAttribute($date)
     {
-        if (! $date) {
+        if (!$date) {
             $this->attributes['end_sale_date'] = null;
         } else {
             $this->attributes['end_sale_date'] = Carbon::createFromFormat(
@@ -212,7 +205,6 @@ class Ticket extends MyBaseModel
 
             return $reserved_total;
         }
-
         return $this->quantity_reserved_cache;
     }
 
@@ -303,7 +295,7 @@ class Ticket extends MyBaseModel
             return config('attendize.ticket_status_after_sale_date');
         }
 
-        if ((int) $this->quantity_available > 0 && (int) $this->quantity_remaining <= 0) {
+        if ((int)$this->quantity_available > 0 && (int)$this->quantity_remaining <= 0) {
             return config('attendize.ticket_status_sold_out');
         }
 
@@ -343,9 +335,8 @@ class Ticket extends MyBaseModel
             $eventCurrency->code,
             empty($eventCurrency->symbol_left) ? $eventCurrency->symbol_right : $eventCurrency->symbol_left,
             $eventCurrency->title,
-            ! empty($eventCurrency->symbol_left)
+            !empty($eventCurrency->symbol_left)
         );
-
         return $currency;
     }
 }

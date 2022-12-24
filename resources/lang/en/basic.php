@@ -1,9 +1,9 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2018/04/26 11:05:24
+ Generated via "php artisan localization:missing" at 2018/04/26 11:05:24 
 *************************************************************************/
 
-return [
+return array (
   //==================================== Translations ====================================//
   'apply' => 'Apply',
   'action' => 'Action',
@@ -61,10 +61,10 @@ return [
    * Lines below will turn obsolete in localization helper, it is declared in app/Helpers/macros.
    * If you run it, it will break file input fields.
   */
-    'upload' => 'Upload',
-    'browse' => 'Browse',
-    //================================== Obsolete strings ==================================//
-    'LLH:obsolete' => [
-        'months_long' => 'January|February|March|April|May|June|July|August|September|October|November|December',
-    ],
-];
+  'upload' => 'Upload',
+  'browse' => 'Browse',
+  //================================== Obsolete strings ==================================//
+  'LLH:obsolete' => [
+    'months_long' => 'January|February|March|April|May|June|July|August|September|October|November|December',
+  ],
+);

@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
     //============================== New strings to translate ==============================//
     // Defined in file C:\\wamp\\www\\attendize\\resources\\views\\ManageEvent\\Tickets.blade.php
     'on_sale'                    => 'On Sale',
@@ -50,4 +50,4 @@ return [
     'ticket_text_color'          => 'チケットのテキストの色',
     'ticket_type'                => 'チケットタイプ',
     'venue'                      => '会場',
-];
+);

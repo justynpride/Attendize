@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+
 class SendOrderNotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -44,8 +45,7 @@ class SendOrderNotificationMail extends Mailable
      */
     public function build()
     {
-        $subject = trans('Controllers.new_order_received', ['event' => $this->order->event->title, 'order' => $this->order->order_reference]);
-
+        $subject = trans("Controllers.new_order_received", ["event" => $this->order->event->title, "order" => $this->order->order_reference]);
         return $this->subject($subject)
                     ->view('Emails.OrderNotification');
     }

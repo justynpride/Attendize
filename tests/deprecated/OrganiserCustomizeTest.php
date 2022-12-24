@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Organiser;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Models\Organiser;
 
 class OrganiserCustomizeTest extends TestCase
 {
@@ -12,7 +12,7 @@ class OrganiserCustomizeTest extends TestCase
      */
     public function test_customize_organiser_is_successful()
     {
-        $organiser = \App\Models\Organiser::factory()->create();
+        $organiser = factory(App\Models\Organiser::class)->create();
 
         $this->actingAs($organiser)
             ->visit(route('showOrganiserCustomize', ['organiser_id' => $organiser->id]))
@@ -22,7 +22,7 @@ class OrganiserCustomizeTest extends TestCase
             ->type($this->faker->word, 'twitter')
             ->press('Save Organiser')
             ->seeJson([
-                'status' => 'success',
+                'status' => 'success'
             ]);
     }
 }

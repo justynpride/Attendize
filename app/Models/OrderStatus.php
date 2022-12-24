@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
     /*
       Attendize.com   - Event Management & Ticketing
      */
@@ -15,7 +13,5 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class OrderStatus extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-
     public $timestamps = false;
 }

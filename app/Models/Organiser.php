@@ -3,21 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\UploadedFile;
-use Image;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Str;
+use Image;
 
 class Organiser extends MyBaseModel implements AuthenticatableContract
 {
-    use HasFactory;
     use Authenticatable;
-
     /**
      * The validation rules for the model.
      *
-     * @var array
+     * @var array $rules
      */
     protected $rules = [
         'name'           => ['required'],
@@ -34,7 +31,7 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
     /**
      * The validation rules for the model.
      *
-     * @var array
+     * @var array $attributes
      */
     protected $attributes = [
         'tax_name'        => 'Tax Name',
@@ -45,7 +42,7 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
     /**
      * The validation error messages for the model.
      *
-     * @var array
+     * @var array $messages
      */
     protected $messages = [
         'name.required'        => 'You must at least give a name for the event organiser.',
@@ -143,6 +140,7 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
     {
     }
 
+
     /**
      * Set a new Logo for the Organiser
      *
@@ -153,7 +151,7 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
         $filename = Str::slug($this->name).'-logo-'.$this->id.'.'.strtolower($file->getClientOriginalExtension());
 
         // Image Directory
-        $imageDirectory = public_path().'/'.config('attendize.organiser_images_path');
+        $imageDirectory = public_path() . '/' . config('attendize.organiser_images_path');
 
         // Paths
         $relativePath = config('attendize.organiser_images_path').'/'.$filename;
@@ -178,8 +176,8 @@ class Organiser extends MyBaseModel implements AuthenticatableContract
     /**
      * Adds extra validator rules to the organiser object depending on whether tax is required or not
      */
-    public function addExtraValidationRules()
-    {
+    public function addExtraValidationRules() {
         $this->rules = array_merge($this->rules, $this->extra_rules);
     }
 }
+

@@ -1,6 +1,4 @@
-<?php
-
-namespace Tests\Features;
+<?php namespace Tests\Features;
 
 use App\Models\Attendee;
 use Tests\Concerns\OrganisationWithTax;
@@ -10,7 +8,7 @@ class OrganisationWithTaxTest extends TestCase
 {
     use OrganisationWithTax;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
         $this->withoutMiddleware([

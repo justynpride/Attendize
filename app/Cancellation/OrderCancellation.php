@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Cancellation;
+<?php namespace App\Cancellation;
 
 use App\Models\Attendee;
 use App\Models\Order;
@@ -8,13 +6,11 @@ use Superbalist\Money\Money;
 
 class OrderCancellation
 {
-    /** @var Order */
+    /** @var Order $order */
     private $order;
-
-    /** @var array */
+    /** @var array $attendees */
     private $attendees;
-
-    /** @var OrderRefund */
+    /** @var OrderRefund $orderRefund */
     private $orderRefund;
 
     /**
@@ -36,7 +32,7 @@ class OrderCancellation
      * @param $attendees
      * @return OrderCancellation
      */
-    public static function make(Order $order, $attendees): self
+    public static function make(Order $order, $attendees): OrderCancellation
     {
         return new static($order, $attendees);
     }
@@ -55,7 +51,7 @@ class OrderCancellation
             $orderCancel->cancel();
         }
         // If order can do a refund then refund first
-        if ($this->order->canRefund() && ! $orderAwaitingPayment) {
+        if ($this->order->canRefund() && !$orderAwaitingPayment) {
             $orderRefund = OrderRefund::make($this->order, $this->attendees);
             $orderRefund->refund();
             $this->orderRefund = $orderRefund;
@@ -78,7 +74,6 @@ class OrderCancellation
         if ($this->orderRefund === null) {
             return new Money('0');
         }
-
         return $this->orderRefund->getRefundAmount();
     }
 }

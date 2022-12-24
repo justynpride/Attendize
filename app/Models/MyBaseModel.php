@@ -15,35 +15,33 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
     /**
      * Indicates if the model should be timestamped.
      *
-     * @var bool
+     * @var bool $timestamps
      */
     public $timestamps = true;
-
     /**
      * Indicates whether the model uses soft deletes.
      *
-     * @var bool
+     * @var bool $softDelete
      */
     protected $softDelete = true;
-
     /**
      * The validation rules of the model.
      *
-     * @var array
+     * @var array $rules
      */
     protected $rules = [];
 
     /**
      * The validation error messages of the model.
      *
-     * @var array
+     * @var array $messages
      */
     protected $messages = [];
 
     /**
      * The validation errors of model.
      *
-     * @var
+     * @var  $errors
      */
     protected $errors;
 
@@ -62,13 +60,13 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
         $entity = new $className();
 
         if (Auth::check()) {
-            if (! $ignore_user_id) {
+            if (!$ignore_user_id) {
                 $entity->user_id = Auth::id();
             }
 
             $entity->account_id = Auth::user()->account_id;
         } elseif ($account_id || $user_id) {
-            if ($user_id && ! $ignore_user_id) {
+            if ($user_id && !$ignore_user_id) {
                 $entity->user_id = $user_id;
             }
 
@@ -124,7 +122,7 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
      */
     public function getFormattedDate($field, $format = false)
     {
-        if (! $format) {
+        if (!$format) {
             $format = config('attendize.default_datetime_format');
         }
 
@@ -148,7 +146,7 @@ class MyBaseModel extends \Illuminate\Database\Eloquent\Model
          * //return  $query;
          */
 
-        if (! $accountId && Auth::check()) {
+        if (!$accountId && Auth::check()) {
             $accountId = Auth::user()->account_id;
         }
 

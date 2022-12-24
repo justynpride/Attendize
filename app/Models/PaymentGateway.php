@@ -2,24 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 /**
  * Class PaymentGateway
+ * @package App\Models
  */
 class PaymentGateway extends MyBaseModel
 {
-    use HasFactory;
 
     public $timestamps = false;
 
     /**
      * @return array
      */
-    public static function getAllWithDefaultSet()
+    static public function getAllWithDefaultSet()
     {
-        $payment_gateways = self::all()->toArray();
-        $payment_gateway = self::select('id')->where('default', 1)->get()->first();
+        $payment_gateways = PaymentGateway::all()->toArray();
+        $payment_gateway = PaymentGateway::select('id')->where('default', 1)->get()->first();
         if (empty($payment_gateway)) {
             $default_payment_gateway_id = config('attendize.default_payment_gateway');
             foreach ($payment_gateways as &$payment_gateway) {
@@ -35,12 +33,11 @@ class PaymentGateway extends MyBaseModel
     /**
      * @return \Illuminate\Config\Repository|mixed
      */
-    public static function getDefaultPaymentGatewayId()
+    static public function getDefaultPaymentGatewayId()
     {
-        $payment_gateway = self::select('id')->where('default', 1)->get()->first();
+        $payment_gateway = PaymentGateway::select('id')->where('default', 1)->get()->first();
         if (empty($payment_gateway)) {
             $default_payment_gateway_id = config('attendize.default_payment_gateway');
-
             return $default_payment_gateway_id;
         }
 

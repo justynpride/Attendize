@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
     'action'            => 'Acción',
     'affiliates'        => 'Afiliados',
     'attendees'         => 'Asistentes',
@@ -53,7 +53,8 @@ return [
     'upload' => 'Subir',
     'browse' => 'Examinar',
     //================================== Obsolete strings ==================================//
-    'LLH:obsolete' => [
-        'months_long' => 'Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre',
-    ],
-];
+    'LLH:obsolete' =>
+        array(
+            'months_long' => 'Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre',
+        ),
+);

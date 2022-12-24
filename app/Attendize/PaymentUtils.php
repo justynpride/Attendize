@@ -1,11 +1,14 @@
 <?php
 
+
 namespace App\Attendize;
 
 /**
  * Class Payment
  *
  * Payment functions and utilities
+ *
+ * @package App\Attendize
  */
 class PaymentUtils
 {
@@ -18,7 +21,7 @@ class PaymentUtils
      */
     public static function requiresPayment($amount)
     {
-        return ! self::isFree($amount);
+        return !self::isFree($amount);
     }
 
     /**

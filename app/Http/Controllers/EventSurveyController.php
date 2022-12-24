@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEventQuestionRequest;
-use App\Exports\SurveyExport;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\QuestionType;
+use Excel;
 use Illuminate\Http\Request;
 use JavaScript;
 
@@ -62,6 +62,7 @@ class EventSurveyController extends MyBaseController
     /**
      * Store a newly created resource in storage.
      *
+     * @access public
      * @param  StoreEventQuestionRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -98,14 +99,15 @@ class EventSurveyController extends MyBaseController
 
         $event->questions()->attach($question->id);
 
-        session()->flash('message', trans('Controllers.successfully_created_question'));
+        session()->flash('message', trans("Controllers.successfully_created_question"));
 
         return response()->json([
             'status'      => 'success',
-            'message'     => trans('Controllers.refreshing'),
+            'message'     => trans("Controllers.refreshing"),
             'redirectUrl' => '',
         ]);
     }
+
 
     /**
      * Show the Edit Question Modal
@@ -128,6 +130,7 @@ class EventSurveyController extends MyBaseController
 
         return view('ManageEvent.Modals.EditQuestion', $data);
     }
+
 
     /**
      * Edit a question
@@ -171,17 +174,18 @@ class EventSurveyController extends MyBaseController
         }
 
         // Get tickets.
-        $ticket_ids = (array) $request->get('tickets');
+        $ticket_ids = (array)$request->get('tickets');
 
         $question->tickets()->sync($ticket_ids);
 
-        session()->flash('message', trans('Controllers.successfully_edited_question'));
+        session()->flash('message', trans("Controllers.successfully_edited_question"));
 
         return response()->json([
             'status'      => 'success',
-            'message'     => trans('Controllers.refreshing'),
+            'message'     => trans("Controllers.refreshing"),
             'redirectUrl' => '',
         ]);
+
     }
 
     /**
@@ -200,11 +204,12 @@ class EventSurveyController extends MyBaseController
         $question->answers()->delete();
 
         if ($question->delete()) {
-            session()->flash('message', trans('Controllers.successfully_deleted_question'));
+
+            session()->flash('message', trans("Controllers.successfully_deleted_question"));
 
             return response()->json([
                 'status'      => 'success',
-                'message'     => trans('Controllers.refreshing'),
+                'message'     => trans("Controllers.refreshing"),
                 'redirectUrl' => '',
             ]);
         }
@@ -212,7 +217,7 @@ class EventSurveyController extends MyBaseController
         return response()->json([
             'status'  => 'error',
             'id'      => $question->id,
-            'message' => trans('Controllers.this_question_cant_be_deleted'),
+            'message' => trans("Controllers.this_question_cant_be_deleted"),
         ]);
     }
 
@@ -242,8 +247,9 @@ class EventSurveyController extends MyBaseController
         return view('ManageEvent.Modals.ViewAnswers', $data);
     }
 
+
     /**
-     * Exports question answers to popular file types
+     * Export answers to xls, csv etc.
      *
      * @param Request $request
      * @param $event_id
@@ -251,9 +257,26 @@ class EventSurveyController extends MyBaseController
      */
     public function showExportAnswers(Request $request, $event_id, $export_as = 'xlsx')
     {
-        $event = Event::scope()->findOrFail($event_id);
-        $date = date('d-m-y-g.i.a');
-        return (new SurveyExport($event->id))->download("answers-as-of-{$date}.{$export_as}");
+        Excel::create('answers-as-of-' . date('d-m-Y-g.i.a'), function ($excel) use ($event_id) {
+
+            $excel->setTitle(trans("Controllers.survey_answers"));
+
+            // Chain the setters
+            $excel->setCreator(config('attendize.app_name'))
+                ->setCompany(config('attendize.app_name'));
+
+            $excel->sheet('survey_answers_sheet_', function ($sheet) use ($event_id) {
+
+                $event = Event::scope()->findOrFail($event_id);
+
+                $sheet->fromArray($event->survey_answers, null, 'A1', false, false);
+
+                // Set gray background on first row
+                $sheet->row(1, function ($row) {
+                    $row->setBackground('#f5f5f5');
+                });
+            });
+        })->export($export_as);
     }
 
     /**
@@ -273,7 +296,7 @@ class EventSurveyController extends MyBaseController
         if ($question->save()) {
             return response()->json([
                 'status'  => 'success',
-                'message' => trans('Controllers.successfully_updated_question'),
+                'message' => trans("Controllers.successfully_updated_question"),
                 'id'      => $question->id,
             ]);
         }
@@ -281,9 +304,10 @@ class EventSurveyController extends MyBaseController
         return response()->json([
             'status'  => 'error',
             'id'      => $question->id,
-            'message' => trans('basic.whoops'),
+            'message' => trans("basic.whoops"),
         ]);
     }
+
 
     /**
      * Updates the sort order of event questions
@@ -305,7 +329,7 @@ class EventSurveyController extends MyBaseController
 
         return response()->json([
             'status'  => 'success',
-            'message' => trans('Controllers.successfully_updated_question_order'),
+            'message' => trans("Controllers.successfully_updated_question_order"),
         ]);
     }
 }

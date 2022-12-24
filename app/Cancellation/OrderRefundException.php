@@ -1,9 +1,7 @@
-<?php
+<?php namespace App\Cancellation;
 
-namespace App\Cancellation;
-
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
 class OrderRefundException extends Exception
 {

@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * ---------------
  */
 
+
 /*
  * ---------------
  * Events
@@ -30,12 +31,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  */
 Route::resource('events', API\EventsApiController::class);
 
+
 /*
  * ---------------
  * Attendees
  * ---------------
  */
 Route::resource('attendees', API\AttendeesApiController::class);
+
 
 /*
  * ---------------

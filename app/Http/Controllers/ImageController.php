@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 class ImageController extends Controller
 {
+
     /**
      * Generate a thumbnail for a given image
      *

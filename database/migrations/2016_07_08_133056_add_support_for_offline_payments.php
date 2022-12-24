@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class AddSupportForOfflinePayments extends Migration
 {
@@ -29,6 +29,7 @@ class AddSupportForOfflinePayments extends Migration
         ];
 
         DB::table('order_statuses')->insert($order_statuses);
+
     }
 
     /**
@@ -48,5 +49,6 @@ class AddSupportForOfflinePayments extends Migration
         });
 
         DB::table('order_statuses')->where('name', 'Awaiting Payment')->delete();
+
     }
 }

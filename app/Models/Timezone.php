@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
     /*
       Attendize.com   - Event Management & Ticketing
      */
@@ -15,19 +13,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Timezone extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-
     /**
      * Indicates if the model should be timestamped.
      *
-     * @var bool
+     * @var bool $timestamps
      */
     public $timestamps = false;
 
     /**
      * Indicates if the model should use soft deletes.
      *
-     * @var bool
+     * @var bool $softDelete
      */
     protected $softDelete = false;
 }
