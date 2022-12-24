@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
     /*
       Attendize.com   - Event Management & Ticketing
      */
@@ -13,15 +15,17 @@ namespace App\Models;
  */
 class OrderItem extends MyBaseModel
 {
+    use HasFactory;
+
     /**
      * Indicates if the model should be timestamped.
      *
-     * @var bool $timestamps
+     * @var bool
      */
     public $timestamps = false;
 
     /**
-     * @var array $fillable
+     * @var array
      */
     protected $fillable = [
         'title',

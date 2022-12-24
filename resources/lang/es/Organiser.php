@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'additional_organiser_options'            => 'Opciones de organizador adicionales',
     'background_color'                        => 'Color de fondo',
     'continue_to'                             => 'Continuar a',
@@ -64,4 +64,4 @@ return array(
     'text_color'                              => 'Color del texto',
     'tickets_sold'                            => 'Entradas Vendidas',
     'yes'                                     => 'Si',
-);
+];

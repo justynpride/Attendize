@@ -14,8 +14,11 @@ class SendMessageToAttendeesMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject;
+
     public $content;
+
     public $event;
+
     public $attendee;
 
     /**
