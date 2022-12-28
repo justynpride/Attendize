@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use DB;
+use Illuminate\Console\Command;
 
 class CreateDatabase extends Command
 {
@@ -13,7 +13,6 @@ class CreateDatabase extends Command
      * @var string
      */
     protected $signature = 'make:database {db_name}';
-
 
     /**
      * The console command description.
@@ -25,10 +24,10 @@ class CreateDatabase extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
     public function handle()
     {
-           DB::statement('CREATE DATABASE IF NOT EXISTS '.$this->argument('db_name').";");
+        return DB::statement('CREATE DATABASE IF NOT EXISTS '.$this->argument('db_name').';') ? 0 : 1;
     }
 }

@@ -4,8 +4,7 @@ namespace Services\PaymentGateway;
 
 class StripeSCA
 {
-
-    CONST GATEWAY_NAME = 'Stripe\PaymentIntents';
+    const GATEWAY_NAME = 'Stripe\PaymentIntents';
 
     private $transaction_data;
 
@@ -21,7 +20,6 @@ class StripeSCA
 
     private function createTransactionData($order_total, $order_email, $event)
     {
-
         $returnUrl = route('showEventCheckoutPaymentReturn', [
             'event_id' => $event->id,
             'is_payment_successful' => 1,
@@ -30,11 +28,11 @@ class StripeSCA
         $this->transaction_data = [
             'amount' => $order_total,
             'currency' => $event->currency->code,
-            'description' => 'Order for customer: ' . $order_email,
+            'description' => 'Order for customer: '.$order_email,
             'paymentMethod' => $this->options['paymentMethod'],
             'receipt_email' => $order_email,
             'returnUrl' => $returnUrl,
-            'confirm' => true
+            'confirm' => true,
         ];
 
         return $this->transaction_data;
@@ -56,7 +54,7 @@ class StripeSCA
     public function extractRequestParameters($request)
     {
         foreach ($this->extra_params as $param) {
-            if (!empty($request->get($param))) {
+            if (! empty($request->get($param))) {
                 $this->options[$param] = $request->get($param);
             }
         }
@@ -91,8 +89,8 @@ class StripeSCA
 
     public function getAdditionalData($response)
     {
-
         $additionalData['payment_intent'] = $response->getPaymentIntentReference();
+
         return $additionalData;
     }
 
@@ -121,5 +119,4 @@ class StripeSCA
 
         return $refundResponse;
     }
-
 }

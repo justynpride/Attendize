@@ -41,11 +41,7 @@
                                            {{ $answer->attendee->ticket->title }}
                                        </td>
                                        <td>
-                                        @if($question->question_type_id == config('attendize.question_file_single'))
-                                            <a target="_blank" href="{!! url($answer->answer_text) !!}">@lang('ManageEvent.open_file')</a>
-                                        @else
-                                            {!! nl2br(e($answer->answer_text)) !!}
-                                        @endif
+                                           {!! nl2br(e($answer->answer_text)) !!}
                                        </td>
                                    </tr>
                                @endforeach
