@@ -4,7 +4,6 @@ return [
     'action'            => 'Acción',
     'affiliates'        => 'Afiliados',
     'attendees'         => 'Asistentes',
-    'archive' 	   => 'Archivar',
     'back_to_login'     => 'Volver a inicio de sesión',
     'back_to_page'      => 'Volver a :page',
     'cancel'            => 'Cancelar',
