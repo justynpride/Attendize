@@ -315,9 +315,9 @@ class Event extends MyBaseModel
      */
     public function getEmbedHtmlCodeAttribute()
     {
-        return "<!--Book-in.me Ticketing Embed Code-->
-                <iframe style='overflow:hidden; min-height: 350px;' frameBorder='0' seamless='seamless' width='100%' height='100%' src='" . $this->embed_url . "' vspace='0' hspace='0' scrolling='auto' allowtransparency='true'></iframe>
-                <!--/Book-in.me Ticketing Embed Code-->";
+        return "<!--Attendize.com Ticketing Embed Code-->
+                <iframe style='overflow:hidden; min-height: 350px;' frameBorder='0' seamless='seamless' width='100%' height='100%' src='".$this->embed_url."' vspace='0' hspace='0' scrolling='auto' allowtransparency='true'></iframe>
+                <!--/Attendize.com Ticketing Embed Code-->";
     }
 
     /**
