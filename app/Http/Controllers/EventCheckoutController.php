@@ -700,6 +700,7 @@ class EventCheckoutController extends Controller
                 /*
                  * Create the attendees
                  */
+                $tmp_dir = null;
                 for ($i = 0; $i < $attendee_details['qty']; $i++) {
 
                     $attendee = new Attendee();
@@ -726,7 +727,7 @@ class EventCheckoutController extends Controller
                         $file_hash_data = microtime().random_bytes(10);
                         $foldername = substr(hash('sha256', $file_hash_data), 0, 20);
                     }
-
+                    
                     foreach ($attendee_details['ticket']->questions as $question) {
                         // If there is a temp file there
                         if(isset($request_data['ticket_holder_files'][$attendee_details['ticket']->id][$i][$question->id])) {
@@ -735,10 +736,10 @@ class EventCheckoutController extends Controller
                             $definitive_path = "docs/$foldername/".basename($tmp_path);
                             // Move the file
                             Storage::disk('local')->move($tmp_path, $definitive_path);
-                            // Remove the temp directory
-                            Storage::disk('local')->deleteDirectory(dirname($tmp_path));
                             // Change file path
                             $ticket_questions[$attendee_details['ticket']->id][$i][$question->id] = $definitive_path;
+                            // Set tmp_dir
+                            $tmp_dir = dirname($tmp_path);
                         }
 
                         $ticket_answer = isset($ticket_questions[$attendee_details['ticket']->id][$i][$question->id])
@@ -769,6 +770,10 @@ class EventCheckoutController extends Controller
                     /* Keep track of total number of attendees */
                     $attendee_increment++;
                 }
+            }
+            if(isset($tmp_dir)) {
+                // Remove the temp directory if needed
+                Storage::disk('local')->deleteDirectory($tmp_dir);
             }
         } catch (Exception $e) {
             Log::error($e);
