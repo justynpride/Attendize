@@ -1,5 +1,4 @@
 <?php
-
 return [
     'received_new_order'             => 'Es ging eine neue Bestllung für die Veranstaltung ein',
     'order_still_awaiting_payment'   => 'Achtung: Bezahlung ausstehend.',

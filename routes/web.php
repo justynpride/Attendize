@@ -39,7 +39,11 @@ use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\UserLogoutController;
 use App\Http\Controllers\UserSignupController;
 
-Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedirect', 'localizationRedirect', 'localeViewPath')->group(function () {
+Route::group(
+    [
+        'prefix'     => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+    ], function () {
 
     /*
      * -------------------------
@@ -61,7 +65,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
         [UserLogoutController::class, 'doLogout']
     )->name('logout');
 
-    Route::middleware('installed')->group(function () {
+    Route::group(['middleware' => ['installed']], function () {
 
         /*
          * Login
@@ -117,16 +121,18 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
     /*
      * Public organiser page routes
      */
-    Route::prefix('o')->group(function () {
+    Route::group(['prefix' => 'o'], function () {
+
         Route::get('/{organiser_id}/{organier_slug?}',
             [OrganiserViewController::class, 'showOrganiserHome']
         )->name('showOrganiserHome');
+
     });
 
     /*
      * Public event page routes
      */
-    Route::prefix('e')->group(function () {
+    Route::group(['prefix' => 'e'], function () {
 
         /*
          * Embedded events
@@ -194,15 +200,20 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
         [EventCheckoutController::class, 'showOrderTickets']
     )->name('showOrderTickets');
 
+    Route::get('docs/{folder_name}/{file_name}',
+        [EventCheckoutController::class, 'showOrderDoc']
+    )->name('showOrderDoc');
+
     /*
      * Backend routes
      */
-    Route::middleware('auth', 'first.run')->group(function () {
+    Route::group(['middleware' => ['auth', 'first.run']], function () {
 
         /*
          * Edit User
          */
-        Route::prefix('user')->group(function () {
+        Route::group(['prefix' => 'user'], function () {
+
             Route::get('/',
                 [UserController::class, 'showEditUser']
             )->name('showEditUser');
@@ -210,12 +221,14 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
             Route::post('/',
                 [UserController::class, 'postEditUser']
             )->name('postEditUser');
+
         });
 
         /*
          * Manage account
          */
-        Route::prefix('account')->group(function () {
+        Route::group(['prefix' => 'account'], function () {
+
             Route::get('/',
                 [ManageAccountController::class, 'showEditAccount']
             )->name('showEditAccount');
@@ -231,6 +244,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
             Route::post('invite_user',
                 [ManageAccountController::class, 'postInviteUser']
             )->name('postInviteUser');
+
         });
 
         Route::get('select_organiser',
@@ -240,7 +254,8 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
         /*
          * Organiser routes
          */
-        Route::prefix('organiser')->group(function () {
+        Route::group(['prefix' => 'organiser'], function () {
+
             Route::get('{organiser_id}/dashboard',
                 [OrganiserDashboardController::class, 'showDashboard']
             )->name('showOrganiserDashboard');
@@ -273,7 +288,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
         /*
          * Events dashboard
          */
-        Route::prefix('events')->group(function () {
+        Route::group(['prefix' => 'events'], function () {
 
             /*
              * ----------
@@ -299,7 +314,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
         /*
          * Event management routes
          */
-        Route::prefix('event')->group(function () {
+        Route::group(['prefix' => 'event'], function () {
 
             /*
              * Dashboard
@@ -600,6 +615,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
                 [EventSurveyController::class, 'postEnableQuestion']
             )->name('postEnableQuestion');
 
+
             /*
              * -------
              * Check In App
@@ -624,6 +640,7 @@ Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedire
             Route::post('{event_id}/confirm_order_tickets/{order_id}',
                 [EventCheckInController::class, 'confirmOrderTicketsQr']
             )->name('confirmCheckInOrderTickets');
+
 
             /*
              * -------

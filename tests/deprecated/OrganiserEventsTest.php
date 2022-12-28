@@ -1,23 +1,23 @@
 <?php
 
-use App\Models\Organiser;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Models\Organiser;
 
 class OrganiserEventsTest extends TestCase
 {
     public function test_show_events_displays_events()
     {
-        $organiser = \App\Models\Organiser::factory()->create(['account_id' => 1]);
+        $organiser = factory(App\Models\Organiser::class)->create(['account_id' => 1]);
 
-        $event1 = \App\Models\Event::factory()->create([
+        $event1 = factory(App\Models\Event::class)->create([
             'account_id'   => $organiser->account_id,
             'organiser_id' => $organiser->id,
             'user_id'      => $this->test_user->id,
         ]);
 
-        $event2 = \App\Models\Event::factory()->create([
+        $event2 = factory(App\Models\Event::class)->create([
             'account_id'   => $organiser->account_id,
             'organiser_id' => $organiser->id,
             'user_id'      => $this->test_user->id,

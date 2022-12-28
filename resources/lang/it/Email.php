@@ -10,7 +10,8 @@ return [
     'refund_from_name' => 'Hai ricevuto un rimborso da :name',
     'your_ticket_cancelled' => 'Il biglietto è stato annullato',
     'your_ticket_for_event' => 'Il biglietto per l\'evento :event',
-    'LLH:obsolete' => [
+    'LLH:obsolete' =>
+        [
 
-    ],
+        ],
 ];

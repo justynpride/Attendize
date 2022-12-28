@@ -1,12 +1,10 @@
 <?php
-
-if (! function_exists('clean_whitespace')) {
+if ( ! function_exists('clean_whitespace')) {
     /**
      * ToDo remove this and sanitise on output
      */
-    function sanitise($str)
-    {
-        return clean($str.'', 'strip_all');
+    function sanitise($str) {
+        return clean($str . '', 'strip_all');
     }
 
     /**
@@ -19,7 +17,6 @@ if (! function_exists('clean_whitespace')) {
     {
         $clear = preg_replace('~[\r\n\t]+~', ' ', trim($input));
         $clear = preg_replace('/ +/', ' ', $clear);
-
         return $clear;
     }
 
@@ -33,7 +30,7 @@ if (! function_exists('clean_whitespace')) {
     function prepare_markdown($markdown)
     {
         // return strip_tags($markdown);
-        return urldecode(html_entity_decode(clean($markdown.'', 'strip_all')));
+        return urldecode(html_entity_decode(clean($markdown . '', 'strip_all')));
     }
 
     /**
@@ -44,7 +41,7 @@ if (! function_exists('clean_whitespace')) {
      */
     function md_to_html($markdown)
     {
-        return clean(Markdown::convertToHtml($markdown.''));
+        return clean(Markdown::convertToHtml($markdown . ''));
     }
 
     /**
@@ -55,6 +52,7 @@ if (! function_exists('clean_whitespace')) {
      */
     function md_to_str($markdown)
     {
-        return clean_whitespace(clean(Markdown::convertToHtml($markdown.''), 'strip_all'));
+        return clean_whitespace(clean(Markdown::convertToHtml($markdown . ''), 'strip_all'));
     }
+
 }

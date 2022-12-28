@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
     //============================== New strings to translate ==============================//
     // Defined in file C:\\wamp\\www\\attendize\\resources\\views\\Public\\ViewOrganiser\\Partials\\OrganiserSocialSection.blade.php
     'pinterest'              => 'Pinterest',
@@ -14,4 +14,4 @@ return [
     'social_share_text_help' => 'これは、ユーザーがソーシャルネットワークであなたのイベントを共有するときにデフォルトで共有されるテキストです。',
     'twitter'                => 'Twitter',
     'whatsapp'               => 'WhatsApp',
-];
+);

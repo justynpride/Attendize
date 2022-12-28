@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
     'all_attendees'                           => 'すべての出席者',
     'all_attendees_cancelled'                 => 'この注文のすべての出席者がキャンセルされました。',
     'all_order_refunded'                      => 'この注文のすべての:moneyは返金されました。',
@@ -92,7 +92,8 @@ return [
     'ticket_title_placeholder'                => '例：一般入学',
     'update_order'                            => '注文を更新',
     'widgets'                                 => 'ウィジェット',
-    'LLH:obsolete'                            => [
-        'create_question' => '質問を作成する',
-    ],
-];
+    'LLH:obsolete'                            =>
+        array(
+            'create_question' => '質問を作成する',
+        ),
+);

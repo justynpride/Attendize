@@ -2,13 +2,14 @@
 
 namespace App\Transformers;
 
+
 abstract class Transformer
 {
     /**
      * @param $item
      * @return array
      */
-    abstract public function transform($item);
+    public abstract function transform($item);
 
     /**
      * @param array $items

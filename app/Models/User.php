@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Notifications\UserResetPassword;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +10,6 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasFactory;
     use SoftDeletes, Notifiable;
 
     /**
@@ -24,7 +22,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be mutated to dates.
      *
-     * @var array
+     * @var array $dates
      */
     public $dates = ['deleted_at'];
 
@@ -53,7 +51,7 @@ class User extends Authenticatable
         'is_registered',
         'is_confirmed',
         'is_parent',
-        'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -152,7 +150,7 @@ class User extends Authenticatable
      */
     public function getFullNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**

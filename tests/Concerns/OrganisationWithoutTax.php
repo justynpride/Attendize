@@ -1,13 +1,11 @@
-<?php
+<?php namespace Tests\Concerns;
 
-namespace Tests\Concerns;
-
+use App\Models\Event;
 use App\Models\Account;
 use App\Models\AccountPaymentGateway;
 use App\Models\Attendee;
 use App\Models\Country;
 use App\Models\Currency;
-use App\Models\Event;
 use App\Models\EventStats;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -18,21 +16,16 @@ use App\Models\Ticket;
 use App\Models\TicketStatus;
 use App\Models\Timezone;
 use App\Models\User;
-use Illuminate\Support\Carbon;
 use Superbalist\Money\Money;
+use Illuminate\Support\Carbon;
 
 trait OrganisationWithoutTax
 {
     private $account;
-
     private $paymentGateway;
-
     private $user;
-
     private $event;
-
     private $eventWithPercentageFees;
-
     private $eventWithFixedFees;
 
     public function setupOrganisationWithoutTax()
@@ -43,8 +36,8 @@ trait OrganisationWithoutTax
             ['id' => config('attendize.order.partially_refunded'), 'name' => 'Partially Refunded'],
             ['id' => config('attendize.order.cancelled'), 'name' => 'Cancelled'],
         ]);
-        $orderStatuses->map(function ($orderStatus) {
-            OrderStatus::factory()->create($orderStatus);
+        $orderStatuses->map(function($orderStatus) {
+            factory(OrderStatus::class)->create($orderStatus);
         });
 
         $ticketStatuses = collect([
@@ -53,17 +46,17 @@ trait OrganisationWithoutTax
             ['name' => 'Not On Sale Yet'],
             ['name' => 'On Sale'],
         ]);
-        $ticketStatuses->map(function ($ticketStatus) {
-            TicketStatus::factory()->create($ticketStatus);
+        $ticketStatuses->map(function($ticketStatus) {
+            factory(TicketStatus::class)->create($ticketStatus);
         });
 
-        $country = Country::factory()->unitedKingdom()->create();
-        $currency = Currency::factory()->gbp()->create();
-        $timezone = Timezone::factory()->europeLondon()->create();
-        $this->paymentGateway = PaymentGateway::factory()->dummy()->create();
+        $country = factory(Country::class)->states('United Kingdom')->create();
+        $currency = factory(Currency::class)->states('GBP')->create();
+        $timezone = factory(Timezone::class)->states('Europe/London')->create();
+        $this->paymentGateway = factory(PaymentGateway::class)->states('Dummy')->create();
 
         // Setup base account information with correct country, currency and timezones
-        $this->account = Account::factory()->create([
+        $this->account = factory(Account::class)->create([
             'name' => 'Local Integration Test Account',
             'timezone_id' => $timezone->id, // London
             'currency_id' => $currency->id, // Pound
@@ -71,12 +64,13 @@ trait OrganisationWithoutTax
             'payment_gateway_id' => $this->paymentGateway->id, // Dummy
         ]);
 
-        AccountPaymentGateway::factory()->create([
+        factory(AccountPaymentGateway::class)->create([
             'account_id' => $this->account->id,
             'payment_gateway_id' => $this->paymentGateway->id,
         ]);
 
-        $this->user = User::factory()->create([
+
+        $this->user = factory(User::class)->create([
             'account_id' => $this->account->id,
             'email' => 'local@test.com',
             'password' => \Hash::make('pass'),
@@ -85,15 +79,15 @@ trait OrganisationWithoutTax
             'is_confirmed' => true,
         ]);
 
-        $organiserNoTax = Organiser::factory()->create([
+        $organiserNoTax = factory(Organiser::class)->create([
             'account_id' => $this->account->id,
             'name' => 'Test Organiser (No Tax)',
             'charge_tax' => false,
             'tax_name' => '',
-            'tax_value' => 0.00,
+            'tax_value' => 0.00
         ]);
 
-        $this->event = Event::factory()->create([
+        $this->event = factory(Event::class)->create([
             'account_id' => $this->account->id,
             'user_id' => $this->user->id,
             'organiser_id' => $organiserNoTax->id,
@@ -102,7 +96,7 @@ trait OrganisationWithoutTax
             'is_live' => true,
         ]);
 
-        $this->eventWithPercentageFees = Event::factory()->create([
+        $this->eventWithPercentageFees = factory(Event::class)->create([
             'account_id' => $this->account->id,
             'user_id' => $this->user->id,
             'organiser_id' => $organiserNoTax->id,
@@ -112,7 +106,7 @@ trait OrganisationWithoutTax
             'is_live' => true,
         ]);
 
-        $this->eventWithFixedFees = Event::factory()->create([
+        $this->eventWithFixedFees = factory(Event::class)->create([
             'account_id' => $this->account->id,
             'user_id' => $this->user->id,
             'organiser_id' => $organiserNoTax->id,
@@ -133,12 +127,12 @@ trait OrganisationWithoutTax
             $eventId = $this->eventWithPercentageFees->id;
             $organiserFeePercentage = (new Money($this->eventWithPercentageFees->organiser_fee_percentage))->divide(100);
             $organiserFees = (new Money($price))->multiply($organiserFeePercentage);
-        } elseif ($hasFixedFee) {
+        } else if ($hasFixedFee) {
             $eventId = $this->eventWithFixedFees->id;
             $organiserFees = new Money($this->eventWithFixedFees->organiser_fee_fixed);
         }
 
-        $ticket = Ticket::factory()->create([
+        $ticket = factory(Ticket::class)->create([
             'user_id' => $this->user->id,
             'edited_by_user_id' => $this->user->id,
             'account_id' => $this->account->id,
@@ -152,7 +146,7 @@ trait OrganisationWithoutTax
             'organiser_fees_volume' => $organiserFees->multiply($count)->toFloat(),
         ]);
 
-        $singleAttendeeOrder = Order::factory()->create([
+        $singleAttendeeOrder = factory(Order::class)->create([
             'account_id' => $this->account->id,
             'payment_gateway_id' => $this->paymentGateway->id,
             'order_status_id' => OrderStatus::where('name', 'Completed')->first(), // Completed Order
@@ -166,7 +160,7 @@ trait OrganisationWithoutTax
 
         $singleAttendeeOrder->tickets()->attach($ticket);
 
-        OrderItem::factory()->create([
+        factory(OrderItem::class)->create([
             'title' => $ticket->title,
             'quantity' => $count,
             'unit_price' => $price,
@@ -175,14 +169,14 @@ trait OrganisationWithoutTax
         ]);
 
         // Add the number of attendees based on the count
-        $attendees = Attendee::factory()->count($count)->create([
+        $attendees = factory(Attendee::class, $count)->create([
             'order_id' => $singleAttendeeOrder->id,
             'event_id' => $eventId,
             'ticket_id' => $ticket->id,
             'account_id' => $this->account->id,
         ]);
 
-        EventStats::factory()->create([
+        factory(EventStats::class)->create([
             'date' => Carbon::now()->format('Y-m-d'),
             'views' => 0,
             'unique_views' => 0,
@@ -192,7 +186,7 @@ trait OrganisationWithoutTax
             'organiser_fees_volume' => $organiserFees->multiply($count)->toFloat(),
         ]);
 
-        return [$singleAttendeeOrder, $attendees];
+        return [ $singleAttendeeOrder, $attendees ];
     }
 
     public function getAccountUser()

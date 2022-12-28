@@ -4,7 +4,8 @@ namespace Services\PaymentGateway;
 
 class Stripe
 {
-    const GATEWAY_NAME = 'Stripe';
+
+    CONST GATEWAY_NAME = 'Stripe';
 
     private $transaction_data;
 
@@ -23,9 +24,9 @@ class Stripe
         $this->transaction_data = [
             'amount' => $order_total,
             'currency' => $event->currency->code,
-            'description' => 'Order for customer: '.$order_email,
+            'description' => 'Order for customer: ' . $order_email,
             'token' => $this->options['stripeToken'],
-            'receipt_email' => $order_email,
+            'receipt_email' => $order_email
         ];
 
         return $this->transaction_data;
@@ -33,6 +34,7 @@ class Stripe
 
     public function startTransaction($order_total, $order_email, $event)
     {
+
         $this->createTransactionData($order_total, $order_email, $event);
         $transaction = $this->gateway->purchase($this->transaction_data);
         $response = $transaction->send();
@@ -48,19 +50,15 @@ class Stripe
     public function extractRequestParameters($request)
     {
         foreach ($this->extra_params as $param) {
-            if (! empty($request->get($param))) {
+            if (!empty($request->get($param))) {
                 $this->options[$param] = $request->get($param);
             }
         }
     }
 
-    public function completeTransaction($data)
-    {
-    }
+    public function completeTransaction($data) {}
 
-    public function getAdditionalData()
-    {
-    }
+    public function getAdditionalData(){}
 
     public function storeAdditionalData()
     {
@@ -69,10 +67,11 @@ class Stripe
 
     public function refundTransaction($order, $refund_amount, $refund_application_fee)
     {
+
         $request = $this->gateway->refund([
             'transactionReference' => $order->transaction_id,
             'amount' => $refund_amount,
-            'refundApplicationFee' => $refund_application_fee,
+            'refundApplicationFee' => $refund_application_fee
         ]);
 
         $response = $request->send();

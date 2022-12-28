@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class AttendeesApiController extends ApiBaseController
 {
+
     /**
      * @param Request $request
      * @return mixed
@@ -15,6 +16,7 @@ class AttendeesApiController extends ApiBaseController
     {
         return Attendee::scope($this->account_id)->paginate($request->get('per_page', 25));
     }
+
 
     /**
      * @param Request $request
@@ -41,4 +43,6 @@ class AttendeesApiController extends ApiBaseController
     public function destroy(Request $request)
     {
     }
+
+
 }

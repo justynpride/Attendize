@@ -93,7 +93,8 @@ return [
     'ticket_title_placeholder' => 'Per esempio: General Admission',
     'update_order' => 'Aggiorna ordine',
     'widgets' => 'Widgets',
-    'LLH:obsolete' => [
-        'create_question' => 'Crea Domanda',
-    ],
+    'LLH:obsolete' =>
+        [
+            'create_question' => 'Crea Domanda',
+        ],
 ];

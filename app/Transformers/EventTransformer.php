@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+
 class EventTransformer extends Transformer
 {
     public function transform($event)
@@ -10,4 +11,5 @@ class EventTransformer extends Transformer
             'id' => $event['id'],
         ];
     }
+
 }
