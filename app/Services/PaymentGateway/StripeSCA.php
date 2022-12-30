@@ -101,16 +101,16 @@ class StripeSCA
 
     public function refundTransaction($order, $refund_amount, $refund_application_fee)
     {
-
-        $request = $this->gateway->refund([
+        $request = $this->gateway->cancel([
             'transactionReference' => $order->transaction_id,
             'amount' => $refund_amount,
-            'refundApplicationFee' => $refund_application_fee
+            'refundApplicationFee' => $refund_application_fee,
+            'paymentIntentReference' => $order->payment_intent,
         ]);
 
         $response = $request->send();
 
-        if ($response->isSuccessful()) {
+        if ($response->isCancelled()) {
             $refundResponse['successful'] = true;
         } else {
             $refundResponse['successful'] = false;
