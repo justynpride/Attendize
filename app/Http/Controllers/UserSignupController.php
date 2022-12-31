@@ -87,6 +87,10 @@ class UserSignupController extends Controller
             'config' => '{"apiKey":"","publishableKey":""}',
         ];
         $paymentGateway = AccountPaymentGateway::create($payment_gateway_data);
+        // We need to assign the first ever user as super admin to be able to add the first organiser
+        if ($request->get('first_run') === 'yup') {
+            $user->assignRole('super admin');
+        }
 
         if ($is_attendize) {
             // TODO: Do this async?
