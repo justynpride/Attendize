@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Attendize\PaymentUtils;
+use App\App\PaymentUtils;
 use App\Jobs\SendOrderAttendeeTicketJob;
 use App\Jobs\SendOrderConfirmationJob;
 use App\Jobs\SendOrderNotificationJob;

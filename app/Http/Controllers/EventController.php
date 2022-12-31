@@ -385,28 +385,23 @@ class EventController extends MyBaseController
         /* Set values for the new Event */
         $cloned_event->is_live = 0;
         $cloned_event->id = null;
-        $cloned_event->title = $event->title . '(New)';
+        $cloned_event->title = $event->title.'(New)';
         $cloned_event->start_date = $fechaini;
         $cloned_event->end_date = $fechafin;
         $cloned_event->exists = false; //very important so IsDirty returns correctly
-        
 
-        try
-        {
+        try {
             $cloned_event->save();
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Log::error($e);
-            return response()->json(['status' => $e, 'messages' => trans("Controllers.event_create_exception") , ]);
+
+            return response()->json(['status' => $e, 'messages' => trans('Controllers.event_create_exception')]);
         }
 
         // now get images and duplicate them (thanks for a better code from @emergingdzns )
         $images = EventImage::where('event_id', $event->id)->get();
-        if (count($images) > 0)
-        {
-            foreach ($images as $image)
-            {
+        if (count($images) > 0) {
+            foreach ($images as $image) {
                 $newImage = new EventImage();
                 $newImage->image_path = $image->image_path;
                 $newImage->created_at = date('Y-m-d H:i:s');
@@ -420,10 +415,8 @@ class EventController extends MyBaseController
 
         // now get survey question for the event and associate them
         $eventquestions = $event->questions()->get();
-        if (count($eventquestions) > 0)
-        {
-            foreach ($eventquestions as $question)
-            {
+        if (count($eventquestions) > 0) {
+            foreach ($eventquestions as $question) {
                 $cloned_event->questions()
                     ->attach($question->id);
             }
@@ -431,12 +424,8 @@ class EventController extends MyBaseController
 
         // now get tickets for the event and duplicate them
         $tickets = Ticket::where('event_id', $event->id)->get();
-        if (count($tickets) > 0)
-        {
-
-            foreach ($tickets as $ticket)
-            {
-
+        if (count($tickets) > 0) {
+            foreach ($tickets as $ticket) {
                 $ticketa = $ticket->toArray();
                 unset($ticketa['id']);
                 $ticketa['event_id'] = $cloned_event->id;
@@ -448,36 +437,34 @@ class EventController extends MyBaseController
                 $newTicket->fill($ticketa);
                 $newTicket->save();
 
-                if (count($eventquestions) > 0)
-                {
-                    foreach ($eventquestions as $question)
-                    {
-                        if (in_array($ticket->id, $question->tickets->pluck('id')->toArray()))
-                        {
+                if (count($eventquestions) > 0) {
+                    foreach ($eventquestions as $question) {
+                        if (in_array($ticket->id, $question->tickets->pluck('id')->toArray())) {
                             $question->tickets()->sync($newTicket->id);
                         }
                     }
                 }
-
             }
-
         }
         /* redirect to wherever you want */
-        return redirect(route('showOrganiserEvents', array('organiser_id' => $cloned_event->organiser_id)));
-
+        return redirect(route('showOrganiserEvents', ['organiser_id' => $cloned_event->organiser_id]));
     }
+
     public function archiveEvent($event_id = '')
     {
         $event = Event::scope()->findOrFail($event_id);
         $event->delete();
+
         return redirect()->route('showOrganiserEvents', $event->organiser->id);
     }
+
     public function restoreEvent($event_id = '')
     {
         $event = Event::withTrashed()->scope()
             ->findOrFail($event_id);
         $event->deleted_at = null;
         $event->save();
+
         return redirect()->route('showOrganiserEvents', $event->organiser->id);
     }
 }

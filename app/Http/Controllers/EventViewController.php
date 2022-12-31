@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Attendize\Utils;
+use App\App\Utils;
 use App\Models\Affiliate;
 use App\Models\Event;
 use App\Models\EventAccessCodes;

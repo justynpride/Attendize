@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Attendize\Utils;
+use App\App\Utils;
 use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Attendize\Utils;
+use App\App\Utils;
 use App\Models\Account;
 use App\Models\User;
 use Hash;

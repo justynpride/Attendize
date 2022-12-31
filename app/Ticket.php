@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Attendize\PaymentUtils;
+use App\App\PaymentUtils;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -23,33 +23,32 @@ class Ticket extends MyBaseModel
     protected $quantity_reserved_cache = null;
 
     /**
-     * @var array $fillable
+     * @var array
      */
     protected $fillable = [
-	'created_at',
-	'created_at',
-	'updated_at',
-	'deleted_at',
-	'edited_by_user_id',
-	'account_id',
-	'order_id',
-	'event_id',
-	'title',
-	'description',
-	'price',
-	'max_per_person',
-	'min_per_person',
-	'quantity_available',
-	'quantity_sold',
-	'sales_volume',
-	'organiser_fees_volume',
-	'is_paused',
-	'public_id',
-	'user_id',
-	'sort_order',
-	'is_hidden'
-        ];
-
+        'created_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'edited_by_user_id',
+        'account_id',
+        'order_id',
+        'event_id',
+        'title',
+        'description',
+        'price',
+        'max_per_person',
+        'min_per_person',
+        'quantity_available',
+        'quantity_sold',
+        'sales_volume',
+        'organiser_fees_volume',
+        'is_paused',
+        'public_id',
+        'user_id',
+        'sort_order',
+        'is_hidden',
+    ];
 
     /**
      * The rules to validate the model.

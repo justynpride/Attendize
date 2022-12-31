@@ -2,7 +2,7 @@
 
 namespace Tests\Features;
 
-use App\Attendize\Utils;
+use App\App\Utils;
 use Tests\TestCase;
 
 class UtilsTest extends TestCase
