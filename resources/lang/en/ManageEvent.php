@@ -10,7 +10,7 @@ return array (
   'attendee_cancelled' => 'Cancelled',
   'attendee_cancelled_help' => 'This attendee has been cancelled',
   'attendees_file_requirements' => 'File must be .csv and the first line must contain first_name,last_name,email',
-  'attendize_qrcode_check_in' => 'Attendize QRCode Check-in',
+  'attendize_qrcode_check_in' => 'QRCode Check-in',
   'cancel_attendee_title' => 'Cancel :cancel',
   'cancel_description' => 'Cancelling Attendees will remove them from the attendee list.',
   'cancelling_order_will_refund_attendees' => 'Cancelling the :type will refund the selected attendees',
