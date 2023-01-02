@@ -1,3 +1,4 @@
+@section('content')
 <div role="dialog"  class="modal fade" style="display: none;">
    {!! Form::model($attendee, array('url' => route('postEditAttendee', array('event_id' => $event->id, 'attendee_id' => $attendee->id)), 'class' => 'ajax')) !!}
     <div class="modal-dialog">
@@ -71,6 +72,7 @@
        {!! Form::close() !!}
     </div>
 </div>
+@stop
 @section('content')
             
 @stop
