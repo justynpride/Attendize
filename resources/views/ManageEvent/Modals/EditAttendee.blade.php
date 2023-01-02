@@ -69,8 +69,8 @@
 
         </div><!-- /end modal content-->
        {!! Form::close() !!}
-       @section('content')
-            
-        @stop
     </div>
 </div>
+@section('content')
+            
+@stop
