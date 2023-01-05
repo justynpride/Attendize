@@ -362,24 +362,26 @@ class EventCheckoutController extends Controller
                 'messages' => $order->errors(),
             ]);
         }
-
-        // All files are validated, now remove file objects from array to avoid serialization errors
-        // Files are stored in a temp folder, awaiting order confirmation
-        $order_hash_data = microtime().random_bytes(10);
-        // take only the first 20 characters, it would take 16^20 bruteforce requests
-        $folder_name = substr(hash('sha256', $order_hash_data), 0, 20);
-        $order_dir_path = 'docs/'.$folder_name;
-        //File::makeDirectory($order_dir_path);
-        foreach($request_data['ticket_holder_files'] as $key => $ticket)
+        if(isset($request_data['ticket_holder_files']))
         {
-            foreach($ticket as $i=>$item)
+            // All files are validated, now remove file objects from array to avoid serialization errors
+            // Files are stored in a temp folder, awaiting order confirmation
+            $order_hash_data = microtime().random_bytes(10);
+            // take only the first 20 characters, it would take 16^20 bruteforce requests
+            $folder_name = substr(hash('sha256', $order_hash_data), 0, 20);
+            $order_dir_path = 'docs/'.$folder_name;
+            //File::makeDirectory($order_dir_path);
+            foreach($request_data['ticket_holder_files'] as $key => $ticket)
             {
-                foreach($item as $question_id => $file)
+                foreach($ticket as $i=>$item)
                 {
-                    if(isset($file)) {
-                        // Store the file in a temporary folder, use Laravel default file name
-                        $path = $file->store("tmp/$order_dir_path");
-                        $request_data['ticket_holder_files'][$key][$i][$question_id] = $path;
+                    foreach($item as $question_id => $file)
+                    {
+                        if(isset($file)) {
+                            // Store the file in a temporary folder, use Laravel default file name
+                            $path = $file->store("tmp/$order_dir_path");
+                            $request_data['ticket_holder_files'][$key][$i][$question_id] = $path;
+                        }
                     }
                 }
             }
