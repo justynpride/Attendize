@@ -59,6 +59,14 @@ Route::group(
         [InstallerController::class, 'postInstaller']
     )->name('postInstaller');
 
+    Route::get('upgrade',
+        [InstallerController::class, 'showUpgrader']
+    )->name('showUpgrader');
+
+    Route::post('upgrade',
+        [InstallerController::class, 'postUpgrader']
+    )->name('postUpgrader');
+
     /*
      * Logout
      */
