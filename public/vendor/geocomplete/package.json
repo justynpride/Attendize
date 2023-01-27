@@ -7,7 +7,7 @@
     "example": "examples"
   },
   "dependencies": {
-    "docco": "^0.6.3",
+    "docco": "^0.9.1",
     "uglifyjs": "^2.3.6"
   },
   "devDependencies": {
