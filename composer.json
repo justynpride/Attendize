@@ -63,8 +63,7 @@
         }
     },
     "scripts": {
-        "post-install-cmd": [
-            "post-autoload-dump": [
+        "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"        
         ],
