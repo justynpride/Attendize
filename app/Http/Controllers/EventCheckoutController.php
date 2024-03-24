@@ -335,6 +335,33 @@ class EventCheckoutController extends Controller
                 'messages' => $order->errors(),
             ]);
         }
+        if(isset($request_data['ticket_holder_files']))
+        {
+            // All files are validated, now remove file objects from array to avoid serialization errors
+            // Files are stored in a temp folder, awaiting order confirmation
+            $order_hash_data = microtime().random_bytes(10);
+            // take only the first 20 characters, it would take 16^20 bruteforce requests
+            $folder_name = substr(hash('sha256', $order_hash_data), 0, 20);
+            $order_dir_path = 'docs/'.$folder_name;
+            //File::makeDirectory($order_dir_path);
+            foreach($request_data['ticket_holder_files'] as $key => $ticket)
+            {
+                foreach($ticket as $i=>$item)
+                {
+                    foreach($item as $question_id => $file)
+                    {
+                        if(isset($file)) {
+                            // Store the file in a temporary folder, use Laravel default file name
+                            $path = $file->store("tmp/$order_dir_path");
+                            $request_data['ticket_holder_files'][$key][$i][$question_id] = $path;
+                        }
+                    }
+                }
+            }
+        }
+
+        session()->remove('ticket_order_' . $event_id . '.request_data');
+        session()->push('ticket_order_' . $event_id . '.request_data', $request_data);
 
         return response()->json([
             'status'      => 'success',
