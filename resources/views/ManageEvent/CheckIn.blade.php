@@ -5,12 +5,14 @@
         @lang("Attendee.check_in", ["event"=>$event->title])
     </title>
 
-    {!! Html::script('vendor/vue/dist/vue.min.js') !!}
-    {!! Html::script('vendor/vue-resource/dist/vue-resource.min.js') !!}
+    {{-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> --}}
+    <script src="{{cdn('assets/javascript/vue.min.js')}}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script> --}}
+    <script src="{{cdn('assets/javascript/vue-resource.min.js')}}"></script>
 
-    {!! Html::style('assets/stylesheet/application.css') !!}
-    {!! Html::style('assets/stylesheet/check_in.css') !!}
-    {!! Html::script('vendor/jquery/dist/jquery.min.js') !!}
+    <link rel="stylesheet" type="text/css" href="{{cdn('assets/stylesheet/application.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{cdn('assets/stylesheet/check_in.css')}}">
+    <script src="{{cdn('assets/javascript/jquery.min.js')}}"></script>
 
     @include('Shared/Layouts/ViewJavascript')
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
@@ -24,13 +26,14 @@
     <![endif]-->
     <style>
         body {
-            background: url({{asset('assets/images/background.png')}}) repeat;
+            background: url({{cdn('assets/images/background.png')}}) repeat;
             background-color: #2E3254;
             background-attachment: fixed;
         }
     </style>
 </head>
-<body id="app">
+<body>
+<div id="app">
 <header>
     <div class="menuToggle hide">
         <i class="ico-menu"></i>
@@ -48,7 +51,7 @@
                     'class' => 'form-control attendee_search',
                             'id' => 'search',
                             'v-model' => 'searchTerm',
-                            '@keyup' => 'fetchAttendees | debounce 500',
+                            '@keyup' => 'fetchAttendees',
                             '@keyup.esc' => 'clearSearch',
                             'placeholder' => trans("ManageEvent.checkin_search_placeholder")
                 ])  !!}
@@ -133,7 +136,7 @@
         <div v-if="isScanning" class="scannerAimer">
         </div>
 
-        <div v-if="scanResult" class="scannerResult @{{ scanResultObject.status }}">
+        <div class="scannerResult" v-if="scanResult" :class="scanResultObject.status">
             <i v-if="scanResultObject.status == 'success'" class="ico-checkmark"></i>
             <i v-if="scanResultObject.status == 'error'" class="ico-close"></i>
         </div>
@@ -155,13 +158,15 @@
     </div>
 </div>
 {{-- /END QR Modal--}}
+</div>
 
 <script>
 Vue.http.headers.common['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
 </script>
 
 @include("Shared.Partials.LangScript")
-{!! Html::script('vendor/qrcode-scan/llqrcode.js') !!}
-{!! Html::script('assets/javascript/check_in.js') !!}
+
+<script src="{{cdn('assets/javascript/qrcode-scan/llqrcode.js')}}"></script>
+<script src="{{cdn('assets/javascript/check_in.js')}}"></script>
 </body>
 </html>

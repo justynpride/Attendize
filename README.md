@@ -1,14 +1,18 @@
 *Attendize* is an open-source ticketing and event management application built using the Laravel PHP framework. Attendize allows event organisers to sell tickets to their events and manage attendees without paying service fees to third party ticketing companies.
 
 <p align="center">
-  <img src="/public/assets/images/logo-dark.png" alt="Attendize"/>
-  <img style='border: 1px solid #444;' src="https://www.attendize.com/images/screenshots/screen1.PNG" alt="Attendize"/>
+  <img src="https://camo.githubusercontent.com/d2233d262b76ca06329b0d799bcd6a6ca9407230/687474703a2f2f617474656e64697a652e776562736974652f6173736574732f696d616765732f6c6f676f2d6461726b2e706e67" alt="Attendize" />
+  <img style='border: 1px solid #444;' src="https://camo.githubusercontent.com/f971154821cf19038707fef3c548a91c21d5ac4f/68747470733a2f2f7777772e617474656e64697a652e636f6d2f696d616765732f73637265656e73686f74732f73637265656e312e504e47"/>
 </p>
 
-# Attendize
+## This branch **will** get force pushes and rebases, until I use it production!
+
+# Attendize 
+
 Open-source ticket selling and event management platform
 
-> Please report bugs here: https://github.com/Attendize/Attendize/issues. Detailed bug reports are more likely to be looked at. Simple creating an issue and saying "it doesn't work" is not useful. Providing some steps to reproduce your problem as well as details about your operating system, PHP version etc can help.
+![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=publicarray/Attendize)
+[![phpunit](https://github.com/publicarray/Attendize/workflows/Attendize/badge.svg)](https://github.com/publicarray/Attendize/actions)
 
 > Take a look https://www.attendize.com/troubleshooting.html and follow the https://www.attendize.com/getting_started.html guide to make sure you have configured attendize correctly.  
 
@@ -45,14 +49,16 @@ Documentation Website: https://www.attendize.com<br />
 
 Attendize should run on most pre-configured LAMP or LEMP environments as long as certain requirements are adhered to. Attendize is based on the [Laravel Framework](https://laravel.com/)
 
-**PHP Requirements**
-1. PHP >= 7.1.3
-2. OpenSSL PHP Extension 
-3. PDO PHP Extension 
-4. Mbstring PHP Extension 
-5. Tokenizer PHP Extension 
-6. Fileinfo PHP Extension 
-7. GD PHP Extension
+```bash
+composer install --no-dev
+yarn
+yarn grunt deploy
+php artisan serve # or with valet `valet open`
+# start your db: `brew services start mariadb`
+# open http://127.0.0.1:8000 in your browser
+```
+
+### Testing
 
 **MySQL Requirements**
 1. MySQL version 5.7 or higher required

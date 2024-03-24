@@ -14,17 +14,19 @@
     "require": {
         "php": "^7.3",
         "ext-json": "*",
+        "barryvdh/laravel-dompdf": "^0.8.5",
         "doctrine/dbal": "^2.9",
-        "dompdf/dompdf": "^0.8",
+        "dompdf/dompdf": "^0.8.4",
         "fideloper/proxy": "^4.2",
         "graham-campbell/markdown": "11.1.0",
         "guzzlehttp/guzzle": "^6.4",
         "guzzlehttp/psr7": "^1.6",
         "intervention/image": "^2.5",
+        "intervention/imagecache": "dev-master",
         "laracasts/utilities": "^3.0",
         "laravel/framework": "^6.5",
         "laravel/socialite": "^4.3",
-        "laravel/tinker": "^1.0",
+        "laravel/tinker": "^2.2",
         "laravelcollective/html": "^6.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "league/omnipay": "^3.0",
@@ -32,7 +34,6 @@
         "mcamara/laravel-localization": "^1.4",
         "mews/purifier": "^3.1",
         "milon/barcode": "^6.0",
-        "nitmedia/wkhtml2pdf": "dev-master",
         "omnipay/common": "^3.0",
         "omnipay/dummy": "^3.0",
         "omnipay/paypal": "^3.0",
@@ -45,15 +46,17 @@
         "vinelab/http": "~1.5"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.6",
         "facade/ignition": "^1.4",
-        "fzaninotto/faker": "1.9.*",
+        "fzaninotto/faker": "^1.9",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpspec/phpspec": "^6.0",
         "phpunit/phpunit": "^8.0",
         "symfony/css-selector": "~3.0",
-        "symfony/dom-crawler": "~3.0"
+        "symfony/dom-crawler": "~5.0",
+        "ext-fileinfo": "*"
     },
     "autoload": {
         "classmap": [

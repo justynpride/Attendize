@@ -1,5 +1,5 @@
-{!! Html::script('vendor/simplemde/dist/simplemde.min.js') !!}
-{!! Html::style('vendor/simplemde/dist/simplemde.min.css') !!}
+{!! Html::script('assets/javascript/simplemde.min.js') !!}
+{!! Html::style('assets/stylesheet/simplemde.min.css') !!}
 
 <script>
     $(function() {

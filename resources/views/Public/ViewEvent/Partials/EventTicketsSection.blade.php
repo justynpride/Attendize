@@ -59,16 +59,16 @@
 
                                             @else
 
-                                                @if($ticket->sale_status === config('attendize.ticket_status_sold_out'))
+                                                @if($ticket->sale_status === config('attendize.ticket_status.sold_out'))
                                                     <span class="text-danger" property="availability"
                                                           content="http://schema.org/SoldOut">
                                     @lang("Public_ViewEvent.sold_out")
                                 </span>
-                                                @elseif($ticket->sale_status === config('attendize.ticket_status_before_sale_date'))
+                                                @elseif($ticket->sale_status === config('attendize.ticket.status.before_sale_date'))
                                                     <span class="text-danger">
                                     @lang("Public_ViewEvent.sales_have_not_started")
                                 </span>
-                                                @elseif($ticket->sale_status === config('attendize.ticket_status_after_sale_date'))
+                                                @elseif($ticket->sale_status === config('attendize.ticket_status.after_sale_date'))
                                                     <span class="text-danger">
                                     @lang("Public_ViewEvent.sales_have_ended")
                                 </span>
@@ -121,7 +121,7 @@
                                         @if(!$is_free_event)
                                             <div class="hidden-xs pull-left">
                                                 <img class=""
-                                                     src="{{asset('assets/images/public/EventPage/credit-card-logos.png')}}"/>
+                                                     src="{{cdn('assets/images/public/EventPage/credit-card-logos.png')}}"/>
                                                 @if($event->enable_offline_payments)
 
                                                     <div class="help-block" style="font-size: 11px;">

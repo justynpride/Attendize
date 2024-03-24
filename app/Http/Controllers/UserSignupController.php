@@ -56,8 +56,8 @@ class UserSignupController extends Controller
             'email'        => 'required|email|unique:users',
             'password'     => 'required|min:8|confirmed',
             'first_name'   => 'required',
-            'last_name'   => 'required',
-            'terms_agreed' => $is_attendize ? 'required' : ''
+            'last_name'    => 'required',
+            'terms_agreed' => $is_attendize ? 'required' : '',
         ]);
 
         if (is_object($this->captchaService)) {

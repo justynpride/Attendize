@@ -22,13 +22,8 @@
     @include('Shared.Partials.GlobalMeta')
    <!--/Meta-->
 
-    <!--JS-->
-    {!! Html::script(config('attendize.cdn_url_static_assets').'/vendor/jquery/dist/jquery.min.js') !!}
-    <!--/JS-->
-
-    <!--Style-->
-    {!! Html::style(config('attendize.cdn_url_static_assets').'/assets/stylesheet/application.css') !!}
-    <!--/Style-->
+    <link rel="stylesheet" type="text/css" href="{{cdn('assets/stylesheet/application.css')}}">
+    <script src="{{cdn('assets/javascript/jquery.min.js')}}"></script>
 
     <!--rtl-style-->
     @if (config('app.locale_dir') =='rtl')
@@ -44,7 +39,7 @@
 
     <div class="navbar-header">
         <a class="navbar-brand" href="javascript:void(0);">
-            <img style="width: 150px;" class="logo" alt="Attendize" src="{{asset('assets/images/logo-light.png')}}"/>
+            <img style="width: 150px;" class="logo" alt="Attendize" src="{{cdn('assets/images/logo-light.png')}}"/>
         </a>
     </div>
 
@@ -63,12 +58,14 @@
 
 
                 <ul class="dropdown-menu" role="menu">
+                    @if(Route::has('showCreateOrganiser'))
                     <li>
                         <a href="{{route('showCreateOrganiser')}}">
                             <i class="ico ico-plus"></i>
                             @lang("Top.create_organiser")
                         </a>
                     </li>
+                    @endif
                     @foreach($organisers as $org)
                         <li>
                             <a href="{{route('showOrganiserDashboard', ['organiser_id' => $org->id])}}">
@@ -131,7 +128,7 @@
 
 <!--JS-->
 @include("Shared.Partials.LangScript")
-{!! Html::script('assets/javascript/backend.js') !!}
+<script src="{{cdn('assets/javascript/backend.js')}}"></script>
 <script>
     $(function () {
         $.ajaxSetup({

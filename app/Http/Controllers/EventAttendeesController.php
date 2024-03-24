@@ -1,30 +1,26 @@
 <?php namespace App\Http\Controllers;
 
 use App\Cancellation\OrderCancellation;
-use App\Exports\AttendeesExport;
-use App\Imports\AttendeesImport;
-use App\Jobs\GenerateTicketJob;
-use App\Jobs\SendAttendeeInviteJob;
-use App\Jobs\SendOrderAttendeeTicketJob;
-use App\Jobs\SendMessageToAttendeesJob;
-use App\Jobs\SendMessageToAttendeeJob;
+use App\Generators\TicketGenerator;
+use App\Jobs\SendAttendeeInvite;
+use App\Jobs\SendAttendeeTicket;
+use App\Jobs\SendMessageToAttendees;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
 use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Services\Order as OrderService;
 use App\Models\Ticket;
+use App\Services\Order as OrderService;
 use Auth;
-use Config;
 use DB;
 use Excel;
 use Exception;
 use Illuminate\Http\Request;
 use Log;
 use Mail;
-use PDF;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Validator;
 use Illuminate\Support\Facades\Lang;
 
@@ -440,25 +436,17 @@ class EventAttendeesController extends MyBaseController
     /**
      * @param $event_id
      * @param $attendee_id
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return BinaryFileResponse
      */
-    public function showExportTicket($event_id, $attendee_id)
+    public function showExportTicket($event_id, $attendee_id): BinaryFileResponse
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
         $attendee_reference = $attendee->getReferenceAttribute();
 
-        Log::debug("Exporting ticket PDF", [
-            'attendee_id' => $attendee_id,
-            'order_reference' => $attendee->order->order_reference,
-            'attendee_reference' => $attendee_reference,
-            'event_id' => $event_id
-        ]);
+        // Generate PDF filename and path
+        $pdf_file = TicketGenerator::createPDFTicket($attendee->order, $attendee);
 
-        $pdf_file = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $attendee_reference . '.pdf';
-
-        $this->dispatchNow(new GenerateTicketJob($attendee));
-
-        return response()->download($pdf_file);
+        return response()->download($pdf_file->path);
     }
 
     /**
@@ -669,32 +657,26 @@ class EventAttendeesController extends MyBaseController
         ]);
     }
 
-
     /**
      * Show an attendee ticket
      *
-     * @param Request $request
-     * @param $attendee_id
+     * @param  Request  $request
+     * @param  int  $event_id
+     * @param  int  $attendee_id
      * @return bool
      */
-    public function showAttendeeTicket(Request $request, $attendee_id)
+    public function showAttendeeTicket(Request $request, int $event_id, int $attendee_id)
     {
         $attendee = Attendee::scope()->findOrFail($attendee_id);
 
-        $data = [
-            'order'     => $attendee->order,
-            'event'     => $attendee->event,
-            'tickets'   => $attendee->ticket,
-            'attendees' => [$attendee],
-            'css'       => file_get_contents(public_path('assets/stylesheet/ticket.css')),
-            'image'     => base64_encode(file_get_contents(public_path($attendee->event->organiser->full_logo_path))),
+        // Generate PDF
+        $pdf_file = TicketGenerator::createPDFTicket($attendee->order, $attendee);
 
-        ];
-
-        if ($request->get('download') == '1') {
-            return PDF::html('Public.ViewEvent.Partials.PDFTicket', $data, 'Tickets');
+        if ($request->get('download') === '1') { // Force download PDF
+            return response()->download($pdf_file->path);
         }
-        return view('Public.ViewEvent.Partials.PDFTicket', $data);
+
+        return response()->file($pdf_file->path, ['Content-Type' => 'application/pdf']);
     }
 
 }

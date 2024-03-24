@@ -106,8 +106,65 @@ class InstallerController extends Controller
         // Writes the new env file
         $this->writeEnvFile();
 
-        // Force laravel to regenerate a new key (see key:generate sources)
-        Config::set('app.key', $this->installation_data['app_key']);
+        $config_string = file_get_contents(base_path() . '/.env.example');
+        $config_temp = explode("\n", $config_string);
+        foreach($config_temp as $key=>$row)
+            $config_temp[$key] = explode("=", $row, 2);
+        $config = [
+            "APP_ENV" => "production",
+            "APP_DEBUG" => "false",
+            "APP_URL" => $app_url,
+            "APP_KEY" => $app_key,
+            "DB_TYPE" => $database['type'],
+            "DB_HOST" => $database['host'],
+            "DB_DATABASE" => $database['name'],
+            "DB_USERNAME" => $database['username'],
+            "DB_PASSWORD" => $database['password'],
+            "MAIL_DRIVER" => $mail['driver'],
+            "MAIL_PORT" => $mail['port'],
+            "MAIL_ENCRYPTION" => $mail['encryption'],
+            "MAIL_HOST" => $mail['host'],
+            "MAIL_USERNAME" => $mail['username'],
+            "MAIL_FROM_NAME" => $mail['from_name'],
+            "MAIL_FROM_ADDRESS" => $mail['from_address'],
+            "MAIL_PASSWORD" => $mail['password'],
+        ];
+
+        foreach($config as $key => $val) {
+            $set = false;
+            foreach($config_temp as $rownum=>$row) {
+                if($row[0]==$key) {
+                    if ($key=='MAIL_FROM_NAME') {
+                        $val = '"'.$val.'"';
+                    }
+                    $config_temp[$rownum][1] = $val;
+                    $set = true;
+                }
+            }
+            if(!$set)
+                $config_temp[] = [$key, $val];
+        }
+        $config_string = "";
+        foreach($config_temp as $row)
+            if(count($row)>1)
+                $config_string .= implode("=", $row)."\n";
+            else
+                $config_string .= implode("", $row)."\n";
+
+        $fp = fopen(base_path() . '/.env', 'w');
+        fwrite($fp, $config_string);
+        fclose($fp);
+
+        Config::set('database.default', $database['type']);
+        Config::set("database.connections.{$database['type']}.host", $database['host']);
+        Config::set("database.connections.{$database['type']}.database", $database['name']);
+        Config::set("database.connections.{$database['type']}.username", $database['username']);
+        Config::set("database.connections.{$database['type']}.password", $database['password']);
+
+        DB::reconnect();
+
+        //force laravel to regenerate a new key (see key:generate sources)
+        Config::set('app.key', $app_key);
         Artisan::call('key:generate', ['--force' => true]);
 
         // Run the migration

@@ -3,27 +3,27 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Account;
-use App\Models\AccountPaymentGateway;
-use App\Models\Currency;
-use App\Models\PaymentGateway;
-use App\Models\Timezone;
-use App\Models\User;
+use Utils;
 use Exception;
+use App\Models\User;
 use GuzzleHttp\Client;
-use Illuminate\Mail\Message;
-use Illuminate\Http\JsonResponse;
+use App\Models\Account;
+use App\Models\Currency;
+use App\Models\Timezone;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\PaymentGateway;
+use Illuminate\Http\JsonResponse;
+use Services\PaymentGateway\Dummy;
+use Illuminate\Support\Facades\Log;
+use Services\PaymentGateway\Stripe;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Services\PaymentGateway\Dummy;
-use Services\PaymentGateway\Stripe;
+use App\Models\AccountPaymentGateway;
 use Services\PaymentGateway\StripeSCA;
-use Utils;
-use Illuminate\Support\Facades\Lang;
+use Illuminate\Contracts\Mail\Mailable;
+use Illuminate\Support\Facades\Validator;
 
 class ManageAccountController extends MyBaseController
 {
@@ -55,12 +55,13 @@ class ManageAccountController extends MyBaseController
 
         try {
             $http_client = new Client();
-            $response = $http_client->get('https://raw.githubusercontent.com/Attendize/Attendize/master/VERSION');
+
+            $response = $http_client->get('https://attendize.com/version.php');
             $latestVersion = Utils::parse_version((string)$response->getBody());
-            $installedVersion = trim(file_get_contents(base_path('VERSION')));
-        } catch (\Exception $exception) {
-            \Log::warn("Error retrieving the latest Attendize version. ManageAccountController.getVersionInf() try/catch");
-            \Log::warn($exception);
+            $installedVersion = file_get_contents(base_path('VERSION'));
+        } catch (Exception $exception) {
+            Log::warning("Error retrieving the latest Attendize version. ManageAccountController.getVersionInf() try/catch");
+            Log::warning($exception);
             return false;
         }
 
@@ -71,6 +72,7 @@ class ManageAccountController extends MyBaseController
                 'is_outdated' => (version_compare($installedVersion, $latestVersion) === -1) ? true : false,
             ];
         }
+        Log::warning("Error retrieving the latest Attendize version. ManageAccountController.getVersionInf()");
 
         return false;
     }
@@ -214,4 +216,5 @@ class ManageAccountController extends MyBaseController
             'message' => trans('Controllers.success_name_has_received_instruction', ['name' => $user->email]),
         ]);
     }
+
 }
